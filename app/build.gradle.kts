@@ -71,4 +71,6 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.timber)
+    implementation(libs.navigation)
+    implementation(libs.fonts)
 }
