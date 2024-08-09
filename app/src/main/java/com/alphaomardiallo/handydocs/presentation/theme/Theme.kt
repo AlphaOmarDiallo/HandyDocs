@@ -1,6 +1,5 @@
-package com.alphaomardiallo.handydocs.ui.theme
+package com.alphaomardiallo.handydocs.presentation.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
