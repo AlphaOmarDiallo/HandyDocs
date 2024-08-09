@@ -1,4 +1,4 @@
-package com.alphaomardiallo.handydocs.ui.theme
+package com.alphaomardiallo.handydocs.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
