@@ -73,4 +73,8 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.navigation)
     implementation(libs.fonts)
+    implementation(libs.camera.core)
+    implementation(libs.camera.camera)
+    implementation(libs.camera.lifecycle)
+    implementation(libs.camera.view)
 }
