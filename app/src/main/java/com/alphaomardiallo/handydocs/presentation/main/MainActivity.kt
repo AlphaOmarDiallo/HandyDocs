@@ -20,11 +20,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
@@ -33,8 +31,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.domain.destination.AppDestination
-import com.alphaomardiallo.handydocs.presentation.NavigationEffects
-import com.alphaomardiallo.handydocs.presentation.home.CameraScreen
+import com.alphaomardiallo.handydocs.presentation.navigation.NavigationEffects
+import com.alphaomardiallo.handydocs.presentation.camera.CameraScreen
 import com.alphaomardiallo.handydocs.presentation.home.HomeScreen
 import com.alphaomardiallo.handydocs.presentation.theme.HandyDocsTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -79,7 +77,7 @@ class MainActivity : ComponentActivity() {
                                             this@MainActivity,
                                             Manifest.permission.CAMERA
                                         ) -> {
-                                            //setCameraPreview()
+                                            viewModel.onCameraPermissionGranted()
                                         }
 
                                         else -> {
@@ -126,23 +124,7 @@ private fun NavGraphBuilder.appDestination(): NavGraphBuilder = this.apply {
         HomeScreen()
     }
 
-    composable(route = AppDestination.Camera.route) {
+    composable(route = AppDestination.CameraPreview.route) {
         CameraScreen()
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    HandyDocsTheme {
-        Greeting("Android")
     }
 }

@@ -5,13 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.alphaomardiallo.handydocs.domain.navigator.AppNavigator
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel(appNavigator: AppNavigator) : ViewModel() {
-
-    ///////////////////////////////////////////////////////////////////////////
-    // Data
-    ///////////////////////////////////////////////////////////////////////////
-
-    lateinit var appNavigator: AppNavigator
+abstract class BaseViewModel(private val appNavigator: AppNavigator) : ViewModel() {
 
     ///////////////////////////////////////////////////////////////////////////
     // Navigation

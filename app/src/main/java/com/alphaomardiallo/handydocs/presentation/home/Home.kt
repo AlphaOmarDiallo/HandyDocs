@@ -7,8 +7,3 @@ import androidx.compose.runtime.Composable
 fun HomeScreen()  {
     Text(text = "HOME")
 }
-
-@Composable
-fun CameraScreen() {
-
-}
