@@ -80,7 +80,7 @@ private fun captureImage(
                 if (outputFileResults.savedUri != null){
                     saveImage.invoke(fileName, outputFileResults.savedUri!!)
                 } else {
-                    // TODO: handle error 
+                    // TODO: handle error
                 }
                 
                 Timber.d("Success: ${outputFileResults.savedUri}")
