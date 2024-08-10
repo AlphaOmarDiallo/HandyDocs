@@ -1,4 +1,4 @@
-package com.alphaomardiallo.handydocs.presentation
+package com.alphaomardiallo.handydocs.presentation.navigation
 
 import android.app.Activity
 import androidx.compose.runtime.Composable

@@ -7,7 +7,7 @@ sealed class AppDestination(
     @StringRes val resId: Int = 0,
 ) : Destination(resId.toString()) {
 
-    data object Home : AppDestination(resId = R.string.camera_destination)
+    data object Home : AppDestination(resId = R.string.home_destination)
 
-    data object Camera : AppDestination(resId = R.string.camera_destination)
+    data object CameraPreview : AppDestination(resId = R.string.camera_destination)
 }
