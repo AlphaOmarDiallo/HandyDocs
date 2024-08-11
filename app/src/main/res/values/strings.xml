@@ -5,6 +5,6 @@
     <string name="camera_app_bar_title">Scanner</string>
 
     <string name="home_destination" translatable="false">home_destination</string>
-    <string name="camera_destination" translatable="false">camera_destination</string>
+    <string name="pdf_viewer_destination" translatable="false">pdf_viewer_destination</string>
     <string name="scanner_destination" translatable="false">camera_destination</string>
 </resources>

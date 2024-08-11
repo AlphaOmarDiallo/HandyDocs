@@ -9,7 +9,7 @@ sealed class AppDestination(
 
     data object Home : AppDestination(resId = R.string.home_destination)
 
-    data object CameraPreview : AppDestination(resId = R.string.camera_destination)
-
     data object ScannerLauncher: AppDestination(resId = R.string.scanner_destination)
+
+    data object PdfViewer: AppDestination(resId = R.string.pdf_viewer_destination)
 }

@@ -62,11 +62,7 @@ fun ScannerLauncher(viewModel: ScannerViewModel = koinViewModel()) {
                     }
                 }
             } else {
-                Toast.makeText(
-                    context,
-                    "Something went wrong: ${rawResult.resultCode}",
-                    Toast.LENGTH_LONG
-                ).show()
+                Timber.e(rawResult.resultCode.toString())
             }
         }
 
@@ -81,14 +77,7 @@ fun ScannerLauncher(viewModel: ScannerViewModel = koinViewModel()) {
             .addOnFailureListener {
                 Toast.makeText(
                     context,
-                    "Error: $it",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-            .addOnCanceledListener {
-                Toast.makeText(
-                    context,
-                    "Cancelled",
+                    "Error: ${it.message}",
                     Toast.LENGTH_LONG
                 ).show()
             }

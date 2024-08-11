@@ -3,7 +3,6 @@ package com.alphaomardiallo.handydocs.presentation.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -30,7 +29,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.domain.destination.AppDestination
-import com.alphaomardiallo.handydocs.presentation.camera.CameraScreen
 import com.alphaomardiallo.handydocs.presentation.home.HomeScreen
 import com.alphaomardiallo.handydocs.presentation.navigation.NavigationEffects
 import com.alphaomardiallo.handydocs.presentation.scanner.ScannerLauncher
@@ -39,15 +37,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModel()
-
-    private val cameraPermissionRequest =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                viewModel.onCameraPermissionGranted()
-            } else {
-                // TODO: complete this
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +81,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     private fun AppBar(currentRoute: String? = null) {
         val title = when (currentRoute) {
-            AppDestination.CameraPreview.route -> {
+            AppDestination.PdfViewer.route -> {
                 R.string.camera_app_bar_title
             }
 
@@ -104,7 +93,7 @@ class MainActivity : ComponentActivity() {
         TopAppBar(
             title = { Text(text = stringResource(id = title)) },
             navigationIcon = {
-                if (currentRoute == AppDestination.CameraPreview.route) {
+                if (currentRoute == AppDestination.PdfViewer.route) {
                     IconButton(onClick = { viewModel.navigateBack() }) {
                         Icon(
                             imageVector = Icons.Default.Home,
@@ -114,26 +103,7 @@ class MainActivity : ComponentActivity() {
                 }
             },
             actions = {
-                if (currentRoute != AppDestination.CameraPreview.route) {
-                    /*IconButton(onClick = {
-                        when (PackageManager.PERMISSION_GRANTED) {
-                            ContextCompat.checkSelfPermission(
-                                this@MainActivity,
-                                Manifest.permission.CAMERA
-                            ) -> {
-                                viewModel.onCameraPermissionGranted()
-                            }
-
-                            else -> {
-                                cameraPermissionRequest.launch(Manifest.permission.CAMERA)
-                            }
-                        }
-                    }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.baseline_photo_camera_24),
-                            contentDescription = Icons.Default.Add.name
-                        )
-                    }*/
+                if (currentRoute != AppDestination.PdfViewer.route) {
                     IconButton(onClick = {
                         viewModel.navigateTo(
                             route = AppDestination.ScannerLauncher.route,
@@ -161,11 +131,11 @@ private fun NavGraphBuilder.appDestination(): NavGraphBuilder = this.apply {
         HomeScreen()
     }
 
-    composable(route = AppDestination.CameraPreview.route) {
-        CameraScreen()
+    composable(route = AppDestination.ScannerLauncher.route) {
+        ScannerLauncher()
     }
 
-    composable(route = AppDestination.ScannerLauncher.route) {
+    composable(route = AppDestination.PdfViewer.route) {
         ScannerLauncher()
     }
 }
