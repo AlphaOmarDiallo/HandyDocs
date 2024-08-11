@@ -7,10 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "table_image_doc")
 data class ImageDoc(
     @PrimaryKey(autoGenerate = true) var id: Int? = null,
-    val name: String,
-    val uri: Uri,
+    val name: String = "",
+    val uriJpeg: List<Uri> = emptyList(),
     val displayName: String? = null,
-    val formatType: FormatType,
+    val uriPdf: Uri? = null
 )
-
-enum class FormatType { PDF, JPEG }
