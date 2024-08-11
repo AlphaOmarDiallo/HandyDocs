@@ -31,6 +31,7 @@ import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.domain.destination.AppDestination
 import com.alphaomardiallo.handydocs.presentation.home.HomeScreen
 import com.alphaomardiallo.handydocs.presentation.navigation.NavigationEffects
+import com.alphaomardiallo.handydocs.presentation.pdfviewer.PdfViewerScreen
 import com.alphaomardiallo.handydocs.presentation.scanner.ScannerLauncher
 import com.alphaomardiallo.handydocs.presentation.theme.HandyDocsTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -136,6 +137,6 @@ private fun NavGraphBuilder.appDestination(): NavGraphBuilder = this.apply {
     }
 
     composable(route = AppDestination.PdfViewer.route) {
-        ScannerLauncher()
+        PdfViewerScreen()
     }
 }
