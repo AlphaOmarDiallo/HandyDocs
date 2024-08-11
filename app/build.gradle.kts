@@ -92,4 +92,5 @@ dependencies {
     implementation(libs.compose.lifecycle)
     implementation(libs.mlkit.document)
     implementation(libs.coil.compose)
+    implementation(libs.gson)
 }

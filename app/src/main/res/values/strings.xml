@@ -1,10 +1,12 @@
 <resources>
-    <string name="app_name">HandyDocs</string>
-    <string name="app_name_formated">Handy Docs</string>
+    <string name="app_name" translatable="false">HandyDocs</string>
+    <string name="app_name_formated" translatable="false">Handy Docs</string>
 
     <string name="home_destination" translatable="false">home_destination</string>
     <string name="pdf_viewer_destination" translatable="false">pdf_viewer_destination</string>
     <string name="scanner_destination" translatable="false">camera_destination</string>
 
-    <string name="pdf_viewer_app_bar_title" translatable="false">Camera</string>
+    <string name="home_empty_list">List is empty!\n\nStart scanning!</string>
+
+    <string name="pdf_viewer_app_bar_title">Camera</string>
 </resources>

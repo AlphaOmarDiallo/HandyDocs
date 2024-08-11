@@ -8,7 +8,6 @@ import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import com.alphaomardiallo.handydocs.domain.model.FormatType
 import com.alphaomardiallo.handydocs.domain.model.ImageDoc
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_JPEG
@@ -52,9 +51,9 @@ fun ScannerLauncher(viewModel: ScannerViewModel = koinViewModel()) {
                             viewModel.savePdfInDatabase(
                                 ImageDoc(
                                     name = "HandyDocs${System.currentTimeMillis()}.pdf",
-                                    uri = pdf.uri,
+                                    uriJpeg = result.pages?.map { it.imageUri } ?: emptyList(),
                                     displayName = null,
-                                    formatType = FormatType.PDF
+                                    uriPdf = pdf.uri
                                 )
                             )
                             Timber.d("Copied to fos")

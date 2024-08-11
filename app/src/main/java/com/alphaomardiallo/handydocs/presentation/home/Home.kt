@@ -1,9 +1,25 @@
 package com.alphaomardiallo.handydocs.presentation.home
 
+import android.net.Uri
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.alphaomardiallo.handydocs.R
+import com.alphaomardiallo.handydocs.domain.model.ImageDoc
 import org.koin.androidx.compose.koinViewModel
-import timber.log.Timber
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
@@ -11,5 +27,76 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
 
     viewModel.getAllImages()
 
-    Timber.d(uiState.value.allImageDoc.size.toString())
+    HomeContent(list = uiState.value.allImageDoc)
+}
+
+@Composable
+private fun HomeContent(list: List<ImageDoc> = emptyList()) {
+    if (list.isEmpty()) {
+        ListEmptyScreen()
+    } else {
+        ListNotEmptyScreen()
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun ListEmptyScreen() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = stringResource(id = R.string.home_empty_list),
+            style = MaterialTheme.typography.titleLarge
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun ListNotEmptyScreen() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top
+    ) {
+        Text(
+            text = stringResource(id = R.string.home_empty_list),
+            style = MaterialTheme.typography.titleLarge
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun ImageDocCard(
+    imageDoc: ImageDoc? = ImageDoc(
+        name = "test",
+        uriJpeg = listOf(Uri.EMPTY),
+        displayName = "Display name",
+    )
+) {
+    Card(
+        onClick = { /*TODO*/ },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(text = imageDoc?.displayName ?: "noName")
+            }
+
+            //AsyncImage(model = , contentDescription = , imageLoader = )
+        }
+    }
 }
