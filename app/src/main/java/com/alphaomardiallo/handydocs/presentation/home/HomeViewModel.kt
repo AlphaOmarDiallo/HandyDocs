@@ -18,12 +18,14 @@ class HomeViewModel(
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState
 
-    fun getAllImages() {
+    init {
+        getAllImages()
+    }
+
+    private fun getAllImages() {
         viewModelScope.launch {
             imageDocRepository.getAllImages().collect { imageList ->
-                _uiState.update { state ->
-                    state.copy(allImageDoc = imageList)
-                }
+                _uiState.update { state -> state.copy(allImageDoc = imageList) }
             }
         }
     }

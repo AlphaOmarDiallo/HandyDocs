@@ -27,10 +27,8 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
+    // FIXME: BUGGY
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
-
-    viewModel.getAllImages()
-
     HomeContent(list = uiState.value.allImageDoc)
 }
 
@@ -62,7 +60,9 @@ private fun ListEmptyScreen() {
 @Composable
 private fun ListNotEmptyScreen(list: List<ImageDoc> = emptyList()) {
     Column(
-        modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
