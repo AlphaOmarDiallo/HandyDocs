@@ -83,7 +83,7 @@ class MainActivity : ComponentActivity() {
     private fun AppBar(currentRoute: String? = null) {
         val title = when (currentRoute) {
             AppDestination.PdfViewer.route -> {
-                R.string.camera_app_bar_title
+                R.string.pdf_viewer_app_bar_title
             }
 
             else -> {
