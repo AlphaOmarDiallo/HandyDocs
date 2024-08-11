@@ -8,20 +8,16 @@ import com.alphaomardiallo.handydocs.domain.navigator.AppNavigatorImp
 import com.alphaomardiallo.handydocs.domain.repository.ImageDocRepository
 import com.alphaomardiallo.handydocs.presentation.home.HomeViewModel
 import com.alphaomardiallo.handydocs.presentation.main.MainViewModel
-import com.alphaomardiallo.handydocs.presentation.scanner.ScannerViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
     // Main
     single<AppNavigator> { AppNavigatorImp() }
-    viewModel { MainViewModel(get()) }
+    viewModel { MainViewModel(get(), get()) }
 
     // Home
     viewModel { HomeViewModel(get(), get()) }
-
-    // Scanner
-    viewModel { ScannerViewModel(get(), get()) }
 
     // Database
     single { provideDataBase(get()) }

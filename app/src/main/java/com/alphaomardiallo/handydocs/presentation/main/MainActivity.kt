@@ -1,8 +1,13 @@
 package com.alphaomardiallo.handydocs.presentation.main
 
+import android.app.Activity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -20,6 +25,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraphBuilder
@@ -29,12 +35,21 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.domain.destination.AppDestination
+import com.alphaomardiallo.handydocs.domain.model.ImageDoc
 import com.alphaomardiallo.handydocs.presentation.home.HomeScreen
 import com.alphaomardiallo.handydocs.presentation.navigation.NavigationEffects
 import com.alphaomardiallo.handydocs.presentation.pdfviewer.PdfViewerScreen
-import com.alphaomardiallo.handydocs.presentation.scanner.ScannerLauncher
 import com.alphaomardiallo.handydocs.presentation.theme.HandyDocsTheme
+import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
+import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_JPEG
+import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_PDF
+import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.SCANNER_MODE_FULL
+import com.google.mlkit.vision.documentscanner.GmsDocumentScanning
+import com.google.mlkit.vision.documentscanner.GmsDocumentScanningResult
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
+import java.io.File
+import java.io.FileOutputStream
 
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModel()
@@ -91,6 +106,50 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        val context = LocalContext.current
+        val activity = context as? Activity
+
+        val options = GmsDocumentScannerOptions.Builder()
+            .setGalleryImportAllowed(true)
+            .setPageLimit(5)
+            .setResultFormats(RESULT_FORMAT_JPEG, RESULT_FORMAT_PDF)
+            .setScannerMode(SCANNER_MODE_FULL)
+            .build()
+        val scanner = GmsDocumentScanning.getClient(options)
+
+        val scannerLauncher =
+            rememberLauncherForActivityResult(contract = ActivityResultContracts.StartIntentSenderForResult()) { rawResult ->
+                val result = GmsDocumentScanningResult.fromActivityResultIntent(rawResult.data)
+                if (rawResult.resultCode == RESULT_OK) {
+                    activity?.let { nonNullActivity ->
+                        result?.pdf?.let { pdf ->
+                            val fos = FileOutputStream(
+                                File(
+                                    nonNullActivity.filesDir,
+                                    "HandyDocs${System.currentTimeMillis()}.pdf"
+                                )
+                            )
+                            nonNullActivity.contentResolver.openInputStream(pdf.uri)?.use {
+                                it.copyTo(fos)
+                                viewModel.savePdfInDatabase(
+                                    ImageDoc(
+                                        name = "HandyDocs${System.currentTimeMillis()}.pdf",
+                                        uriJpeg = result.pages?.map { it.imageUri } ?: emptyList(),
+                                        displayName = null,
+                                        uriPdf = pdf.uri
+                                    )
+                                )
+                                Timber.d("Copied to fos")
+                            }
+                            viewModel.navigateBack()
+                        }
+                    }
+                } else {
+                    Timber.e(rawResult.resultCode.toString())
+                    viewModel.navigateBack()
+                }
+            }
+
         TopAppBar(
             title = { Text(text = stringResource(id = title)) },
             navigationIcon = {
@@ -106,10 +165,22 @@ class MainActivity : ComponentActivity() {
             actions = {
                 if (currentRoute != AppDestination.PdfViewer.route) {
                     IconButton(onClick = {
-                        viewModel.navigateTo(
-                            route = AppDestination.ScannerLauncher.route,
-                            popUpToRoute = AppDestination.Home.route
-                        )
+                        activity?.let { nonNullActivity ->
+                            scanner.getStartScanIntent(nonNullActivity)
+                                .addOnSuccessListener {
+                                    Timber.d("Success: $it")
+                                    scannerLauncher.launch(
+                                        IntentSenderRequest.Builder(it).build()
+                                    )
+                                }
+                                .addOnFailureListener {
+                                    Toast.makeText(
+                                        context,
+                                        "Error: ${it.message}",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                        }
                     }) {
                         Icon(
                             painter = painterResource(id = R.drawable.baseline_document_scanner_24),
@@ -130,10 +201,6 @@ class MainActivity : ComponentActivity() {
 private fun NavGraphBuilder.appDestination(): NavGraphBuilder = this.apply {
     composable(route = AppDestination.Home.route) {
         HomeScreen()
-    }
-
-    composable(route = AppDestination.ScannerLauncher.route) {
-        ScannerLauncher()
     }
 
     composable(route = AppDestination.PdfViewer.route) {
