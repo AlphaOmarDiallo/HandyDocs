@@ -6,17 +6,33 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -37,7 +53,7 @@ private fun HomeContent(list: List<ImageDoc> = emptyList()) {
     if (list.isEmpty()) {
         ListEmptyScreen()
     } else {
-        ListNotEmptyScreen(list)
+        ListNotEmptyScreenV2(list)
     }
 }
 
@@ -68,6 +84,72 @@ private fun ListNotEmptyScreen(list: List<ImageDoc> = emptyList()) {
     ) {
         list.forEach { imageDoc ->
             ImageDocCard(imageDoc = imageDoc)
+        }
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun ListNotEmptyScreenV2(list: List<ImageDoc> = emptyList()) {
+    LazyVerticalStaggeredGrid(
+        columns = StaggeredGridCells.Fixed(2),
+        verticalItemSpacing = 4.dp,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.fillMaxSize().padding(4.dp)
+    ) {
+        items(list) { photo ->
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                shape = RectangleShape,
+                colors = CardDefaults.cardColors()
+                    .copy(
+                        containerColor = Color.White,
+                        contentColor = MaterialTheme.colorScheme.onBackground
+                    )
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    AsyncImage(
+                        model = photo.uriJpeg.first(),
+                        contentScale = ContentScale.Crop,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .padding(16.dp)
+                    )
+                    Text(
+                        text = photo.displayName ?: "No name",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center)
+                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        IconButton(onClick = { /*TODO*/ }) {
+                            Icon(
+                                imageVector = Icons.Default.Share,
+                                contentDescription = Icons.Default.Share.name
+                            )
+                        }
+                        IconButton(onClick = { /*TODO*/ }) {
+                            Icon(
+                                imageVector = Icons.Default.Star,
+                                contentDescription = Icons.Default.Star.name
+                            )
+                        }
+                    }
+                }
+
+            }
+
         }
     }
 }
