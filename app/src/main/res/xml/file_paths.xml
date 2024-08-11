@@ -1,0 +1,4 @@
+<paths>
+    <files-path name="my_files" path="." />
+    <cache-path name="my_cache" path="." />
+</paths>
