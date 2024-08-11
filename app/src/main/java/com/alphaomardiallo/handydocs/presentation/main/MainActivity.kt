@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -20,6 +21,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -31,9 +33,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.domain.destination.AppDestination
-import com.alphaomardiallo.handydocs.presentation.navigation.NavigationEffects
 import com.alphaomardiallo.handydocs.presentation.camera.CameraScreen
 import com.alphaomardiallo.handydocs.presentation.home.HomeScreen
+import com.alphaomardiallo.handydocs.presentation.navigation.NavigationEffects
 import com.alphaomardiallo.handydocs.presentation.theme.HandyDocsTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -43,21 +45,20 @@ class MainActivity : ComponentActivity() {
     private val cameraPermissionRequest =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
-                // Implement camera related  code
+                viewModel.onCameraPermissionGranted()
             } else {
                 // Camera permission denied
             }
-
         }
 
 
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             val navController = rememberNavController()
             val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentRoute = navBackStackEntry?.destination?.route
 
             NavigationEffects(
                 navigationChannel = viewModel.navigationChannel,
@@ -68,35 +69,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     topBar = {
-                        TopAppBar(
-                            title = { Text(text = stringResource(id = R.string.app_name)) },
-                            actions = {
-                                IconButton(onClick = {
-                                    when (PackageManager.PERMISSION_GRANTED) {
-                                        ContextCompat.checkSelfPermission(
-                                            this@MainActivity,
-                                            Manifest.permission.CAMERA
-                                        ) -> {
-                                            viewModel.onCameraPermissionGranted()
-                                        }
-
-                                        else -> {
-                                            cameraPermissionRequest.launch(Manifest.permission.CAMERA)
-                                        }
-                                    }
-                                }) {
-                                    Icon(
-                                        imageVector = Icons.Outlined.AddCircle,
-                                        contentDescription = Icons.Default.Add.name
-                                    )
-                                }
-                            },
-                            colors = TopAppBarDefaults.topAppBarColors().copy(
-                                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                                actionIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
-                        )
+                        AppBar(currentRoute = currentRoute)
                     }
                 ) { innerPadding ->
 
@@ -116,6 +89,63 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    @Composable
+    @OptIn(ExperimentalMaterial3Api::class)
+    private fun AppBar(currentRoute: String? = null) {
+
+        val title = when (currentRoute) {
+            AppDestination.CameraPreview.route -> {
+                R.string.camera_app_bar_title
+            }
+
+            else -> {
+                R.string.app_name_formated
+            }
+        }
+
+        TopAppBar(
+            title = { Text(text = stringResource(id = title)) },
+            navigationIcon = {
+                if (currentRoute == AppDestination.CameraPreview.route) {
+                    IconButton(onClick = { viewModel.navigateBack() }) {
+                        Icon(
+                            imageVector = Icons.Default.Home,
+                            contentDescription = Icons.Default.Home.name
+                        )
+                    }
+                }
+            },
+            actions = {
+                if (currentRoute == AppDestination.Home.route) {
+                    IconButton(onClick = {
+                        when (PackageManager.PERMISSION_GRANTED) {
+                            ContextCompat.checkSelfPermission(
+                                this@MainActivity,
+                                Manifest.permission.CAMERA
+                            ) -> {
+                                viewModel.onCameraPermissionGranted()
+                            }
+
+                            else -> {
+                                cameraPermissionRequest.launch(Manifest.permission.CAMERA)
+                            }
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Outlined.AddCircle,
+                            contentDescription = Icons.Default.Add.name
+                        )
+                    }
+                }
+            },
+            colors = TopAppBarDefaults.topAppBarColors().copy(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                actionIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            )
+        )
     }
 }
 
