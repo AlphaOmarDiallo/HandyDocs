@@ -6,4 +6,5 @@
 
     <string name="home_destination" translatable="false">home_destination</string>
     <string name="camera_destination" translatable="false">camera_destination</string>
+    <string name="scanner_destination" translatable="false">camera_destination</string>
 </resources>

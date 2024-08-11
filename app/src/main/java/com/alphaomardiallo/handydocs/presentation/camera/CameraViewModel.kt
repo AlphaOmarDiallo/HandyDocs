@@ -2,6 +2,7 @@ package com.alphaomardiallo.handydocs.presentation.camera
 
 import android.net.Uri
 import androidx.lifecycle.viewModelScope
+import com.alphaomardiallo.handydocs.domain.model.FormatType
 import com.alphaomardiallo.handydocs.domain.model.ImageDoc
 import com.alphaomardiallo.handydocs.domain.navigator.AppNavigator
 import com.alphaomardiallo.handydocs.domain.repository.ImageDocRepository
@@ -23,7 +24,9 @@ class CameraViewModel(
             imageDocRepository.upsertImage(
                 ImageDoc(
                     name = name,
-                    uri = uri
+                    uri = uri,
+                    displayName = null,
+                    formatType = FormatType.JPEG
                 )
             )
         }

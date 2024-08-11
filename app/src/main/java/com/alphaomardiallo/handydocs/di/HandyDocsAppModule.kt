@@ -9,6 +9,7 @@ import com.alphaomardiallo.handydocs.domain.repository.ImageDocRepository
 import com.alphaomardiallo.handydocs.presentation.camera.CameraViewModel
 import com.alphaomardiallo.handydocs.presentation.home.HomeViewModel
 import com.alphaomardiallo.handydocs.presentation.main.MainViewModel
+import com.alphaomardiallo.handydocs.presentation.scanner.ScannerViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -22,6 +23,9 @@ val appModule = module {
 
     // Camera
     viewModel { CameraViewModel(get(), get()) }
+
+    // Scanner
+    viewModel { ScannerViewModel(get(), get()) }
 
     // Database
     single { provideDataBase(get()) }
