@@ -90,4 +90,6 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
     implementation(libs.compose.lifecycle)
+    implementation(libs.mlkit.document)
+    implementation(libs.coil.compose)
 }

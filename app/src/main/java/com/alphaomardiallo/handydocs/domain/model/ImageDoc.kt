@@ -8,5 +8,9 @@ import androidx.room.PrimaryKey
 data class ImageDoc(
     @PrimaryKey(autoGenerate = true) var id: Int? = null,
     val name: String,
-    val uri: Uri
+    val uri: Uri,
+    val displayName: String? = null,
+    val formatType: FormatType,
 )
+
+enum class FormatType { PDF, JPEG }

@@ -16,6 +16,8 @@ cameraX = "1.3.4"
 room = "2.6.1"
 ksp = "1.9.0-1.0.12"
 compose-lifecycle = "2.8.4"
+ml-document = "16.0.0-beta1"
+coil-compose = "2.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,7 +49,8 @@ camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraX" 
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
-
+mlkit_document = { module = "com.google.android.gms:play-services-mlkit-document-scanner", version.ref = "ml-document" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
