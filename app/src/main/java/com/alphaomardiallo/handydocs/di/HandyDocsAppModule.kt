@@ -6,7 +6,6 @@ import com.alphaomardiallo.handydocs.data.provideImageDao
 import com.alphaomardiallo.handydocs.domain.navigator.AppNavigator
 import com.alphaomardiallo.handydocs.domain.navigator.AppNavigatorImp
 import com.alphaomardiallo.handydocs.domain.repository.ImageDocRepository
-import com.alphaomardiallo.handydocs.presentation.camera.CameraViewModel
 import com.alphaomardiallo.handydocs.presentation.home.HomeViewModel
 import com.alphaomardiallo.handydocs.presentation.main.MainViewModel
 import com.alphaomardiallo.handydocs.presentation.scanner.ScannerViewModel
@@ -20,9 +19,6 @@ val appModule = module {
 
     // Home
     viewModel { HomeViewModel(get(), get()) }
-
-    // Camera
-    viewModel { CameraViewModel(get(), get()) }
 
     // Scanner
     viewModel { ScannerViewModel(get(), get()) }
