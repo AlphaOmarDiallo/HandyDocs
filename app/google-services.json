@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "316679049452",
+    "project_id": "handydocs-93761",
+    "storage_bucket": "handydocs-93761.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316679049452:android:e47bfb0bea461d5be155c9",
+        "android_client_info": {
+          "package_name": "com.alphaomardiallo.handydocs"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpjyvAwf5GwFPpVhq2KHowhOUBGu1p7TA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
