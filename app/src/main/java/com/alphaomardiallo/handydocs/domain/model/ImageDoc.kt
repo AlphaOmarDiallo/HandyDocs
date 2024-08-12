@@ -10,5 +10,6 @@ data class ImageDoc(
     val name: String = "",
     val uriJpeg: List<Uri> = emptyList(),
     val displayName: String? = null,
-    val uriPdf: Uri? = null
+    val uriPdf: Uri? = null,
+    var isSelected: Boolean = false
 )
