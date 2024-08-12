@@ -31,6 +31,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -47,10 +48,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.FileProvider
 import coil.compose.AsyncImage
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.domain.model.ImageDoc
+import com.alphaomardiallo.handydocs.presentation.docviewer.DocViewerScreen
 import org.koin.androidx.compose.koinViewModel
 import java.io.File
 
@@ -60,7 +63,7 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
     HomeContent(
         list = uiState.allImageDoc,
         updateDoc = viewModel::updateDocumentName,
-        updateSelectedDoc = viewModel::updateDocumentSelected
+        updateSelectedDoc = viewModel::updateDocumentSelected,
     )
 }
 
@@ -68,7 +71,7 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
 private fun HomeContent(
     list: List<ImageDoc> = emptyList(),
     updateDoc: (ImageDoc, String) -> Unit,
-    updateSelectedDoc: (ImageDoc) -> Unit
+    updateSelectedDoc: (ImageDoc) -> Unit,
 ) {
     if (list.isEmpty()) {
         ListEmptyScreen()
@@ -76,7 +79,7 @@ private fun HomeContent(
         ListNotEmptyScreen(
             list,
             updateDoc,
-            updateSelectedDoc
+            updateSelectedDoc,
         )
     }
 }
@@ -101,10 +104,11 @@ private fun ListEmptyScreen() {
 private fun ListNotEmptyScreen(
     list: List<ImageDoc> = emptyList(),
     updateDoc: (ImageDoc, String) -> Unit,
-    updateSelectedDoc: (ImageDoc) -> Unit
+    updateSelectedDoc: (ImageDoc) -> Unit,
 ) {
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
+    var showDialogViewer by remember { mutableStateOf(false) }
     var selected by remember { mutableStateOf<ImageDoc?>(null) }
 
     LazyVerticalStaggeredGrid(
@@ -138,7 +142,11 @@ private fun ListNotEmptyScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .wrapContentHeight()
-                            .padding(16.dp).clickable { updateSelectedDoc.invoke(doc) }
+                            .padding(16.dp)
+                            .clickable {
+                                updateSelectedDoc.invoke(doc)
+                                showDialogViewer = true
+                            }
                     )
                     Text(
                         text = doc.displayName
@@ -286,6 +294,20 @@ private fun ListNotEmptyScreen(
                             )
                         }
                     }
+                }
+            }
+        }
+    }
+
+    if (showDialogViewer) {
+        BasicAlertDialog(
+            onDismissRequest = { showDialog = false },
+            modifier = Modifier.fillMaxSize(),
+            properties = DialogProperties(usePlatformDefaultWidth = false)
+        ) {
+            Surface(modifier = Modifier.fillMaxSize()) {
+                DocViewerScreen{
+                    showDialogViewer = false
                 }
             }
         }

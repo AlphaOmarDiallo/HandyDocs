@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,7 +22,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -31,14 +29,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.domain.destination.AppDestination
 import com.alphaomardiallo.handydocs.domain.model.ImageDoc
 import com.alphaomardiallo.handydocs.presentation.home.HomeScreen
 import com.alphaomardiallo.handydocs.presentation.navigation.NavigationEffects
-import com.alphaomardiallo.handydocs.presentation.docviewer.PdfViewerScreen
 import com.alphaomardiallo.handydocs.presentation.theme.HandyDocsTheme
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_JPEG
@@ -59,8 +55,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val navController = rememberNavController()
-            val navBackStackEntry by navController.currentBackStackEntryAsState()
-            val currentRoute = navBackStackEntry?.destination?.route
 
             NavigationEffects(
                 navigationChannel = viewModel.navigationChannel,
@@ -70,9 +64,7 @@ class MainActivity : ComponentActivity() {
             HandyDocsTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    topBar = {
-                        AppBar(currentRoute = currentRoute)
-                    }
+                    topBar = { AppBar() }
                 ) { innerPadding ->
 
                     Surface(
@@ -95,17 +87,7 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     @OptIn(ExperimentalMaterial3Api::class)
-    private fun AppBar(currentRoute: String? = null) {
-        val title = when (currentRoute) {
-            AppDestination.PdfViewer.route -> {
-                R.string.pdf_viewer_app_bar_title
-            }
-
-            else -> {
-                R.string.app_name_formated
-            }
-        }
-
+    private fun AppBar() {
         val context = LocalContext.current
         val activity = context as? Activity
 
@@ -134,7 +116,8 @@ class MainActivity : ComponentActivity() {
                                 viewModel.savePdfInDatabase(
                                     ImageDoc(
                                         name = "HandyDocs${System.currentTimeMillis()}.pdf",
-                                        uriJpeg = result.pages?.map { it.imageUri } ?: emptyList(),
+                                        uriJpeg = result.pages?.map { uri -> uri.imageUri }
+                                            ?: emptyList(),
                                         displayName = null,
                                         uriPdf = pdf.uri
                                     )
@@ -151,42 +134,30 @@ class MainActivity : ComponentActivity() {
             }
 
         TopAppBar(
-            title = { Text(text = stringResource(id = title)) },
-            navigationIcon = {
-                if (currentRoute == AppDestination.PdfViewer.route) {
-                    IconButton(onClick = { viewModel.navigateBack() }) {
-                        Icon(
-                            imageVector = Icons.Default.Home,
-                            contentDescription = Icons.Default.Home.name
-                        )
-                    }
-                }
-            },
+            title = { Text(text = stringResource(id = R.string.app_name_formated)) },
             actions = {
-                if (currentRoute != AppDestination.PdfViewer.route) {
-                    IconButton(onClick = {
-                        activity?.let { nonNullActivity ->
-                            scanner.getStartScanIntent(nonNullActivity)
-                                .addOnSuccessListener {
-                                    Timber.d("Success: $it")
-                                    scannerLauncher.launch(
-                                        IntentSenderRequest.Builder(it).build()
-                                    )
-                                }
-                                .addOnFailureListener {
-                                    Toast.makeText(
-                                        context,
-                                        "Error: ${it.message}",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
-                        }
-                    }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.baseline_document_scanner_24),
-                            contentDescription = Icons.Default.Add.name
-                        )
+                IconButton(onClick = {
+                    activity?.let { nonNullActivity ->
+                        scanner.getStartScanIntent(nonNullActivity)
+                            .addOnSuccessListener {
+                                Timber.d("Success: $it")
+                                scannerLauncher.launch(
+                                    IntentSenderRequest.Builder(it).build()
+                                )
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(
+                                    context,
+                                    "Error: ${it.message}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
                     }
+                }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.baseline_document_scanner_24),
+                        contentDescription = Icons.Default.Add.name
+                    )
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors().copy(
@@ -201,9 +172,5 @@ class MainActivity : ComponentActivity() {
 private fun NavGraphBuilder.appDestination(): NavGraphBuilder = this.apply {
     composable(route = AppDestination.Home.route) {
         HomeScreen()
-    }
-
-    composable(route = AppDestination.PdfViewer.route) {
-        PdfViewerScreen()
     }
 }

@@ -10,4 +10,6 @@ interface ImageDocRepository {
     suspend fun deleteImage(image: ImageDoc)
 
     fun getAllImages(): Flow<List<ImageDoc>>
+
+    fun getSelectedImage(): Flow<ImageDoc>
 }
