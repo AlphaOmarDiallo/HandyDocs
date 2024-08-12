@@ -6,6 +6,7 @@ import com.alphaomardiallo.handydocs.data.provideImageDao
 import com.alphaomardiallo.handydocs.domain.navigator.AppNavigator
 import com.alphaomardiallo.handydocs.domain.navigator.AppNavigatorImp
 import com.alphaomardiallo.handydocs.domain.repository.ImageDocRepository
+import com.alphaomardiallo.handydocs.presentation.docviewer.DocViewerViewModel
 import com.alphaomardiallo.handydocs.presentation.home.HomeViewModel
 import com.alphaomardiallo.handydocs.presentation.main.MainViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -18,6 +19,9 @@ val appModule = module {
 
     // Home
     viewModel { HomeViewModel(get(), get()) }
+
+    // Doc viewer
+    viewModel { DocViewerViewModel(get(), get()) }
 
     // Database
     single { provideDataBase(get()) }

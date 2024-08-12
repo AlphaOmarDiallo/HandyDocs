@@ -16,4 +16,8 @@ class ImageDocRepositoryImp(private val appDataBase: AppDataBase) : ImageDocRepo
     override fun getAllImages(): Flow<List<ImageDoc>> {
         return appDataBase.imageDao().getAllImage()
     }
+
+    override fun getSelectedImage(): Flow<ImageDoc> {
+        return appDataBase.imageDao().getSelectedImageDoc()
+    }
 }

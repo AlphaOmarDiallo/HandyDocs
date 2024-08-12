@@ -33,6 +33,9 @@ interface ImageDao {
 
     @Query("SELECT * FROM table_image_doc")
     fun getAllImage(): Flow<List<ImageDoc>>
+
+    @Query("SELECT * FROM table_image_doc WHERE isSelected = 1")
+    fun getSelectedImageDoc(): Flow<ImageDoc>
 }
 
 class UriTypeConverter {
