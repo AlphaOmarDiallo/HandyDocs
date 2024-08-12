@@ -22,6 +22,8 @@ gson = "2.10.1"
 firebaseCrashlytics = "19.0.3"
 googleGmsGoogleServices = "4.4.2"
 googleFirebaseCrashlytics = "3.0.2"
+zoom = "1.1.0-alpha05"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -57,6 +59,7 @@ mlkit_document = { module = "com.google.android.gms:play-services-mlkit-document
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
+zoomimage = { module = "io.github.panpf.zoomimage:zoomimage-compose-coil", version.ref = "zoom" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

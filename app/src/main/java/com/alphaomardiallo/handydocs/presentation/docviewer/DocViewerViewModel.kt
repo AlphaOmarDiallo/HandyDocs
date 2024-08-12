@@ -8,6 +8,7 @@ import com.alphaomardiallo.handydocs.domain.model.ImageDoc
 import com.alphaomardiallo.handydocs.domain.navigator.AppNavigator
 import com.alphaomardiallo.handydocs.domain.repository.ImageDocRepository
 import com.alphaomardiallo.handydocs.presentation.base.BaseViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DocViewerViewModel(
@@ -33,6 +34,12 @@ class DocViewerViewModel(
     fun deleteDocument(imageDoc: ImageDoc) {
         viewModelScope.launch {
             imageDocRepository.deleteImage(imageDoc)
+        }
+    }
+
+    fun selectedImageToNull(){
+        viewModelScope.launch(Dispatchers.IO) {
+            imageDocRepository.selectedImageToNull()
         }
     }
 

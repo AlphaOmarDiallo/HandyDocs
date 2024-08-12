@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
@@ -27,6 +29,7 @@ import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -52,9 +55,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
-import coil.compose.AsyncImage
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.domain.model.ImageDoc
+import com.github.panpf.zoomimage.CoilZoomAsyncImage
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import java.io.File
@@ -66,7 +69,8 @@ fun DocViewerScreen(viewModel: DocViewerViewModel = koinViewModel(), onClose: ()
         doc = uiState.selectedImage,
         onClose = onClose,
         updateDoc = viewModel::updateDocumentName,
-        deleteDoc = viewModel::deleteDocument
+        deleteDoc = viewModel::deleteDocument,
+        selectedToNull = viewModel::selectedImageToNull
     )
 }
 
@@ -77,7 +81,8 @@ private fun DocViewerScreenContent(
     doc: ImageDoc? = null,
     onClose: () -> Unit = {},
     updateDoc: (ImageDoc, String) -> Unit = { _, _ -> },
-    deleteDoc: (ImageDoc) -> Unit = {}
+    deleteDoc: (ImageDoc) -> Unit = {},
+    selectedToNull: () -> Unit = {}
 ) {
     val pagerState = rememberPagerState(pageCount = { doc?.uriJpeg?.size ?: 1 })
     val coroutineScope = rememberCoroutineScope()
@@ -92,7 +97,10 @@ private fun DocViewerScreenContent(
             TopAppBar(
                 title = { Text(text = "DocViewer") },
                 navigationIcon = {
-                    IconButton(onClick = { onClose.invoke() }) {
+                    IconButton(onClick = {
+                        selectedToNull.invoke()
+                        onClose.invoke()
+                    }) {
                         Icon(
                             imageVector = Icons.Default.Close, contentDescription = String.format(
                                 stringResource(id = R.string.icon_content_description),
@@ -214,19 +222,27 @@ private fun DocViewerScreenContent(
                 .padding(padding)
                 .fillMaxSize()
         ) {
-            Column {
-                Text(
-                    text = doc?.displayName.toString(),
-                    style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                )
-                AsyncImage(
-                    model = doc?.uriJpeg?.get(pagerState.currentPage),
-                    contentDescription = "nothing",
-                    modifier = Modifier.fillMaxSize()
-                )
+            if (doc != null) {
+                Column {
+                    Text(
+                        text = doc.displayName
+                            ?: stringResource(id = R.string.home_no_name_picture),
+                        style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    )
+
+                    CoilZoomAsyncImage(
+                        model = doc.uriJpeg[pagerState.currentPage],
+                        contentDescription = "nothing",
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
+            } else {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator(modifier = Modifier.size(200.dp))
+                }
             }
         }
     }

@@ -36,6 +36,9 @@ interface ImageDao {
 
     @Query("SELECT * FROM table_image_doc WHERE isSelected = 1")
     fun getSelectedImageDoc(): Flow<ImageDoc>
+
+    @Query("UPDATE table_image_doc SET isSelected = 0 WHERE isSelected = 1")
+    fun selectedImageToNull()
 }
 
 class UriTypeConverter {
