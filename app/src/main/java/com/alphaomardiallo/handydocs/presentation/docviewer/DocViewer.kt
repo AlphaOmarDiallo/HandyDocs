@@ -408,8 +408,7 @@ private fun DocViewerScreenContent(
                     ) {
                         Button(
                             onClick = {
-                                deleteDoc.invoke(doc)
-                                showDialogEdit = false
+                                showDialogDelete = false
                             },
                         ) {
                             Text(text = "Cancel")
@@ -417,7 +416,7 @@ private fun DocViewerScreenContent(
                         IconButton(
                             onClick = {
                                 deleteDoc.invoke(doc)
-                                showDialogEdit = false
+                                showDialogDelete = false
                                 onClose.invoke()
                             },
                             colors = IconButtonDefaults.iconButtonColors()
