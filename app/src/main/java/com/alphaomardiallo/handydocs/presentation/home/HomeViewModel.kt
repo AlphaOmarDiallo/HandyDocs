@@ -1,13 +1,13 @@
 package com.alphaomardiallo.handydocs.presentation.home
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.alphaomardiallo.handydocs.domain.model.ImageDoc
 import com.alphaomardiallo.handydocs.domain.navigator.AppNavigator
 import com.alphaomardiallo.handydocs.domain.repository.ImageDocRepository
 import com.alphaomardiallo.handydocs.presentation.base.BaseViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -15,17 +15,25 @@ class HomeViewModel(
     private val imageDocRepository: ImageDocRepository
 ) : BaseViewModel(appNavigator) {
 
-    private val _uiState = MutableStateFlow(HomeUiState())
-    val uiState: StateFlow<HomeUiState> = _uiState
+var state by mutableStateOf(HomeUiState())
+        private set
 
     init {
         getAllImages()
     }
 
+    fun updateDocument(imageDoc: ImageDoc, newName: String) {
+        viewModelScope.launch {
+            imageDocRepository.upsertImage(
+                imageDoc.copy(displayName = newName)
+            )
+        }
+    }
+
     private fun getAllImages() {
         viewModelScope.launch {
             imageDocRepository.getAllImages().collect { imageList ->
-                _uiState.update { state -> state.copy(allImageDoc = imageList) }
+                state = state.copy(allImageDoc = imageList)
             }
         }
     }
