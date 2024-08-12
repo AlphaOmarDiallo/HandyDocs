@@ -214,12 +214,20 @@ private fun DocViewerScreenContent(
                 .padding(padding)
                 .fillMaxSize()
         ) {
-            AsyncImage(
-                model = doc?.uriJpeg?.get(pagerState.currentPage),
-                contentDescription = "nothing",
-                modifier = Modifier.fillMaxSize()
-            )
-
+            Column {
+                Text(
+                    text = doc?.displayName.toString(),
+                    style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                )
+                AsyncImage(
+                    model = doc?.uriJpeg?.get(pagerState.currentPage),
+                    contentDescription = "nothing",
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
     }
 
