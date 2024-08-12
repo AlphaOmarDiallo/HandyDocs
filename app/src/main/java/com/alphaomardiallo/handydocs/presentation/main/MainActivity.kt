@@ -38,7 +38,7 @@ import com.alphaomardiallo.handydocs.domain.destination.AppDestination
 import com.alphaomardiallo.handydocs.domain.model.ImageDoc
 import com.alphaomardiallo.handydocs.presentation.home.HomeScreen
 import com.alphaomardiallo.handydocs.presentation.navigation.NavigationEffects
-import com.alphaomardiallo.handydocs.presentation.pdfviewer.PdfViewerScreen
+import com.alphaomardiallo.handydocs.presentation.docviewer.PdfViewerScreen
 import com.alphaomardiallo.handydocs.presentation.theme.HandyDocsTheme
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_JPEG

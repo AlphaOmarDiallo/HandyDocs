@@ -3,6 +3,7 @@ package com.alphaomardiallo.handydocs.presentation.home
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -56,15 +57,27 @@ import java.io.File
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
     val uiState = viewModel.state
-    HomeContent(list = uiState.allImageDoc, viewModel::updateDocument)
+    HomeContent(
+        list = uiState.allImageDoc,
+        updateDoc = viewModel::updateDocumentName,
+        updateSelectedDoc = viewModel::updateDocumentSelected
+    )
 }
 
 @Composable
-private fun HomeContent(list: List<ImageDoc> = emptyList(), updateDoc: (ImageDoc, String) -> Unit) {
+private fun HomeContent(
+    list: List<ImageDoc> = emptyList(),
+    updateDoc: (ImageDoc, String) -> Unit,
+    updateSelectedDoc: (ImageDoc) -> Unit
+) {
     if (list.isEmpty()) {
         ListEmptyScreen()
     } else {
-        ListNotEmptyScreen(list, updateDoc)
+        ListNotEmptyScreen(
+            list,
+            updateDoc,
+            updateSelectedDoc
+        )
     }
 }
 
@@ -87,7 +100,8 @@ private fun ListEmptyScreen() {
 @Composable
 private fun ListNotEmptyScreen(
     list: List<ImageDoc> = emptyList(),
-    updateDoc: (ImageDoc, String) -> Unit
+    updateDoc: (ImageDoc, String) -> Unit,
+    updateSelectedDoc: (ImageDoc) -> Unit
 ) {
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
@@ -101,7 +115,7 @@ private fun ListNotEmptyScreen(
             .fillMaxSize()
             .padding(4.dp)
     ) {
-        items(list) { photo ->
+        items(list) { doc ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -118,16 +132,16 @@ private fun ListNotEmptyScreen(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     AsyncImage(
-                        model = photo.uriJpeg.first(),
+                        model = doc.uriJpeg.first(),
                         contentScale = ContentScale.Crop,
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxWidth()
                             .wrapContentHeight()
-                            .padding(16.dp)
+                            .padding(16.dp).clickable { updateSelectedDoc.invoke(doc) }
                     )
                     Text(
-                        text = photo.displayName
+                        text = doc.displayName
                             ?: stringResource(id = R.string.home_no_name_picture),
                         modifier = Modifier
                             .fillMaxWidth()
@@ -140,7 +154,7 @@ private fun ListNotEmptyScreen(
                     ) {
                         IconButton(onClick = {
                             // Path to the PDF file in internal storage
-                            val pdfFile = File(photo.uriPdf?.path ?: "")
+                            val pdfFile = File(doc.uriPdf?.path ?: "")
 
                             // Check if the file exists
                             if (pdfFile.exists()) {
@@ -185,7 +199,7 @@ private fun ListNotEmptyScreen(
                         }
                         IconButton(
                             onClick = {
-                                selected = photo
+                                selected = doc
                                 showDialog = true
                             },
                         ) {
