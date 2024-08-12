@@ -6,7 +6,15 @@
     <string name="pdf_viewer_destination" translatable="false">pdf_viewer_destination</string>
     <string name="scanner_destination" translatable="false">camera_destination</string>
 
+    <string name="icon_content_description">Icon %s</string>
+
     <string name="home_empty_list">List is empty!\n\nStart scanning!</string>
+    <string name="home_no_name_picture">No name yet</string>
+    <string name="home_share_pdf">Share the PDF</string>
+    <string name="home_pdf_not_found">PDF file not found</string>
+    <string name="home_share_cd">Share the pdf via other apps</string>
+    <string name="home_dialog_edit_doc_name">Edit document name</string>
+    <string name="home_dialog_edit_doc_placeholder">Choose a name</string>
 
     <string name="pdf_viewer_app_bar_title">Camera</string>
 </resources>
