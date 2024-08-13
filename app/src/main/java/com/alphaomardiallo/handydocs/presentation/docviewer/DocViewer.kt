@@ -60,6 +60,7 @@ import com.alphaomardiallo.handydocs.domain.model.ImageDoc
 import com.github.panpf.zoomimage.CoilZoomAsyncImage
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+import timber.log.Timber
 import java.io.File
 
 @Composable
@@ -431,9 +432,29 @@ private fun DocViewerScreenContent(
                         }
                         IconButton(
                             onClick = {
-                                deleteDoc.invoke(doc)
-                                showDialogDelete = false
-                                onClose.invoke()
+                                if (doc.uriPdf != null){
+                                    if (deleteFiles(doc.uriPdf)) {
+                                        doc.uriJpeg.map { deleteFiles(it) }
+                                        deleteDoc.invoke(doc)
+                                        showDialogDelete = false
+                                        onClose.invoke()
+                                    } else {
+                                        Toast.makeText(
+                                            context,
+                                            "Error deleting file",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        showDialogDelete = false
+                                    }
+                                } else {
+                                    Toast.makeText(
+                                        context,
+                                        "Error finding file",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    showDialogDelete = false
+                                }
+
                             },
                             colors = IconButtonDefaults.iconButtonColors()
                                 .copy(
@@ -453,5 +474,20 @@ private fun DocViewerScreenContent(
                 }
             }
         }
+    }
+}
+
+private fun deleteFiles(uri: Uri): Boolean {
+    return try {
+        val file = File(Uri.parse(uri.toString()).path)
+
+        if (file.exists()) {
+            file.delete()
+        } else {
+            false
+        }
+    } catch (e: Exception) {
+        Timber.e(e.localizedMessage)
+        false
     }
 }

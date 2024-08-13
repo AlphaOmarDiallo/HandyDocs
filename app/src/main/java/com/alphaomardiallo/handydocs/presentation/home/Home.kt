@@ -94,7 +94,7 @@ private fun ListEmptyScreen() {
     ) {
         Text(
             text = stringResource(id = R.string.home_empty_list),
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center)
         )
     }
 }
@@ -151,10 +151,13 @@ private fun ListNotEmptyScreen(
                     Text(
                         text = doc.displayName
                             ?: stringResource(id = R.string.home_no_name_picture),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
+                        modifier = Modifier.fillMaxWidth().padding(8.dp),
                         style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center)
+                    )
+                    Text(
+                        text = doc.getReadableTime(),
+                        modifier = Modifier.fillMaxWidth().padding(4.dp),
+                        style = MaterialTheme.typography.bodySmall.copy(textAlign = TextAlign.Center)
                     )
                     Row(
                         modifier = Modifier.fillMaxWidth(),

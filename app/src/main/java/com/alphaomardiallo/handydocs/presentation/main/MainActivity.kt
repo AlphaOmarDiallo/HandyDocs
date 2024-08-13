@@ -1,6 +1,7 @@
 package com.alphaomardiallo.handydocs.presentation.main
 
 import android.app.Activity
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -61,6 +62,8 @@ class MainActivity : ComponentActivity() {
                 navHostController = navController
             )
 
+            Timber.e("SIZE filesDir ${this.fileList().size} - Size cacheDir ${this.cacheDir.listFiles()?.size}")
+
             HandyDocsTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -105,25 +108,44 @@ class MainActivity : ComponentActivity() {
                 if (rawResult.resultCode == RESULT_OK) {
                     activity?.let { nonNullActivity ->
                         result?.pdf?.let { pdf ->
-                            val fos = FileOutputStream(
-                                File(
-                                    nonNullActivity.filesDir,
-                                    "HandyDocs${System.currentTimeMillis()}.pdf"
-                                )
-                            )
+                            val fileName = "HandyDocs${System.currentTimeMillis()}.pdf"
+                            val file = File(nonNullActivity.filesDir, fileName)
+                            val fos = FileOutputStream(file)
+
                             nonNullActivity.contentResolver.openInputStream(pdf.uri)?.use {
                                 it.copyTo(fos)
-                                viewModel.savePdfInDatabase(
-                                    ImageDoc(
-                                        name = "HandyDocs${System.currentTimeMillis()}.pdf",
-                                        uriJpeg = result.pages?.map { uri -> uri.imageUri }
-                                            ?: emptyList(),
-                                        displayName = null,
-                                        uriPdf = pdf.uri
-                                    )
-                                )
-                                Timber.d("Copied to fos")
                             }
+
+                            val savedFileUri = Uri.fromFile(file)
+
+                            val savedJpegUris = result.pages?.mapNotNull { page ->
+                                page.imageUri.let { uri ->
+                                    // Generate a unique file name for each JPEG image
+                                    val jpegFileName = "HandyDocsImage_${System.currentTimeMillis()}.jpeg"
+                                    val jpegFile = File(nonNullActivity.filesDir, jpegFileName)
+
+                                    // Save the JPEG file
+                                    nonNullActivity.contentResolver.openInputStream(uri)?.use { inputStream ->
+                                        FileOutputStream(jpegFile).use { outputStream ->
+                                            inputStream.copyTo(outputStream)
+                                        }
+                                    }
+
+                                    // Return the URI of the saved JPEG file
+                                    Uri.fromFile(jpegFile)
+                                }
+                            } ?: emptyList()
+
+                            viewModel.savePdfInDatabase(
+                                ImageDoc(
+                                    name = "HandyDocs${System.currentTimeMillis()}.pdf",
+                                    uriJpeg = savedJpegUris,
+                                    displayName = null,
+                                    uriPdf = savedFileUri
+                                )
+                            )
+                            Timber.d("Copied to fos")
+
                             viewModel.navigateBack()
                         }
                     }
