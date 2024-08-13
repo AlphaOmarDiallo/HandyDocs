@@ -119,13 +119,18 @@ private fun ListNotEmptyScreen(
     Column {
         if (list.size > 1) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+                modifier = Modifier.fillMaxWidth()
             ) {
+                val paddingDefault = 16.dp
+
                 Text(
                     text = stringResource(id = R.string.home_filter_title),
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(
+                        top = paddingDefault,
+                        start = paddingDefault,
+                        end = paddingDefault
+                    )
                 )
                 val filterOptions =
                     context.resources.getStringArray(R.array.home_filter_options).toList()
@@ -134,6 +139,7 @@ private fun ListNotEmptyScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .horizontalScroll(rememberScrollState())
+                        .padding(horizontal = paddingDefault)
                 ) {
                     filterOptions.forEach { option ->
                         FilterChip(
