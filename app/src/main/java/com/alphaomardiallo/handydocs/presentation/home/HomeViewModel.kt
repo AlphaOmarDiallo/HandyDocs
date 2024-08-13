@@ -9,7 +9,6 @@ import com.alphaomardiallo.handydocs.domain.navigator.AppNavigator
 import com.alphaomardiallo.handydocs.domain.repository.ImageDocRepository
 import com.alphaomardiallo.handydocs.presentation.base.BaseViewModel
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class HomeViewModel(

@@ -408,13 +408,13 @@ private fun DocViewerScreenContent(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = stringResource(id = R.string.pdf_viewer_delete_title),
+                        text = stringResource(id = R.string.doc_viewer_delete_title),
                         modifier = Modifier.fillMaxWidth(),
                         style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center)
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
                     Text(
-                        text = stringResource(id = R.string.pdf_viewer_delete_text),
+                        text = stringResource(id = R.string.doc_viewer_delete_text),
                         modifier = Modifier.fillMaxWidth(),
                         style = MaterialTheme.typography.bodyLarge.copy(textAlign = TextAlign.Center)
                     )
@@ -441,7 +441,7 @@ private fun DocViewerScreenContent(
                                     } else {
                                         Toast.makeText(
                                             context,
-                                            "Error deleting file",
+                                            context.getString(R.string.doc_viewer_error_deleting_file),
                                             Toast.LENGTH_SHORT
                                         ).show()
                                         showDialogDelete = false
@@ -449,7 +449,7 @@ private fun DocViewerScreenContent(
                                 } else {
                                     Toast.makeText(
                                         context,
-                                        "Error finding file",
+                                        context.getString(R.string.doc_viewer_error_deleting_file),
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     showDialogDelete = false
@@ -479,13 +479,8 @@ private fun DocViewerScreenContent(
 
 private fun deleteFiles(uri: Uri): Boolean {
     return try {
-        val file = File(Uri.parse(uri.toString()).path)
-
-        if (file.exists()) {
-            file.delete()
-        } else {
-            false
-        }
+        val file = File(Uri.parse(uri.toString()).path!!)
+        if (file.exists()) file.delete() else false
     } catch (e: Exception) {
         Timber.e(e.localizedMessage)
         false

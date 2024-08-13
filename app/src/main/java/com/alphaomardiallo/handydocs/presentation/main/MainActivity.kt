@@ -62,8 +62,6 @@ class MainActivity : ComponentActivity() {
                 navHostController = navController
             )
 
-            Timber.e("SIZE filesDir ${this.fileList().size} - Size cacheDir ${this.cacheDir.listFiles()?.size}")
-
             HandyDocsTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -96,7 +94,7 @@ class MainActivity : ComponentActivity() {
 
         val options = GmsDocumentScannerOptions.Builder()
             .setGalleryImportAllowed(true)
-            .setPageLimit(5)
+            .setPageLimit(PAGE_LIMIT)
             .setResultFormats(RESULT_FORMAT_JPEG, RESULT_FORMAT_PDF)
             .setScannerMode(SCANNER_MODE_FULL)
             .build()
@@ -121,15 +119,17 @@ class MainActivity : ComponentActivity() {
                             val savedJpegUris = result.pages?.mapNotNull { page ->
                                 page.imageUri.let { uri ->
                                     // Generate a unique file name for each JPEG image
-                                    val jpegFileName = "HandyDocsImage_${System.currentTimeMillis()}.jpeg"
+                                    val jpegFileName =
+                                        "HandyDocsImage_${System.currentTimeMillis()}.jpeg"
                                     val jpegFile = File(nonNullActivity.filesDir, jpegFileName)
 
                                     // Save the JPEG file
-                                    nonNullActivity.contentResolver.openInputStream(uri)?.use { inputStream ->
-                                        FileOutputStream(jpegFile).use { outputStream ->
-                                            inputStream.copyTo(outputStream)
+                                    nonNullActivity.contentResolver.openInputStream(uri)
+                                        ?.use { inputStream ->
+                                            FileOutputStream(jpegFile).use { outputStream ->
+                                                inputStream.copyTo(outputStream)
+                                            }
                                         }
-                                    }
 
                                     // Return the URI of the saved JPEG file
                                     Uri.fromFile(jpegFile)
@@ -144,7 +144,6 @@ class MainActivity : ComponentActivity() {
                                     uriPdf = savedFileUri
                                 )
                             )
-                            Timber.d("Copied to fos")
 
                             viewModel.navigateBack()
                         }
@@ -162,7 +161,6 @@ class MainActivity : ComponentActivity() {
                     activity?.let { nonNullActivity ->
                         scanner.getStartScanIntent(nonNullActivity)
                             .addOnSuccessListener {
-                                Timber.d("Success: $it")
                                 scannerLauncher.launch(
                                     IntentSenderRequest.Builder(it).build()
                                 )
@@ -170,7 +168,10 @@ class MainActivity : ComponentActivity() {
                             .addOnFailureListener {
                                 Toast.makeText(
                                     context,
-                                    "Error: ${it.message}",
+                                    String.format(
+                                        getString(R.string.toast_error_message),
+                                        it.localizedMessage
+                                    ),
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
@@ -188,6 +189,10 @@ class MainActivity : ComponentActivity() {
                 actionIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
             )
         )
+    }
+
+    private companion object {
+        const val PAGE_LIMIT = 5
     }
 }
 
