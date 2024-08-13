@@ -14,12 +14,11 @@
     <string name="home_dialog_edit_doc_name">Edit document name</string>
     <string name="home_dialog_edit_doc_placeholder">Choose a name</string>
     <string name="home_filter_title">Filter by</string>
-    <string-array name="home_filter_options">
-        <item>Name</item>
-        <item>Date</item>
-        <item>Name desc</item>
-        <item>Date desc</item>
-    </string-array>
+    <string name="home_filter_option_name">Name</string>
+    <string name="home_filter_option_date">Date</string>
+    <string name="home_filter_option_name_desc">Name desc</string>
+    <string name="home_filter_option_date_desc">Date desc</string>
+    <string name="home_filter_option_none">None</string>
 
     <string name="doc_viewer_delete_title">Delete document</string>
     <string name="doc_viewer_delete_text">Are you sure you want to delete this document?\nOnce deleted, you will have no possibilities to revert that operation</string>

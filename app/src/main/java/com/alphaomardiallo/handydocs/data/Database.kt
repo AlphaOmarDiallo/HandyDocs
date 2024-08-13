@@ -34,6 +34,18 @@ interface ImageDao {
     @Query("SELECT * FROM table_image_doc")
     fun getAllImage(): Flow<List<ImageDoc>>
 
+    @Query("SELECT * FROM table_image_doc ORDER BY (displayName IS NULL) ASC, displayName ASC")
+    fun getAllImageNameAsc(): Flow<List<ImageDoc>>
+
+    @Query("SELECT * FROM table_image_doc ORDER BY displayName DESC")
+    fun getAllImageNameDesc(): Flow<List<ImageDoc>>
+
+    @Query("SELECT * FROM table_image_doc ORDER BY time ASC")
+    fun getAllImageTimeAsc(): Flow<List<ImageDoc>>
+
+    @Query("SELECT * FROM table_image_doc ORDER BY time DESC")
+    fun getAllImageTimeDesc(): Flow<List<ImageDoc>>
+
     @Query("SELECT * FROM table_image_doc WHERE isSelected = 1")
     fun getSelectedImageDoc(): Flow<ImageDoc>
 
