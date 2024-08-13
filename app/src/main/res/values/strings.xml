@@ -13,6 +13,13 @@
     <string name="home_pdf_not_found">PDF file not found</string>
     <string name="home_dialog_edit_doc_name">Edit document name</string>
     <string name="home_dialog_edit_doc_placeholder">Choose a name</string>
+    <string name="home_filter_title">Filter by</string>
+    <string-array name="home_filter_options">
+        <item>Name</item>
+        <item>Date</item>
+        <item>Name desc</item>
+        <item>Date desc</item>
+    </string-array>
 
     <string name="doc_viewer_delete_title">Delete document</string>
     <string name="doc_viewer_delete_text">Are you sure you want to delete this document?\nOnce deleted, you will have no possibilities to revert that operation</string>

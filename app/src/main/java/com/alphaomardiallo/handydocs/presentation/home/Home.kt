@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Done
@@ -26,6 +28,8 @@ import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -48,7 +52,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.FileProvider
 import coil.compose.AsyncImage
@@ -111,121 +114,174 @@ private fun ListNotEmptyScreen(
     var showDialog by remember { mutableStateOf(false) }
     var showDialogViewer by remember { mutableStateOf(false) }
     var selected by remember { mutableStateOf<ImageDoc?>(null) }
+    var selectedFilters by remember { mutableStateOf<String?>(null) }
 
-    LazyVerticalStaggeredGrid(
-        columns = StaggeredGridCells.Fixed(2),
-        verticalItemSpacing = 4.dp,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(4.dp)
-    ) {
+    Column {
         if (list.size > 1) {
-            
-        }
-        items(list) { doc ->
-            Card(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight(),
-                shape = RectangleShape,
-                colors = CardDefaults.cardColors()
-                    .copy(
-                        containerColor = Color.White,
-                        contentColor = MaterialTheme.colorScheme.onBackground
-                    )
+                    .padding(16.dp)
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxSize()
+                Text(
+                    text = stringResource(id = R.string.home_filter_title),
+                    style = MaterialTheme.typography.titleMedium
+                )
+                val filterOptions =
+                    context.resources.getStringArray(R.array.home_filter_options).toList()
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState())
                 ) {
-                    AsyncImage(
-                        model = doc.uriJpeg.first(),
-                        contentScale = ContentScale.Crop,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentHeight()
-                            .padding(16.dp)
-                            .clickable {
-                                updateSelectedDoc.invoke(doc)
-                                showDialogViewer = true
-                            }
-                    )
-                    Text(
-                        text = doc.displayName
-                            ?: stringResource(id = R.string.home_no_name_picture),
-                        modifier = Modifier.fillMaxWidth().padding(8.dp),
-                        style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center)
-                    )
-                    Text(
-                        text = doc.getReadableTime(),
-                        modifier = Modifier.fillMaxWidth().padding(4.dp),
-                        style = MaterialTheme.typography.bodySmall.copy(textAlign = TextAlign.Center)
-                    )
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly
-                    ) {
-                        IconButton(onClick = {
-                            // Path to the PDF file in internal storage
-                            val pdfFile = File(doc.uriPdf?.path ?: "")
-
-                            // Check if the file exists
-                            if (pdfFile.exists()) {
-                                // Generate the URI using FileProvider
-                                val pdfUri: Uri = FileProvider.getUriForFile(
-                                    context,
-                                    "${context.packageName}.fileprovider",
-                                    pdfFile
-                                )
-
-                                // Create the share intent
-                                val shareIntent: Intent = Intent().apply {
-                                    action = Intent.ACTION_SEND
-                                    type = "application/pdf"
-                                    putExtra(Intent.EXTRA_STREAM, pdfUri)
-                                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                                }
-
-                                // Start the share intent
-                                context.startActivity(
-                                    Intent.createChooser(
-                                        shareIntent,
-                                        context.getString(R.string.home_share_pdf)
-                                    )
-                                )
-                            } else {
-                                Toast.makeText(
-                                    context,
-                                    context.getString(R.string.home_pdf_not_found),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }) {
-                            Icon(
-                                imageVector = Icons.Default.Share,
-                                contentDescription = String.format(
-                                    stringResource(id = R.string.icon_content_description),
-                                    Icons.Default.Share.name
-                                ),
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                        }
-                        IconButton(
+                    filterOptions.forEach { option ->
+                        FilterChip(
+                            selected = selectedFilters == option,
                             onClick = {
-                                selected = doc
-                                showDialog = true
+                                selectedFilters = if (selectedFilters == option) {
+                                    null // Deselect if it's already selected
+                                } else {
+                                    option
+                                }
                             },
+                            label = { Text(text = option) },
+                            leadingIcon = {
+                                if (selectedFilters == option) {
+                                    Icon(
+                                        imageVector = Icons.Default.Done,
+                                        contentDescription = String.format(
+                                            stringResource(id = R.string.icon_content_description),
+                                            Icons.Default.Done.name
+                                        )
+                                    )
+                                }
+                            }
+                        )
+                        Spacer(modifier = Modifier.padding(4.dp))
+                    }
+                }
+
+                HorizontalDivider(Modifier.fillMaxWidth(), thickness = 2.dp)
+            }
+        }
+
+        LazyVerticalStaggeredGrid(
+            columns = StaggeredGridCells.Fixed(2),
+            verticalItemSpacing = 4.dp,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(4.dp)
+        ) {
+            items(list) { doc ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    shape = RectangleShape,
+                    colors = CardDefaults.cardColors()
+                        .copy(
+                            containerColor = Color.White,
+                            contentColor = MaterialTheme.colorScheme.onBackground
+                        )
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        AsyncImage(
+                            model = doc.uriJpeg.first(),
+                            contentScale = ContentScale.Crop,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight()
+                                .padding(16.dp)
+                                .clickable {
+                                    updateSelectedDoc.invoke(doc)
+                                    showDialogViewer = true
+                                }
+                        )
+                        Text(
+                            text = doc.displayName
+                                ?: stringResource(id = R.string.home_no_name_picture),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center)
+                        )
+                        Text(
+                            text = doc.getReadableTime(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(4.dp),
+                            style = MaterialTheme.typography.bodySmall.copy(textAlign = TextAlign.Center)
+                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.Edit,
-                                contentDescription = String.format(
-                                    stringResource(id = R.string.icon_content_description),
-                                    Icons.Default.Edit.name
-                                ),
-                                tint = MaterialTheme.colorScheme.secondary
-                            )
+                            IconButton(onClick = {
+                                // Path to the PDF file in internal storage
+                                val pdfFile = File(doc.uriPdf?.path ?: "")
+
+                                // Check if the file exists
+                                if (pdfFile.exists()) {
+                                    // Generate the URI using FileProvider
+                                    val pdfUri: Uri = FileProvider.getUriForFile(
+                                        context,
+                                        "${context.packageName}.fileprovider",
+                                        pdfFile
+                                    )
+
+                                    // Create the share intent
+                                    val shareIntent: Intent = Intent().apply {
+                                        action = Intent.ACTION_SEND
+                                        type = "application/pdf"
+                                        putExtra(Intent.EXTRA_STREAM, pdfUri)
+                                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                    }
+
+                                    // Start the share intent
+                                    context.startActivity(
+                                        Intent.createChooser(
+                                            shareIntent,
+                                            context.getString(R.string.home_share_pdf)
+                                        )
+                                    )
+                                } else {
+                                    Toast.makeText(
+                                        context,
+                                        context.getString(R.string.home_pdf_not_found),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Default.Share,
+                                    contentDescription = String.format(
+                                        stringResource(id = R.string.icon_content_description),
+                                        Icons.Default.Share.name
+                                    ),
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                            IconButton(
+                                onClick = {
+                                    selected = doc
+                                    showDialog = true
+                                },
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Edit,
+                                    contentDescription = String.format(
+                                        stringResource(id = R.string.icon_content_description),
+                                        Icons.Default.Edit.name
+                                    ),
+                                    tint = MaterialTheme.colorScheme.secondary
+                                )
+                            }
                         }
                     }
                 }
@@ -314,7 +370,7 @@ private fun ListNotEmptyScreen(
             properties = DialogProperties(usePlatformDefaultWidth = false)
         ) {
             Surface(modifier = Modifier.fillMaxSize()) {
-                DocViewerScreen{
+                DocViewerScreen {
                     showDialogViewer = false
                 }
             }
