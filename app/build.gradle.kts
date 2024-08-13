@@ -31,6 +31,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            versionNameSuffix = "-debug"
+            resValue("string", "app_name", "HandyDocs Debug")
+        }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
