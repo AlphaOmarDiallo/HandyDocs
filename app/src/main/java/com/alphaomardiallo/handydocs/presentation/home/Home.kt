@@ -178,7 +178,7 @@ private fun ListNotEmptyScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
                 .fillMaxSize()
-                .padding(4.dp)
+                .padding(horizontal = 8.dp, vertical = 16.dp)
         ) {
             items(list) { doc ->
                 Card(
