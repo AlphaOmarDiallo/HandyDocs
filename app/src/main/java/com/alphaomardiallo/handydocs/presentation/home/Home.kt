@@ -78,7 +78,7 @@ private fun HomeContent(
     list: List<ImageDoc> = emptyList(),
     updateDoc: (ImageDoc, String) -> Unit,
     updateSelectedDoc: (ImageDoc) -> Unit,
-    filterList: (HomeViewModel.ListFilter) -> Unit,
+    filterList: (ListFilter) -> Unit,
 ) {
     if (list.isEmpty()) {
         ListEmptyScreen()
@@ -113,13 +113,13 @@ private fun ListNotEmptyScreen(
     list: List<ImageDoc> = emptyList(),
     updateDoc: (ImageDoc, String) -> Unit,
     updateSelectedDoc: (ImageDoc) -> Unit,
-    filterList: (HomeViewModel.ListFilter) -> Unit,
+    filterList: (ListFilter) -> Unit,
 ) {
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
     var showDialogViewer by remember { mutableStateOf(false) }
     var selected by remember { mutableStateOf<ImageDoc?>(null) }
-    var selectedFilters by remember { mutableStateOf<HomeViewModel.ListFilter>(HomeViewModel.ListFilter.None) }
+    var selectedFilters by remember { mutableStateOf<ListFilter>(ListFilter.None) }
 
     LaunchedEffect(selectedFilters) {
         filterList.invoke(selectedFilters)
@@ -142,10 +142,10 @@ private fun ListNotEmptyScreen(
                     )
                 )
                 val filterOptions = listOf(
-                    HomeViewModel.ListFilter.NameAsc,
-                    HomeViewModel.ListFilter.NameDesc,
-                    HomeViewModel.ListFilter.TimeAsc,
-                    HomeViewModel.ListFilter.TimeDesc
+                    ListFilter.NameAsc,
+                    ListFilter.NameDesc,
+                    ListFilter.TimeAsc,
+                    ListFilter.TimeDesc
                 )
 
                 Row(
@@ -159,7 +159,7 @@ private fun ListNotEmptyScreen(
                             selected = selectedFilters == option,
                             onClick = {
                                 selectedFilters = if (selectedFilters == option) {
-                                    HomeViewModel.ListFilter.None
+                                    ListFilter.None
                                 } else {
                                     option
                                 }

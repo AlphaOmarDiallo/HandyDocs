@@ -1,11 +1,9 @@
 package com.alphaomardiallo.handydocs.presentation.home
 
-import androidx.annotation.StringRes
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.domain.model.ImageDoc
 import com.alphaomardiallo.handydocs.domain.navigator.AppNavigator
 import com.alphaomardiallo.handydocs.domain.repository.ImageDocRepository
@@ -48,7 +46,21 @@ class HomeViewModel(
         }
     }
 
-    private fun getAllImages() {
+    fun getAllImageTest(filterType: ListFilter = ListFilter.None) {
+        job?.cancel()
+
+        viewModelScope.launch {
+            when (filterType) {
+                is ListFilter.NameAsc -> getAllImagesNameAsc()
+                is ListFilter.NameDesc -> getAllImagesNameDesc()
+                is ListFilter.TimeAsc -> getAllImagesTimeAsc()
+                is ListFilter.TimeDesc -> getAllImagesTimeDesc()
+                is ListFilter.None -> getAllImagesUnfiltered()
+            }
+        }
+    }
+
+    private fun getAllImagesUnfiltered() {
         job = viewModelScope.launch {
             imageDocRepository.getAllImages().collect { imageList ->
                 state = state.copy(allImageDoc = imageList)
@@ -64,16 +76,26 @@ class HomeViewModel(
         }
     }
 
-    fun getAllImageTest(filterType: ListFilter = ListFilter.None) {
-        job?.cancel()
+    private fun getAllImagesNameDesc() {
+        job = viewModelScope.launch {
+            imageDocRepository.getAllImageNameDesc().collect { imageList ->
+                state = state.copy(allImageDoc = imageList)
+            }
+        }
+    }
 
-        viewModelScope.launch {
-            when (filterType){
-                is ListFilter.NameAsc -> getAllImagesNameAsc()
-                is ListFilter.NameDesc -> getAllImagesNameAsc()
-                is ListFilter.TimeAsc -> getAllImages()
-                is ListFilter.TimeDesc -> getAllImages()
-                is ListFilter.None -> getAllImages()
+    private fun getAllImagesTimeAsc() {
+        job = viewModelScope.launch {
+            imageDocRepository.getAllImageTimeAsc().collect { imageList ->
+                state = state.copy(allImageDoc = imageList)
+            }
+        }
+    }
+
+    private fun getAllImagesTimeDesc() {
+        job = viewModelScope.launch {
+            imageDocRepository.getAllImageTimeDesc().collect { imageList ->
+                state = state.copy(allImageDoc = imageList)
             }
         }
     }
@@ -81,39 +103,4 @@ class HomeViewModel(
     data class HomeUiState(
         val allImageDoc: List<ImageDoc> = emptyList()
     )
-
-    sealed class ListFilter(
-        @StringRes val label: Int = R.string.home_filter_option_name,
-        val type: ListFilterType = ListFilterType.NONE
-    ) {
-        data object NameAsc : ListFilter(
-            label = R.string.home_filter_option_name,
-            type = ListFilterType.NAME_ASC
-        )
-
-        data object NameDesc : ListFilter(
-            label = R.string.home_filter_option_name_desc,
-            type = ListFilterType.NAME_DESC
-        )
-
-        data object TimeAsc : ListFilter(
-            label = R.string.home_filter_option_date,
-            type = ListFilterType.TIME_ASC
-        )
-
-        data object TimeDesc : ListFilter(
-            label = R.string.home_filter_option_date_desc,
-            type = ListFilterType.TIME_DESC
-        )
-
-        data object None : ListFilter()
-    }
-
-    enum class ListFilterType() {
-        NAME_ASC,
-        NAME_DESC,
-        TIME_ASC,
-        TIME_DESC,
-        NONE
-    }
 }
