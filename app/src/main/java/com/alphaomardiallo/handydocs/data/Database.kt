@@ -37,7 +37,7 @@ interface ImageDao {
     @Query("SELECT * FROM table_image_doc ORDER BY (displayName IS NULL) ASC, displayName ASC")
     fun getAllImageNameAsc(): Flow<List<ImageDoc>>
 
-    @Query("SELECT * FROM table_image_doc ORDER BY displayName DESC")
+    @Query("SELECT * FROM table_image_doc ORDER BY (displayName IS NULL) ASC, displayName DESC")
     fun getAllImageNameDesc(): Flow<List<ImageDoc>>
 
     @Query("SELECT * FROM table_image_doc ORDER BY time ASC")
