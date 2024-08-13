@@ -3,6 +3,7 @@ package com.alphaomardiallo.handydocs.presentation.docviewer
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -73,6 +74,10 @@ fun DocViewerScreen(viewModel: DocViewerViewModel = koinViewModel(), onClose: ()
         deleteDoc = viewModel::deleteDocument,
         selectedToNull = viewModel::selectedImageToNull
     )
+
+    BackHandler {
+        onClose.invoke()
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
@@ -272,6 +277,7 @@ private fun DocViewerScreenContent(
                     OutlinedTextField(
                         value = text,
                         onValueChange = { text = it },
+                        maxLines = 1,
                         placeholder = { Text(text = stringResource(id = R.string.home_dialog_edit_doc_placeholder)) },
                         modifier = Modifier.fillMaxWidth(),
                     )

@@ -48,6 +48,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.FileProvider
 import coil.compose.AsyncImage
@@ -119,6 +120,9 @@ private fun ListNotEmptyScreen(
             .fillMaxSize()
             .padding(4.dp)
     ) {
+        if (list.size > 1) {
+            
+        }
         items(list) { doc ->
             Card(
                 modifier = Modifier
@@ -253,6 +257,7 @@ private fun ListNotEmptyScreen(
                     OutlinedTextField(
                         value = text,
                         onValueChange = { text = it },
+                        maxLines = 1,
                         placeholder = { Text(text = stringResource(id = R.string.home_dialog_edit_doc_placeholder)) },
                         modifier = Modifier.fillMaxWidth(),
                     )
