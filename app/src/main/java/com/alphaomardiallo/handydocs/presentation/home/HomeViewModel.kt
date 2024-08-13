@@ -46,6 +46,14 @@ class HomeViewModel(
         }
     }
 
+    fun updateDocumentFavorite(imageDoc: ImageDoc) {
+        viewModelScope.launch {
+            imageDocRepository.upsertImage(
+                imageDoc.copy(isFavorite = !imageDoc.isFavorite)
+            )
+        }
+    }
+
     fun getAllImageTest(filterType: ListFilter = ListFilter.None) {
         job?.cancel()
 
@@ -56,6 +64,7 @@ class HomeViewModel(
                 is ListFilter.TimeAsc -> getAllImagesTimeAsc()
                 is ListFilter.TimeDesc -> getAllImagesTimeDesc()
                 is ListFilter.None -> getAllImagesUnfiltered()
+                is ListFilter.Favorite -> getAllImagesFavorite()
             }
         }
     }
@@ -63,7 +72,7 @@ class HomeViewModel(
     private fun getAllImagesUnfiltered() {
         job = viewModelScope.launch {
             imageDocRepository.getAllImages().collect { imageList ->
-                state = state.copy(allImageDoc = imageList)
+                state = state.copy(allImageDoc = imageList, filterType = ListFilter.None)
             }
         }
     }
@@ -71,7 +80,7 @@ class HomeViewModel(
     private fun getAllImagesNameAsc() {
         job = viewModelScope.launch {
             imageDocRepository.getAllImageNameAsc().collect { imageList ->
-                state = state.copy(allImageDoc = imageList)
+                state = state.copy(allImageDoc = imageList, filterType = ListFilter.NameAsc)
             }
         }
     }
@@ -79,7 +88,7 @@ class HomeViewModel(
     private fun getAllImagesNameDesc() {
         job = viewModelScope.launch {
             imageDocRepository.getAllImageNameDesc().collect { imageList ->
-                state = state.copy(allImageDoc = imageList)
+                state = state.copy(allImageDoc = imageList, filterType = ListFilter.NameDesc)
             }
         }
     }
@@ -87,7 +96,7 @@ class HomeViewModel(
     private fun getAllImagesTimeAsc() {
         job = viewModelScope.launch {
             imageDocRepository.getAllImageTimeAsc().collect { imageList ->
-                state = state.copy(allImageDoc = imageList)
+                state = state.copy(allImageDoc = imageList, filterType = ListFilter.TimeAsc)
             }
         }
     }
@@ -95,12 +104,21 @@ class HomeViewModel(
     private fun getAllImagesTimeDesc() {
         job = viewModelScope.launch {
             imageDocRepository.getAllImageTimeDesc().collect { imageList ->
-                state = state.copy(allImageDoc = imageList)
+                state = state.copy(allImageDoc = imageList, filterType = ListFilter.TimeDesc)
+            }
+        }
+    }
+
+    private fun getAllImagesFavorite() {
+        job = viewModelScope.launch {
+            imageDocRepository.getAllFavoriteImage().collect { imageList ->
+                state = state.copy(allImageDoc = imageList, filterType = ListFilter.Favorite)
             }
         }
     }
 
     data class HomeUiState(
-        val allImageDoc: List<ImageDoc> = emptyList()
+        val allImageDoc: List<ImageDoc> = emptyList(),
+        val filterType: ListFilter = ListFilter.None
     )
 }

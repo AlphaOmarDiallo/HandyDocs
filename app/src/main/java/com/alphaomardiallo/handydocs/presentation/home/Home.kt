@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -69,7 +70,9 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
         list = uiState.allImageDoc,
         updateDoc = viewModel::updateDocumentName,
         updateSelectedDoc = viewModel::updateDocumentSelected,
-        viewModel::getAllImageTest
+        filterList = viewModel::getAllImageTest,
+        updateFavorite = viewModel::updateDocumentFavorite,
+        currentFilterType = viewModel.state.filterType
     )
 }
 
@@ -79,6 +82,8 @@ private fun HomeContent(
     updateDoc: (ImageDoc, String) -> Unit,
     updateSelectedDoc: (ImageDoc) -> Unit,
     filterList: (ListFilter) -> Unit,
+    updateFavorite: (ImageDoc) -> Unit,
+    currentFilterType: ListFilter
 ) {
     if (list.isEmpty()) {
         ListEmptyScreen()
@@ -87,7 +92,9 @@ private fun HomeContent(
             list,
             updateDoc,
             updateSelectedDoc,
-            filterList
+            filterList,
+            updateFavorite,
+            currentFilterType
         )
     }
 }
@@ -114,6 +121,8 @@ private fun ListNotEmptyScreen(
     updateDoc: (ImageDoc, String) -> Unit,
     updateSelectedDoc: (ImageDoc) -> Unit,
     filterList: (ListFilter) -> Unit,
+    updateFavorite: (ImageDoc) -> Unit,
+    currentFilterType: ListFilter
 ) {
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
@@ -126,7 +135,7 @@ private fun ListNotEmptyScreen(
     }
 
     Column {
-        if (list.size > 1) {
+        if (list.size > 1 || currentFilterType == ListFilter.Favorite) {
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -142,6 +151,7 @@ private fun ListNotEmptyScreen(
                     )
                 )
                 val filterOptions = listOf(
+                    ListFilter.Favorite,
                     ListFilter.NameAsc,
                     ListFilter.NameDesc,
                     ListFilter.TimeAsc,
@@ -299,6 +309,16 @@ private fun ListNotEmptyScreen(
                                         Icons.Default.Edit.name
                                     ),
                                     tint = MaterialTheme.colorScheme.secondary
+                                )
+                            }
+                            IconButton(onClick = { updateFavorite.invoke(doc) }) {
+                                Icon(
+                                    imageVector = Icons.Default.Star,
+                                    contentDescription = String.format(
+                                        stringResource(id = R.string.icon_content_description),
+                                        Icons.Default.Star.name
+                                    ),
+                                    tint = if (doc.isFavorite) Color.Yellow else Color.Black
                                 )
                             }
                         }
