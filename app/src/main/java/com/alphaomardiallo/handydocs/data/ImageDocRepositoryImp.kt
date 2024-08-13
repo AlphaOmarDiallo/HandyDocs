@@ -40,4 +40,8 @@ class ImageDocRepositoryImp(private val appDataBase: AppDataBase) : ImageDocRepo
     override fun getAllImageTimeDesc(): Flow<List<ImageDoc>> {
         return appDataBase.imageDao().getAllImageTimeDesc()
     }
+
+    override fun getAllFavoriteImage(): Flow<List<ImageDoc>> {
+        return appDataBase.imageDao().getFavoriteImageDoc()
+    }
 }

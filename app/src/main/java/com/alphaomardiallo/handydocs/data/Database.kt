@@ -22,6 +22,15 @@ abstract class AppDataBase: RoomDatabase() {
     abstract fun imageDao(): ImageDao
 }
 
+fun provideDataBase(application: Application): AppDataBase =
+    Room.databaseBuilder(
+        application,
+        AppDataBase::class.java,
+        "app_database"
+    ).fallbackToDestructiveMigration().build()
+
+fun provideImageDao(appDataBase: AppDataBase): ImageDao = appDataBase.imageDao()
+
 @Dao
 interface ImageDao {
 
@@ -48,6 +57,9 @@ interface ImageDao {
 
     @Query("SELECT * FROM table_image_doc WHERE isSelected = 1")
     fun getSelectedImageDoc(): Flow<ImageDoc>
+
+    @Query("SELECT * FROM table_image_doc WHERE isFavorite = 1")
+    fun getFavoriteImageDoc(): Flow<List<ImageDoc>>
 
     @Query("UPDATE table_image_doc SET isSelected = 0 WHERE isSelected = 1")
     fun selectedImageToNull()
@@ -81,12 +93,3 @@ class UriListTypeConverter {
         return uriStrings.map { Uri.parse(it) }
     }
 }
-
-fun provideDataBase(application: Application): AppDataBase =
-    Room.databaseBuilder(
-        application,
-        AppDataBase::class.java,
-        "app_database"
-    ).fallbackToDestructiveMigration().build()
-
-fun provideImageDao(appDataBase: AppDataBase): ImageDao = appDataBase.imageDao()

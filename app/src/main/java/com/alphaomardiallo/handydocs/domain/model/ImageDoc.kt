@@ -15,12 +15,12 @@ data class ImageDoc(
     val displayName: String? = null,
     val uriPdf: Uri? = null,
     val time: Long = System.currentTimeMillis(),
-    var isSelected: Boolean = false
+    var isSelected: Boolean = false,
+    var isFavorite: Boolean = false
 ) {
     fun getReadableTime(): String {
-        val currentTime = System.currentTimeMillis()
         val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
-        val readableTime = sdf.format(Date(currentTime))
+        val readableTime = sdf.format(Date(time))
         return readableTime
     }
 }

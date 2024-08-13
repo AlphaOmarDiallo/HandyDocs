@@ -21,5 +21,7 @@ interface ImageDocRepository {
 
     fun getSelectedImage(): Flow<ImageDoc>
 
+    fun getAllFavoriteImage(): Flow<List<ImageDoc>>
+
     fun selectedImageToNull()
 }

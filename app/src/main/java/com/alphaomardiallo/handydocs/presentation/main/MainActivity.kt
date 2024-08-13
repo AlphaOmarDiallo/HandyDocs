@@ -141,7 +141,8 @@ class MainActivity : ComponentActivity() {
                                     name = "HandyDocs${System.currentTimeMillis()}.pdf",
                                     uriJpeg = savedJpegUris,
                                     displayName = null,
-                                    uriPdf = savedFileUri
+                                    uriPdf = savedFileUri,
+                                    time = System.currentTimeMillis(),
                                 )
                             )
 

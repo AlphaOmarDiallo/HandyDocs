@@ -14,5 +14,7 @@ sealed class ListFilter(
 
     data object TimeDesc : ListFilter(label = R.string.home_filter_option_date_desc)
 
+    data object Favorite : ListFilter(label = R.string.home_filter_option_fav)
+
     data object None : ListFilter()
 }

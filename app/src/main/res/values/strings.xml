@@ -18,6 +18,7 @@
     <string name="home_filter_option_date">Date</string>
     <string name="home_filter_option_name_desc">Name desc</string>
     <string name="home_filter_option_date_desc">Date desc</string>
+    <string name="home_filter_option_fav">Favorite</string>
     <string name="home_filter_option_none">None</string>
 
     <string name="doc_viewer_delete_title">Delete document</string>
