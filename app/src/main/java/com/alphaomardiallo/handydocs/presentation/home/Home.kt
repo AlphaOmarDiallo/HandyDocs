@@ -38,6 +38,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -68,6 +69,7 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
         list = uiState.allImageDoc,
         updateDoc = viewModel::updateDocumentName,
         updateSelectedDoc = viewModel::updateDocumentSelected,
+        viewModel::getAllImageTest
     )
 }
 
@@ -76,6 +78,7 @@ private fun HomeContent(
     list: List<ImageDoc> = emptyList(),
     updateDoc: (ImageDoc, String) -> Unit,
     updateSelectedDoc: (ImageDoc) -> Unit,
+    filterList: (HomeViewModel.ListFilter) -> Unit,
 ) {
     if (list.isEmpty()) {
         ListEmptyScreen()
@@ -84,6 +87,7 @@ private fun HomeContent(
             list,
             updateDoc,
             updateSelectedDoc,
+            filterList
         )
     }
 }
@@ -109,12 +113,17 @@ private fun ListNotEmptyScreen(
     list: List<ImageDoc> = emptyList(),
     updateDoc: (ImageDoc, String) -> Unit,
     updateSelectedDoc: (ImageDoc) -> Unit,
+    filterList: (HomeViewModel.ListFilter) -> Unit,
 ) {
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
     var showDialogViewer by remember { mutableStateOf(false) }
     var selected by remember { mutableStateOf<ImageDoc?>(null) }
-    var selectedFilters by remember { mutableStateOf<String?>(null) }
+    var selectedFilters by remember { mutableStateOf<HomeViewModel.ListFilter>(HomeViewModel.ListFilter.None) }
+
+    LaunchedEffect(selectedFilters) {
+        filterList.invoke(selectedFilters)
+    }
 
     Column {
         if (list.size > 1) {
@@ -132,8 +141,12 @@ private fun ListNotEmptyScreen(
                         end = paddingDefault
                     )
                 )
-                val filterOptions =
-                    context.resources.getStringArray(R.array.home_filter_options).toList()
+                val filterOptions = listOf(
+                    HomeViewModel.ListFilter.NameAsc,
+                    HomeViewModel.ListFilter.NameDesc,
+                    HomeViewModel.ListFilter.TimeAsc,
+                    HomeViewModel.ListFilter.TimeDesc
+                )
 
                 Row(
                     modifier = Modifier
@@ -146,12 +159,12 @@ private fun ListNotEmptyScreen(
                             selected = selectedFilters == option,
                             onClick = {
                                 selectedFilters = if (selectedFilters == option) {
-                                    null // Deselect if it's already selected
+                                    HomeViewModel.ListFilter.None
                                 } else {
                                     option
                                 }
                             },
-                            label = { Text(text = option) },
+                            label = { Text(text = stringResource(id = option.label)) },
                             leadingIcon = {
                                 if (selectedFilters == option) {
                                     Icon(

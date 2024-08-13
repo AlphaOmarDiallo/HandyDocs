@@ -24,4 +24,20 @@ class ImageDocRepositoryImp(private val appDataBase: AppDataBase) : ImageDocRepo
     override fun selectedImageToNull() {
         return appDataBase.imageDao().selectedImageToNull()
     }
+
+    override fun getAllImageNameAsc(): Flow<List<ImageDoc>> {
+        return appDataBase.imageDao().getAllImageNameAsc()
+    }
+
+    override fun getAllImageNameDesc(): Flow<List<ImageDoc>> {
+        return appDataBase.imageDao().getAllImageNameDesc()
+    }
+
+    override fun getAllImageTimeAsc(): Flow<List<ImageDoc>> {
+        return appDataBase.imageDao().getAllImageTimeAsc()
+    }
+
+    override fun getAllImageTimeDesc(): Flow<List<ImageDoc>> {
+        return appDataBase.imageDao().getAllImageTimeDesc()
+    }
 }
