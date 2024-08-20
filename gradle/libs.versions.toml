@@ -18,7 +18,7 @@ ksp = "1.9.0-1.0.12"
 compose-lifecycle = "2.8.4"
 ml-document = "16.0.0-beta1"
 coil-compose = "2.7.0"
-gson = "2.10.1"
+gson = "2.11.0"
 firebaseCrashlytics = "19.0.3"
 googleGmsGoogleServices = "4.4.2"
 googleFirebaseCrashlytics = "3.0.2"
@@ -60,6 +60,7 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
 zoomimage = { module = "io.github.panpf.zoomimage:zoomimage-compose-coil", version.ref = "zoom" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
