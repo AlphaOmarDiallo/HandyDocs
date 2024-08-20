@@ -102,4 +102,5 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.gson)
     implementation(libs.zoomimage)
+    implementation(libs.splashscreen)
 }
