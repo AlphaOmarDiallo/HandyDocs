@@ -85,7 +85,7 @@ private fun HomeContent(
     updateFavorite: (ImageDoc) -> Unit,
     currentFilterType: ListFilter
 ) {
-    if (list.isEmpty()) {
+    if (list.isEmpty() && currentFilterType == ListFilter.None) {
         ListEmptyScreen()
     } else {
         ListNotEmptyScreen(
