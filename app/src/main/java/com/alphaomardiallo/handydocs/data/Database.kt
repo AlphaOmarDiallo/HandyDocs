@@ -2,6 +2,7 @@ package com.alphaomardiallo.handydocs.data
 
 import android.app.Application
 import android.net.Uri
+import androidx.annotation.Keep
 import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Delete
