@@ -232,14 +232,38 @@ private fun ListNotEmptyScreen(
                                     showDialogViewer = true
                                 }
                         )
-                        Text(
-                            text = doc.displayName
-                                ?: stringResource(id = R.string.home_no_name_picture),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp),
-                            style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center)
-                        )
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = doc.displayName
+                                    ?: stringResource(id = R.string.home_no_name_picture),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
+                                    .weight(1f),
+                                style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center)
+                            )
+                            IconButton(
+                                onClick = {
+                                    selected = doc
+                                    showDialog = true
+                                },
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Edit,
+                                    contentDescription = String.format(
+                                        stringResource(id = R.string.icon_content_description),
+                                        Icons.Default.Edit.name
+                                    ),
+                                    tint = MaterialTheme.colorScheme.secondary
+                                )
+                            }
+                        }
+
                         Text(
                             text = doc.getReadableTime(),
                             modifier = Modifier
@@ -294,21 +318,6 @@ private fun ListNotEmptyScreen(
                                         Icons.Default.Share.name
                                     ),
                                     tint = MaterialTheme.colorScheme.primary
-                                )
-                            }
-                            IconButton(
-                                onClick = {
-                                    selected = doc
-                                    showDialog = true
-                                },
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Edit,
-                                    contentDescription = String.format(
-                                        stringResource(id = R.string.icon_content_description),
-                                        Icons.Default.Edit.name
-                                    ),
-                                    tint = MaterialTheme.colorScheme.secondary
                                 )
                             }
                             IconButton(onClick = { updateFavorite.invoke(doc) }) {
