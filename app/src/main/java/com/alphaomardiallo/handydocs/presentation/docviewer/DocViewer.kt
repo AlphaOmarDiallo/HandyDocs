@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
@@ -29,6 +30,7 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -51,6 +53,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -437,10 +440,22 @@ private fun DocViewerScreenContent(
                             onClick = {
                                 showDialogDelete = false
                             },
+                            modifier = Modifier.wrapContentWidth(),
+                            colors = ButtonDefaults.buttonColors()
+                                .copy(
+                                    containerColor = MaterialTheme.colorScheme.primary,
+                                    contentColor = MaterialTheme.colorScheme.onPrimary
+                                )
                         ) {
-                            Text(text = "Cancel")
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.baseline_clear_24),
+                                    contentDescription = Icons.Default.Close.name
+                                )
+                                Text(text = stringResource(id = R.string.doc_viewer_keep))
+                            }
                         }
-                        IconButton(
+                        Button(
                             onClick = {
                                 if (doc.uriPdf != null) {
                                     if (deleteFiles(doc.uriPdf)) {
@@ -464,21 +479,24 @@ private fun DocViewerScreenContent(
                                     ).show()
                                     showDialogDelete = false
                                 }
-
                             },
-                            colors = IconButtonDefaults.iconButtonColors()
+                            modifier = Modifier.wrapContentWidth(),
+                            colors = ButtonDefaults.buttonColors()
                                 .copy(
                                     containerColor = MaterialTheme.colorScheme.error,
                                     contentColor = MaterialTheme.colorScheme.onError
                                 )
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.Delete,
-                                contentDescription = String.format(
-                                    stringResource(id = R.string.icon_content_description),
-                                    Icons.Default.Delete.name
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = String.format(
+                                        stringResource(id = R.string.icon_content_description),
+                                        Icons.Default.Delete.name
+                                    )
                                 )
-                            )
+                                Text(text = stringResource(id = R.string.doc_viewer_delete))
+                            }
                         }
                     }
                 }
