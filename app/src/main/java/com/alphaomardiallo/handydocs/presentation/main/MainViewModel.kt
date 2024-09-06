@@ -10,6 +10,7 @@ import com.alphaomardiallo.handydocs.domain.repository.ImageDocRepository
 import com.alphaomardiallo.handydocs.presentation.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -41,6 +42,18 @@ class MainViewModel(
         job = viewModelScope.launch(Dispatchers.IO) {
             imageDocRepository.searchImageDoc(hint).collect {
                 state = state.copy(searchList = it)
+            }
+        }
+    }
+
+    fun updateDocumentSelected(imageDoc: ImageDoc) {
+        viewModelScope.launch {
+            imageDocRepository.getAllImages().first().map {
+                if (it.id == imageDoc.id) {
+                    imageDocRepository.upsertImage(imageDoc.copy(isSelected = true))
+                } else {
+                    imageDocRepository.upsertImage(it.copy(isSelected = false))
+                }
             }
         }
     }
