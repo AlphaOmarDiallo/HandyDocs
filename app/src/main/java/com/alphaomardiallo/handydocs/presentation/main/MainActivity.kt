@@ -11,8 +11,9 @@ import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.BasicAlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,7 +46,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
@@ -53,6 +57,7 @@ import androidx.navigation.compose.rememberNavController
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.domain.destination.AppDestination
 import com.alphaomardiallo.handydocs.domain.model.ImageDoc
+import com.alphaomardiallo.handydocs.presentation.docviewer.DocViewerScreen
 import com.alphaomardiallo.handydocs.presentation.home.HomeScreen
 import com.alphaomardiallo.handydocs.presentation.navigation.NavigationEffects
 import com.alphaomardiallo.handydocs.presentation.theme.HandyDocsTheme
@@ -88,7 +93,8 @@ class MainActivity : ComponentActivity() {
                     topBar = {
                         AppBar(
                             searchFunction = viewModel::searchDoc,
-                            searResult = state.searchList
+                            searResult = state.searchList,
+                            updateSelectedDoc = viewModel::updateDocumentSelected
                         )
                     }
                 ) { innerPadding ->
@@ -115,7 +121,8 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     private fun AppBar(
         searchFunction: (String) -> Unit = {},
-        searResult: List<ImageDoc> = emptyList()
+        searResult: List<ImageDoc> = emptyList(),
+        updateSelectedDoc: (ImageDoc) -> Unit = {},
     ) {
         val context = LocalContext.current
         val activity = context as? Activity
@@ -185,6 +192,8 @@ class MainActivity : ComponentActivity() {
 
         var showSearchDialog by remember { mutableStateOf(false) }
 
+        var showDialogViewer by remember { mutableStateOf(false) }
+
         TopAppBar(
             title = { Text(text = stringResource(id = R.string.app_name)) },
             actions = {
@@ -232,9 +241,9 @@ class MainActivity : ComponentActivity() {
 
         if (showSearchDialog) {
             BasicAlertDialog(
-                onDismissRequest = { showSearchDialog = false }, modifier = Modifier
-                    .fillMaxHeight(0.6f)
-                    .fillMaxWidth(0.8f)
+                onDismissRequest = { showSearchDialog = false },
+                modifier = Modifier
+                    .fillMaxWidth()
             ) {
                 var text by remember { mutableStateOf("") }
 
@@ -244,7 +253,7 @@ class MainActivity : ComponentActivity() {
 
                 Card(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .verticalScroll(rememberScrollState())
                         .padding(16.dp)
                 ) {
@@ -273,7 +282,11 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(4.dp)
-                                        .clickable { Timber.e("${it.id}") },
+                                        .clickable {
+                                            Timber.d("Item with id: ${it.id} was clicked")
+                                            updateSelectedDoc.invoke(it)
+                                            showDialogViewer = true
+                                        },
                                     colors = CardDefaults.cardColors().copy(
                                         containerColor = MaterialTheme.colorScheme.secondaryContainer,
                                         contentColor = MaterialTheme.colorScheme.onSecondaryContainer
@@ -291,6 +304,41 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         }
+
+                        Text(
+                            text = stringResource(id = R.string.main_search_unnamed_warning),
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                color = MaterialTheme.colorScheme.error,
+                                textAlign = TextAlign.Center
+                            ),
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        )
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Button(
+                                onClick = { showSearchDialog = false },
+                                modifier = Modifier.padding(8.dp)
+                            ) {
+                                Text(text = stringResource(id = R.string.main_search_close))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (showDialogViewer) {
+            BasicAlertDialog(
+                onDismissRequest = { showDialogViewer = false },
+                modifier = Modifier.fillMaxSize(),
+                properties = DialogProperties(usePlatformDefaultWidth = false)
+            ) {
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    DocViewerScreen {
+                        showDialogViewer = false
                     }
                 }
             }
