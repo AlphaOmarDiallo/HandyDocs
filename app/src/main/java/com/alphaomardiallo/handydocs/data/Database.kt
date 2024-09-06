@@ -64,6 +64,9 @@ interface ImageDao {
 
     @Query("UPDATE table_image_doc SET isSelected = 0 WHERE isSelected = 1")
     fun selectedImageToNull()
+
+    @Query(""" SELECT * FROM table_image_doc WHERE displayName LIKE '%' || :name || '%'""")
+    fun searchImageDoc(name: String): Flow<List<ImageDoc>>
 }
 
 class UriTypeConverter {

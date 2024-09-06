@@ -44,4 +44,8 @@ class ImageDocRepositoryImp(private val appDataBase: AppDataBase) : ImageDocRepo
     override fun getAllFavoriteImage(): Flow<List<ImageDoc>> {
         return appDataBase.imageDao().getFavoriteImageDoc()
     }
+
+    override fun searchImageDoc(name: String): Flow<List<ImageDoc>> {
+        return appDataBase.imageDao().searchImageDoc(name)
+    }
 }

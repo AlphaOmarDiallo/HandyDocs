@@ -24,4 +24,6 @@ interface ImageDocRepository {
     fun getAllFavoriteImage(): Flow<List<ImageDoc>>
 
     fun selectedImageToNull()
+
+    fun searchImageDoc(name: String): Flow<List<ImageDoc>>
 }
