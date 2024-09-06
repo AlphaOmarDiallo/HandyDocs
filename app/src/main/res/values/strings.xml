@@ -33,4 +33,6 @@
     <string name="doc_viewer_delete_title">Delete document</string>
     <string name="doc_viewer_delete_text">Are you sure you want to delete this document?\nOnce deleted, you will have no possibilities to revert that operation</string>
     <string name="doc_viewer_error_deleting_file">Error deleting file</string>
+    <string name="doc_viewer_no_name">No name yet</string>
+
 </resources>
