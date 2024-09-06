@@ -9,24 +9,42 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.BasicAlertDialog
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
@@ -57,6 +75,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             val navController = rememberNavController()
+            val state = viewModel.state
 
             NavigationEffects(
                 navigationChannel = viewModel.navigationChannel,
@@ -66,7 +85,12 @@ class MainActivity : ComponentActivity() {
             HandyDocsTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    topBar = { AppBar() }
+                    topBar = {
+                        AppBar(
+                            searchFunction = viewModel::searchDoc,
+                            searResult = state.searchList
+                        )
+                    }
                 ) { innerPadding ->
 
                     Surface(
@@ -89,7 +113,10 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     @OptIn(ExperimentalMaterial3Api::class)
-    private fun AppBar() {
+    private fun AppBar(
+        searchFunction: (String) -> Unit = {},
+        searResult: List<ImageDoc> = emptyList()
+    ) {
         val context = LocalContext.current
         val activity = context as? Activity
 
@@ -156,9 +183,20 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
+        var showSearchDialog by remember { mutableStateOf(false) }
+
         TopAppBar(
-            title = { Text(text = stringResource(id = R.string.app_name_formated)) },
+            title = { Text(text = stringResource(id = R.string.app_name)) },
             actions = {
+                IconButton(onClick = {
+                    showSearchDialog = true
+                }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.rounded_search_24),
+                        contentDescription = Icons.Default.Search.name
+                    )
+                }
+
                 IconButton(onClick = {
                     activity?.let { nonNullActivity ->
                         scanner.getStartScanIntent(nonNullActivity)
@@ -191,6 +229,72 @@ class MainActivity : ComponentActivity() {
                 actionIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
             )
         )
+
+        if (showSearchDialog) {
+            BasicAlertDialog(
+                onDismissRequest = { showSearchDialog = false }, modifier = Modifier
+                    .fillMaxHeight(0.6f)
+                    .fillMaxWidth(0.8f)
+            ) {
+                var text by remember { mutableStateOf("") }
+
+                LaunchedEffect(text) {
+                    searchFunction.invoke(text)
+                }
+
+                Card(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                        .padding(16.dp)
+                ) {
+                    Column {
+                        OutlinedTextField(
+                            value = text,
+                            onValueChange = { text = it },
+                            maxLines = 1,
+                            placeholder = { Text(text = stringResource(id = R.string.main_search_hint)) },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            trailingIcon = {
+                                IconButton(onClick = { text = "" }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.baseline_clear_24),
+                                        contentDescription = stringResource(id = R.string.main_clear)
+                                    )
+                                }
+                            }
+                        )
+
+                        if (searResult.isNotEmpty()) {
+                            searResult.forEach {
+                                Card(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(4.dp)
+                                        .clickable { Timber.e("${it.id}") },
+                                    colors = CardDefaults.cardColors().copy(
+                                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                                    ),
+                                    border = BorderStroke(
+                                        width = 1.dp,
+                                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                                    )
+                                ) {
+                                    Text(
+                                        text = it.displayName ?: it.name,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        modifier = Modifier.padding(8.dp)
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private companion object {
