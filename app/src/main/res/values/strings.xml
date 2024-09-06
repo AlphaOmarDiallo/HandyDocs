@@ -4,6 +4,11 @@
 
     <string name="home_destination" translatable="false">home_destination</string>
 
+    <plurals name="home_number_items">
+        <item quantity="one">Doc count : 1 item</item>
+        <item quantity="other">Doc count : %d items</item>
+    </plurals>
+
     <string name="icon_content_description">Icon %s</string>
     <string name="toast_error_message">Error: %s"</string>
 
