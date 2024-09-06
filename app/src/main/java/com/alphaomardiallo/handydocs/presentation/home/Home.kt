@@ -38,6 +38,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -171,7 +172,7 @@ private fun ListNotEmptyScreen(
                     )
                     Text(
                         text = numberString,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleSmall,
                         modifier = Modifier.padding(
                             top = paddingDefault,
                             start = paddingDefault,
@@ -260,30 +261,35 @@ private fun ListNotEmptyScreen(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center
                         ) {
-                            Text(
-                                text = doc.displayName
+                            OutlinedTextField(
+                                value = doc.displayName
                                     ?: stringResource(id = R.string.home_no_name_picture),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(8.dp)
-                                    .weight(1f),
-                                style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center)
-                            )
-                            IconButton(
-                                onClick = {
-                                    selected = doc
-                                    showDialog = true
+                                onValueChange = {},
+                                modifier = Modifier.padding(8.dp),
+                                enabled = false,
+                                trailingIcon = {
+                                    IconButton(
+                                        onClick = {
+                                            selected = doc
+                                            showDialog = true
+                                        },
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Edit,
+                                            contentDescription = String.format(
+                                                stringResource(id = R.string.icon_content_description),
+                                                Icons.Default.Edit.name
+                                            ),
+                                            tint = MaterialTheme.colorScheme.secondary,
+                                            modifier = Modifier.height(20.dp)
+                                        )
+                                    }
                                 },
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Edit,
-                                    contentDescription = String.format(
-                                        stringResource(id = R.string.icon_content_description),
-                                        Icons.Default.Edit.name
-                                    ),
-                                    tint = MaterialTheme.colorScheme.secondary
+                                colors = TextFieldDefaults.colors().copy(
+                                    disabledTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                    disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer
                                 )
-                            }
+                            )
                         }
 
                         Text(
