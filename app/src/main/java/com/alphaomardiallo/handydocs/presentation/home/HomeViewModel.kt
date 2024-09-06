@@ -26,6 +26,11 @@ class HomeViewModel(
         getAllImageTest()
     }
 
+    override fun onCleared() {
+        job = null
+        super.onCleared()
+    }
+
     fun updateDocumentName(imageDoc: ImageDoc, newName: String) {
         viewModelScope.launch {
             imageDocRepository.upsertImage(
