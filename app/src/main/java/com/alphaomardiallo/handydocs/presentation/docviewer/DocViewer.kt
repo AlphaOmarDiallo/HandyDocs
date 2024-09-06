@@ -208,7 +208,7 @@ private fun DocViewerScreenContent(
                         it.uriJpeg.forEachIndexed { index, uri ->
                             Column(modifier = Modifier.width(20.dp)) {
                                 Text(
-                                    text = (it.uriJpeg.indexOf(uri) + 1).toString(),
+                                    text = (index + 1).toString(),
                                     style = MaterialTheme.typography.titleMedium,
                                     modifier = Modifier
                                         .clickable {
@@ -219,8 +219,11 @@ private fun DocViewerScreenContent(
                                         .fillMaxWidth(),
                                     textAlign = TextAlign.Center
                                 )
-                                if (pagerState.currentPage == it.uriJpeg.indexOf(uri)) {
-                                    HorizontalDivider(thickness = 2.dp)
+                                if (pagerState.currentPage == index) {
+                                    HorizontalDivider(
+                                        thickness = 2.dp,
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
                                 }
                             }
                         }
