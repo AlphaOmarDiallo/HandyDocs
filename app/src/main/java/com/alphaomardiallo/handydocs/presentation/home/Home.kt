@@ -141,15 +141,6 @@ private fun ListNotEmptyScreen(
             ) {
                 val paddingDefault = 16.dp
 
-                Text(
-                    text = stringResource(id = R.string.home_filter_title),
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(
-                        top = paddingDefault,
-                        start = paddingDefault,
-                        end = paddingDefault
-                    )
-                )
                 val filterOptions = listOf(
                     ListFilter.Favorite,
                     ListFilter.NameAsc,
@@ -157,6 +148,37 @@ private fun ListNotEmptyScreen(
                     ListFilter.TimeAsc,
                     ListFilter.TimeDesc
                 )
+
+                val numberString = context.resources.getQuantityString(
+                    R.plurals.home_number_items,
+                    list.size,
+                    list.size
+                )
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.home_filter_title),
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(
+                            top = paddingDefault,
+                            start = paddingDefault,
+                            end = paddingDefault
+                        )
+                    )
+                    Text(
+                        text = numberString,
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(
+                            top = paddingDefault,
+                            start = paddingDefault,
+                            end = paddingDefault
+                        )
+                    )
+                }
 
                 Row(
                     modifier = Modifier
