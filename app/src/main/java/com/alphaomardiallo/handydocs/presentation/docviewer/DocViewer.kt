@@ -237,15 +237,6 @@ private fun DocViewerScreenContent(
         ) {
             if (doc != null) {
                 Column {
-                    Text(
-                        text = doc.displayName
-                            ?: stringResource(id = R.string.home_no_name_picture),
-                        style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    )
-
                     CoilZoomAsyncImage(
                         model = doc.uriJpeg[pagerState.currentPage],
                         contentDescription = "nothing",
