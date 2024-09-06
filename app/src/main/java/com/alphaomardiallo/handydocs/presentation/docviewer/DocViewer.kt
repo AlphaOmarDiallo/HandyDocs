@@ -96,22 +96,26 @@ private fun DocViewerScreenContent(
     var showDialogShare by remember { mutableStateOf(false) }
     var showDialogEdit by remember { mutableStateOf(false) }
     var showDialogDelete by remember { mutableStateOf(false) }
+    val docViewerTitle =
+        if (doc?.displayName != null) doc.displayName else stringResource(id = R.string.doc_viewer_no_name)
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(text = "DocViewer") },
+                title = { Text(text = docViewerTitle) },
                 navigationIcon = {
                     IconButton(onClick = {
                         selectedToNull.invoke()
                         onClose.invoke()
                     }) {
                         Icon(
-                            imageVector = Icons.Default.Close, contentDescription = String.format(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = String.format(
                                 stringResource(id = R.string.icon_content_description),
                                 Icons.Default.Close.name
-                            )
+                            ),
+                            tint = MaterialTheme.colorScheme.onSecondary
                         )
                     }
                 },
@@ -438,7 +442,7 @@ private fun DocViewerScreenContent(
                         }
                         IconButton(
                             onClick = {
-                                if (doc.uriPdf != null){
+                                if (doc.uriPdf != null) {
                                     if (deleteFiles(doc.uriPdf)) {
                                         doc.uriJpeg.map { deleteFiles(it) }
                                         deleteDoc.invoke(doc)
