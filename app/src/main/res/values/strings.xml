@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name" translatable="false">HandyDocs</string>
-    <string name="app_name_formated" translatable="false">Handy Docs</string>
+
+    <string name="main_clear">Clear</string>
+    <string name="main_search_hint">Type document name</string>
+    <string name="main_search_close">Close</string>
+    <string name="main_search_unnamed_warning">Unnamed documents do not appear in the search results</string>
 
     <string name="home_destination" translatable="false">home_destination</string>
 
