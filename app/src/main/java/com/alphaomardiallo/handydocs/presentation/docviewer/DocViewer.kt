@@ -124,6 +124,17 @@ private fun DocViewerScreenContent(
                 },
                 actions = {
                     IconButton(onClick = {
+                        showDialogEdit = true
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = String.format(
+                                stringResource(id = R.string.icon_content_description),
+                                Icons.Default.Edit.name
+                            ),
+                        )
+                    }
+                    IconButton(onClick = {
                         // Path to the PDF file in internal storage
                         val pdfFile = File(doc?.uriPdf?.path ?: "")
 
@@ -168,17 +179,6 @@ private fun DocViewerScreenContent(
                         )
                     }
                     IconButton(onClick = {
-                        showDialogEdit = true
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Edit,
-                            contentDescription = String.format(
-                                stringResource(id = R.string.icon_content_description),
-                                Icons.Default.Edit.name
-                            ),
-                        )
-                    }
-                    IconButton(onClick = {
                         showDialogDelete = true
                     }) {
                         Icon(
@@ -205,7 +205,7 @@ private fun DocViewerScreenContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     doc?.let {
-                        it.uriJpeg.forEachIndexed { index, uri ->
+                        it.uriJpeg.forEachIndexed { index, _ ->
                             Column(modifier = Modifier.width(20.dp)) {
                                 Text(
                                     text = (index + 1).toString(),
