@@ -3,6 +3,8 @@ package com.alphaomardiallo.handydocs
 import android.app.Application
 import com.alphaomardiallo.handydocs.di.appModule
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.MobileAds.setRequestConfiguration
+import com.google.android.gms.ads.RequestConfiguration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,7 +32,12 @@ class HandyDocsApp : Application() {
 
         val backgroundScope = CoroutineScope(Dispatchers.IO)
         backgroundScope.launch {
-            MobileAds.initialize(this@HandyDocsApp)
+            MobileAds.initialize(this@HandyDocsApp).apply {
+                setRequestConfiguration(
+                    RequestConfiguration.Builder()
+                        .setTestDeviceIds(listOf("94de9264-156b-4b99-9198-5ff1749c1488")).build()
+                )
+            }
         }
     }
 }
