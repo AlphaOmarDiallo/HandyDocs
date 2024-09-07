@@ -103,4 +103,5 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.zoomimage)
     implementation(libs.splashscreen)
+    implementation(libs.admob.sdk)
 }

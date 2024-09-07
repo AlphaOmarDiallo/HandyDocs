@@ -24,7 +24,7 @@ googleGmsGoogleServices = "4.4.2"
 googleFirebaseCrashlytics = "3.0.2"
 zoom = "1.1.0-alpha05"
 splashscreen = "1.0.0-alpha02"
-
+ad_mob = "23.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -62,7 +62,7 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
 zoomimage = { module = "io.github.panpf.zoomimage:zoomimage-compose-coil", version.ref = "zoom" }
 splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
-
+admob-sdk = { module = "com.google.android.gms:play-services-ads", version.ref = "ad_mob"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

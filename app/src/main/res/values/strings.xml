@@ -37,4 +37,7 @@
     <string name="doc_viewer_keep">Keep doc</string>
     <string name="doc_viewer_delete">Delete doc</string>
 
+    <string name="ad_banner_debug">ca-app-pub-3940256099942544/9214589741</string>
+    <string name="ad_banner_release">ca-app-pub-9309432628304004/2451563318</string>
+
 </resources>
