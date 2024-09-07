@@ -61,6 +61,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.domain.model.ImageDoc
+import com.alphaomardiallo.handydocs.presentation.ad.AdmobGenericBanner
 import com.github.panpf.zoomimage.CoilZoomAsyncImage
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -243,8 +244,9 @@ private fun DocViewerScreenContent(
                     CoilZoomAsyncImage(
                         model = doc.uriJpeg[pagerState.currentPage],
                         contentDescription = "nothing",
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize().weight(1f)
                     )
+                    AdmobGenericBanner(modifier = Modifier.padding(4.dp))
                 }
             } else {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

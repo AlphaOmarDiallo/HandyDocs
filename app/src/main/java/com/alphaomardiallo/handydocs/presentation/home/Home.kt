@@ -60,6 +60,7 @@ import androidx.core.content.FileProvider
 import coil.compose.AsyncImage
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.domain.model.ImageDoc
+import com.alphaomardiallo.handydocs.presentation.ad.AdmobGenericBanner
 import com.alphaomardiallo.handydocs.presentation.docviewer.DocViewerScreen
 import org.koin.androidx.compose.koinViewModel
 import java.io.File
@@ -223,6 +224,7 @@ private fun ListNotEmptyScreen(
             verticalItemSpacing = 4.dp,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
+                .weight(1f)
                 .fillMaxSize()
                 .padding(horizontal = 8.dp, vertical = 16.dp)
         ) {
@@ -363,6 +365,8 @@ private fun ListNotEmptyScreen(
                 }
             }
         }
+
+        AdmobGenericBanner(modifier = Modifier.fillMaxWidth().padding(4.dp))
     }
 
     if (showDialog && selected != null) {
