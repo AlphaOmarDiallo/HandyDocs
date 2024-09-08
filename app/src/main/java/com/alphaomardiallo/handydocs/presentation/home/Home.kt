@@ -374,7 +374,7 @@ private fun ListNotEmptyScreen(
             onDismissRequest = { showDialog = false },
             modifier = Modifier
                 .height(200.dp)
-                .width(500.dp),
+                .width(600.dp),
         ) {
             var text by remember { mutableStateOf(selected?.displayName ?: "") }
 

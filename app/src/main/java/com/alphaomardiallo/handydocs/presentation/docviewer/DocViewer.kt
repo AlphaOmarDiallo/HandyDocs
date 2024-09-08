@@ -335,7 +335,7 @@ private fun DocViewerScreenContent(
             onDismissRequest = { showDialogEdit = false },
             modifier = Modifier
                 .height(200.dp)
-                .width(500.dp),
+                .width(600.dp),
         ) {
             var text by remember { mutableStateOf(doc.displayName ?: "") }
 
@@ -408,7 +408,7 @@ private fun DocViewerScreenContent(
             onDismissRequest = { showDialogEdit = false },
             modifier = Modifier
                 .wrapContentHeight()
-                .width(500.dp),
+                .width(600.dp),
         ) {
             Card(modifier = Modifier.fillMaxWidth()) {
                 Column(
