@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_clear">मिटाएं</string>
+    <string name="main_search_hint">दस्तावेज़ का नाम लिखें</string>
+    <string name="main_search_close">बंद करना</string>
+    <string name="icon_content_description">चिह्न %s</string>
+    <string name="toast_error_message">"त्रुटि: %s "</string>
+    <string name="home_empty_list">सूची रिक्त है! स्कैनिंग प्रारंभ करें!</string>
+    <string name="home_no_name_picture">अभी तक कोई नाम नहीं</string>
+    <string name="home_share_pdf">पीडीएफ साझा करें</string>
+    <string name="home_pdf_not_found">पीडीएफ फाइल नहीं मिली</string>
+    <string name="home_dialog_edit_doc_name">दस्तावेज़ का नाम संपादित करें</string>
+    <string name="home_dialog_edit_doc_placeholder">एक नाम चुनो</string>
+    <string name="home_filter_title">फिल्टर के द्वारा</string>
+    <string name="home_filter_option_name">अभी तक कोई नाम नहीं</string>
+    <string name="home_filter_option_date">तारीख</string>
+    <string name="home_filter_option_name_desc">नाम अवरोही क्रम में</string>
+    <string name="home_filter_option_date_desc">तारीख अवरोही क्रम में</string>
+    <string name="home_filter_option_fav">पसंदीदा</string>
+    <string name="home_filter_option_none">कोई नहीं</string>
+    <string name="doc_viewer_delete_title">दस्तावेज़ हटाएं</string>
+    <string name="doc_viewer_delete_text">क्या आप वाकई इस दस्तावेज़ को हटाना चाहते हैं? एक बार हटा दिए जाने के बाद, आपके पास उस ऑपरेशन को वापस करने की कोई संभावना नहीं होगी</string>
+    <string name="doc_viewer_error_deleting_file">फ़ाइल हटाते समय त्रुटि</string>
+    <string name="doc_viewer_no_name">अभी तक कोई नाम नहीं</string>
+    <string name="doc_viewer_keep">दस्तावेज़ रखें</string>
+    <string name="doc_viewer_delete">दस्तावेज़ हटाएं</string>
+    <string name="main_search_unnamed_warning">खोज परिणामों में अनाम दस्तावेज़ दिखाई नहीं देते</string>
+    <plurals name="home_number_items">
+        <item quantity="one" tools:ignore="ImpliedQuantity">दस्तावेज़ संख्या : 1 आइटम</item>
+        <item quantity="other">दस्तावेज़ संख्या : %s आइटम</item>
+    </plurals>
+</resources>
