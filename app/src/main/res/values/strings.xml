@@ -6,7 +6,7 @@
     <string name="ad_banner_debug" translatable="false">ca-app-pub-3940256099942544/9214589741</string>
     <string name="ad_banner_release" translatable="false">ca-app-pub-9309432628304004/2451563318</string>
 
-    <string name="main_clear">Clear</string>
+    <string name="main_clear">Erase</string>
     <string name="main_search_hint">Type document name</string>
     <string name="main_search_close">Close</string>
     <string name="main_search_unnamed_warning">Unnamed documents do not appear in the search results</string>
@@ -26,7 +26,7 @@
     <string name="home_dialog_edit_doc_name">Edit document name</string>
     <string name="home_dialog_edit_doc_placeholder">Choose a name</string>
     <string name="home_filter_title">Filter by</string>
-    <string name="home_filter_option_name">Name</string>
+    <string name="home_filter_option_name">No name yet</string>
     <string name="home_filter_option_date">Date</string>
     <string name="home_filter_option_name_desc">Name desc</string>
     <string name="home_filter_option_date_desc">Date desc</string>
