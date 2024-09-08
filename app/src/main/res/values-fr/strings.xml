@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="main_clear">Effacer</string>
+    <string name="main_search_hint">Tapez le nom du document</string>
+    <string name="main_search_close">Fermer</string>
+    <string name="main_search_unnamed_warning">Les documents sans nom n\'apparaissent pas dans les résultats de recherche</string>
+    <string name="icon_content_description">Icône %s</string>
+    <string name="toast_error_message">Erreur %s</string>
+    <string name="home_empty_list">La liste est vide ! Lancez la numérisation !</string>
+    <string name="home_no_name_picture">Pas encore de nom</string>
+    <string name="home_share_pdf">Partager le PDF</string>
+    <string name="home_pdf_not_found">Fichier PDF non trouvé</string>
+    <string name="home_dialog_edit_doc_name">Modifier le nom du document</string>
+    <string name="home_dialog_edit_doc_placeholder">Choisir un nom</string>
+    <string name="home_filter_title">Filtrer par</string>
+    <string name="home_filter_option_name">Nom</string>
+    <string name="home_filter_option_date">Date</string>
+    <string name="home_filter_option_name_desc">Name déc</string>
+    <string name="home_filter_option_date_desc">Date déc</string>
+    <string name="home_filter_option_fav">Favoris</string>
+    <string name="home_filter_option_none">Aucun</string>
+    <string name="doc_viewer_delete_title">Effacer le document</string>
+    <string name="doc_viewer_delete_text">Etes-vous sûr de vouloir supprimer ce document ? Une fois supprimé, vous n\'aurez plus aucune possibilité de revenir en arrière.</string>
+    <string name="doc_viewer_error_deleting_file">Erreur lors de la suppression du fichier</string>
+    <string name="doc_viewer_no_name">Pas encore de nom</string>
+    <string name="doc_viewer_keep">Garder</string>
+    <string name="doc_viewer_delete">Supprimer</string>
+    <plurals name="home_number_items" tools:ignore="MissingQuantity">
+        <item quantity="one" tools:ignore="ImpliedQuantity">Nombre de doc : 1 item</item>
+        <item quantity="other">Nombre de doc : %d items</item>
+    </plurals>
+</resources>
