@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_clear">ممحاة</string>
+    <string name="main_search_hint">اكتب اسم المستند</string>
+    <string name="main_search_close">يغلق</string>
+    <string name="icon_content_description">الرمز %s</string>
+    <string name="toast_error_message">خطأ: %s</string>
+    <string name="home_empty_list">القائمة فارغة! ابدأ المسح!</string>
+    <string name="home_no_name_picture">لا يوجد اسم حتى الان</string>
+    <string name="home_share_pdf">شارك ملف PDF</string>
+    <string name="home_pdf_not_found">لم يتم العثور على ملف PDF</string>
+    <string name="home_dialog_edit_doc_name">تعديل اسم المستند</string>
+    <string name="home_dialog_edit_doc_placeholder">اختر اسما</string>
+    <string name="home_filter_title">تصفية حسب</string>
+    <string name="home_filter_option_name">لا يوجد اسم حتى الان</string>
+    <string name="home_filter_option_date">تاريخ</string>
+    <string name="home_filter_option_name_desc">الاسم تنازلي</string>
+    <string name="home_filter_option_date_desc">التاريخ تنازلي</string>
+    <string name="home_filter_option_fav">مفضل</string>
+    <string name="home_filter_option_none">لا أحد</string>
+    <string name="doc_viewer_delete_title">حذف المستند</string>
+    <string name="doc_viewer_delete_text">هل أنت متأكد من أنك تريد حذف هذا المستند؟ بمجرد حذفه، لن يكون لديك أي إمكانية لعكس هذه العملية</string>
+    <string name="doc_viewer_error_deleting_file">خطأ في حذف الملف</string>
+    <string name="doc_viewer_no_name">لا يوجد اسم حتى الان</string>
+    <string name="doc_viewer_keep">حفظ الوثيقة</string>
+    <string name="doc_viewer_delete">حذف المستند</string>
+    <string name="main_search_unnamed_warning">لا تظهر المستندات غير المسماة في نتائج البحث</string>
+    <plurals name="home_number_items">
+        <item quantity="zero">عدد المستندات : 1 مستند</item>
+        <item quantity="one">عدد المستندات : 1 مستند</item>
+        <item quantity="two">عدد المستندات : d% مستند</item>
+        <item quantity="many">عدد المستندات : d% مستند</item>
+        <item quantity="few">عدد المستندات : d% مستندات</item>
+    </plurals>
+</resources>
