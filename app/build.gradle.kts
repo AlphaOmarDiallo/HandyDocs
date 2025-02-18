@@ -100,6 +100,7 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.compose.lifecycle)
     implementation(libs.mlkit.document)
+    implementation(libs.bundles.image.to.text)
     implementation(libs.coil.compose)
     implementation(libs.gson)
     implementation(libs.zoomimage)

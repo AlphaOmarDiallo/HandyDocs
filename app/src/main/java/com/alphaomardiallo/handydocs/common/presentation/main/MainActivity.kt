@@ -60,6 +60,7 @@ import androidx.navigation.compose.rememberNavController
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.common.domain.destination.AppDestination
 import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
+import com.alphaomardiallo.handydocs.common.presentation.model.BottomNav
 import com.alphaomardiallo.handydocs.common.presentation.navigation.NavigationEffects
 import com.alphaomardiallo.handydocs.common.presentation.theme.HandyDocsTheme
 import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerScreen
@@ -100,7 +101,8 @@ class MainActivity : ComponentActivity() {
                         AppBar(
                             searchFunction = viewModel::searchDoc,
                             searResult = state.searchList,
-                            updateSelectedDoc = viewModel::updateDocumentSelected
+                            updateSelectedDoc = viewModel::updateDocumentSelected,
+                            currentRoute = currentRoute
                         )
                     },
                     bottomBar = {
@@ -165,10 +167,11 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     @OptIn(ExperimentalMaterial3Api::class)
-    private fun AppBar(
+    fun AppBar(
         searchFunction: (String) -> Unit = {},
         searResult: List<ImageDoc> = emptyList(),
         updateSelectedDoc: (ImageDoc) -> Unit = {},
+        currentRoute: MutableState<AppDestination>
     ) {
         val context = LocalContext.current
         val activity = context as? Activity
@@ -242,39 +245,41 @@ class MainActivity : ComponentActivity() {
         TopAppBar(
             title = { Text(text = stringResource(id = R.string.app_name)) },
             actions = {
-                IconButton(onClick = {
-                    showSearchDialog = true
-                }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.rounded_search_24),
-                        contentDescription = Icons.Default.Search.name
-                    )
-                }
-
-                IconButton(onClick = {
-                    activity?.let { nonNullActivity ->
-                        scanner.getStartScanIntent(nonNullActivity)
-                            .addOnSuccessListener {
-                                scannerLauncher.launch(
-                                    IntentSenderRequest.Builder(it).build()
-                                )
-                            }
-                            .addOnFailureListener {
-                                Toast.makeText(
-                                    context,
-                                    String.format(
-                                        getString(R.string.toast_error_message),
-                                        it.localizedMessage
-                                    ),
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
+                if (currentRoute.value == AppDestination.PDFSAFE) {
+                    IconButton(onClick = {
+                        showSearchDialog = true
+                    }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.rounded_search_24),
+                            contentDescription = Icons.Default.Search.name
+                        )
                     }
-                }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.baseline_document_scanner_24),
-                        contentDescription = Icons.Default.Add.name
-                    )
+
+                    IconButton(onClick = {
+                        activity?.let { nonNullActivity ->
+                            scanner.getStartScanIntent(nonNullActivity)
+                                .addOnSuccessListener {
+                                    scannerLauncher.launch(
+                                        IntentSenderRequest.Builder(it).build()
+                                    )
+                                }
+                                .addOnFailureListener {
+                                    Toast.makeText(
+                                        context,
+                                        String.format(
+                                            getString(R.string.toast_error_message),
+                                            it.localizedMessage
+                                        ),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                        }
+                    }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.baseline_document_scanner_24),
+                            contentDescription = Icons.Default.Add.name
+                        )
+                    }
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors().copy(
@@ -399,10 +404,3 @@ private fun NavGraphBuilder.appDestination(): NavGraphBuilder = this.apply {
         OcrScreen()
     }
 }
-
-data class BottomNav(
-    val route: String,
-    val cd: Int,
-    val label: Int,
-    val icon: Int
-)
