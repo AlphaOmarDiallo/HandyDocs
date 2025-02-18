@@ -21,12 +21,11 @@ val bodyFontFamily = FontFamily(
 
 val displayFontFamily = FontFamily(
     Font(
-        googleFont = GoogleFont("Acme"),
+        googleFont = GoogleFont("Montserrat"),
         fontProvider = provider,
     )
 )
 
-// Default Material 3 typography values
 val baseline = Typography()
 
 val AppTypography = Typography(
