@@ -40,6 +40,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -59,11 +60,11 @@ import androidx.navigation.compose.rememberNavController
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.common.domain.destination.AppDestination
 import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
-import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerScreen
-import com.alphaomardiallo.handydocs.feature.pdfsafe.HomeScreen
 import com.alphaomardiallo.handydocs.common.presentation.navigation.NavigationEffects
-import com.alphaomardiallo.handydocs.feature.ocr.OcrScreen
 import com.alphaomardiallo.handydocs.common.presentation.theme.HandyDocsTheme
+import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerScreen
+import com.alphaomardiallo.handydocs.feature.ocr.OcrScreen
+import com.alphaomardiallo.handydocs.feature.pdfsafe.HomeScreen
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_JPEG
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_PDF
@@ -83,7 +84,8 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             val navController = rememberNavController()
-            val currentRoute = remember { mutableStateOf(AppDestination.PDFSAFE) }
+            val currentRoute: MutableState<AppDestination> =
+                remember { mutableStateOf(AppDestination.PDFSAFE) }
             val state = viewModel.state
 
             NavigationEffects(
@@ -107,18 +109,19 @@ class MainActivity : ComponentActivity() {
                                 BottomNav(
                                     route = AppDestination.PDFSAFE.route,
                                     cd = R.string.pdf_safe_destination,
-                                    label = R.string.pdf_safe_destination,
+                                    label = R.string.pdf_safe_label,
                                     icon = R.drawable.ic_safe
                                 ),
                                 BottomNav(
                                     route = AppDestination.OCR.route,
-                                    cd = R.string.pdf_safe_destination,
-                                    label = R.string.pdf_safe_destination,
+                                    cd = R.string.ocr_destination,
+                                    label = R.string.ocr_label,
                                     icon = R.drawable.baseline_document_scanner_24
                                 )
                             ).forEach { navItem ->
                                 NavigationBarItem(
                                     selected = currentRoute.value.route == navItem.route,
+                                    label = { Text(stringResource(id = navItem.label)) },
                                     alwaysShowLabel = true,
                                     icon = {
                                         Icon(
@@ -127,7 +130,12 @@ class MainActivity : ComponentActivity() {
                                         )
                                     },
                                     onClick = {
-                                        if (currentRoute.value.route != navItem.route){
+                                        if (currentRoute.value.route != navItem.route) {
+                                            currentRoute.value = when (navItem.route) {
+                                                AppDestination.PDFSAFE.route -> AppDestination.PDFSAFE
+                                                AppDestination.OCR.route -> AppDestination.OCR
+                                                else -> AppDestination.PDFSAFE
+                                            }
                                             navController.navigate(navItem.route)
                                         }
                                     },

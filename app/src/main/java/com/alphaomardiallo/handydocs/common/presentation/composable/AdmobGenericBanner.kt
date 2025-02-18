@@ -1,4 +1,4 @@
-package com.alphaomardiallo.handydocs.common.presentation.ad
+package com.alphaomardiallo.handydocs.common.presentation.composable
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
