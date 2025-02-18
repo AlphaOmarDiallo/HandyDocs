@@ -5,19 +5,19 @@
     <string name="main_search_close">关闭</string>
     <string name="icon_content_description">图标 %s</string>
     <string name="toast_error_message">错误：%s</string>
-    <string name="home_empty_list">列表为空！开始扫描！</string>
-    <string name="home_no_name_picture">尚未命名</string>
-    <string name="home_share_pdf">共享 PDF</string>
-    <string name="home_pdf_not_found">未找到 PDF 文件</string>
-    <string name="home_dialog_edit_doc_name">编辑文档名称</string>
-    <string name="home_dialog_edit_doc_placeholder">选择一个名字</string>
-    <string name="home_filter_title">筛选条件</string>
-    <string name="home_filter_option_name">尚未命名</string>
-    <string name="home_filter_option_date">日期</string>
-    <string name="home_filter_option_name_desc">姓名降序</string>
-    <string name="home_filter_option_date_desc">日期降序</string>
-    <string name="home_filter_option_fav">最喜欢的</string>
-    <string name="home_filter_option_none">没有任何</string>
+    <string name="pdf_safe_empty_list">列表为空！开始扫描！</string>
+    <string name="pdf_safe_no_name_picture">尚未命名</string>
+    <string name="pdf_safe_share_pdf">共享 PDF</string>
+    <string name="pdf_safe_pdf_not_found">未找到 PDF 文件</string>
+    <string name="pdf_safe_dialog_edit_doc_name">编辑文档名称</string>
+    <string name="pdf_safe_dialog_edit_doc_placeholder">选择一个名字</string>
+    <string name="pdf_safe_filter_title">筛选条件</string>
+    <string name="pdf_safe_filter_option_name">尚未命名</string>
+    <string name="pdf_safe_filter_option_date">日期</string>
+    <string name="pdf_safe_filter_option_name_desc">姓名降序</string>
+    <string name="pdf_safe_filter_option_date_desc">日期降序</string>
+    <string name="pdf_safe_filter_option_fav">最喜欢的</string>
+    <string name="pdf_safe_filter_option_none">没有任何</string>
     <string name="doc_viewer_delete_title">删除文档</string>
     <string name="doc_viewer_delete_text">您确定要删除此文档吗？一旦删除，您将无法恢复该操作</string>
     <string name="doc_viewer_error_deleting_file">删除文件时出错</string>
@@ -25,7 +25,7 @@
     <string name="doc_viewer_keep">保留文件</string>
     <string name="doc_viewer_delete">删除文档</string>
     <string name="main_search_unnamed_warning">未命名的文档不会出现在搜索结果中</string>
-    <plurals name="home_number_items" tools:ignore="UnusedQuantity">
+    <plurals name="pdf_safe_number_items" tools:ignore="UnusedQuantity">
         <item quantity="one">文档数 : 1 物品</item>
         <item quantity="other" tools:ignore="UnusedQuantity">文档数 : %d 项目</item>
     </plurals>

@@ -16,7 +16,7 @@
 # debugging stack traces.
 -keepattributes Signature
 -keep class com.google.gson.** { *; }
--keep class com.alphaomardiallo.handydocs.data.UriListTypeConverter { *; }
+-keep class com.alphaomardiallo.handydocs.common.data.UriListTypeConverter { *; }
 
 # This is also needed for R8 in compat mode since multiple
 # optimizations will remove the generic signature such as class
