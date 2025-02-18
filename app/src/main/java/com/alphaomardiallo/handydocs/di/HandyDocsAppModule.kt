@@ -10,18 +10,19 @@ import com.alphaomardiallo.handydocs.common.presentation.main.MainViewModel
 import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerViewModel
 import com.alphaomardiallo.handydocs.feature.pdfsafe.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
 val appModule = module {
     // Main
     single<AppNavigator> { AppNavigatorImp() }
-    viewModel { MainViewModel(appNavigator = get(), imageDocRepository = get()) }
+    viewModelOf(::MainViewModel)
 
     // Home
-    viewModel { HomeViewModel(appNavigator = get(), imageDocRepository = get()) }
+    viewModelOf(::HomeViewModel)
 
     // Doc viewer
-    viewModel { DocViewerViewModel(appNavigator = get(), imageDocRepository = get()) }
+    viewModelOf(::DocViewerViewModel)
 
     // Database
     single { provideDataBase(application = get()) }
