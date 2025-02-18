@@ -61,7 +61,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
-import com.alphaomardiallo.handydocs.common.presentation.ad.AdmobGenericBanner
+import com.alphaomardiallo.handydocs.common.presentation.composable.AdmobGenericBanner
 import com.github.panpf.zoomimage.CoilZoomAsyncImage
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel

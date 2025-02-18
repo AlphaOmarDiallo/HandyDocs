@@ -60,7 +60,7 @@ import androidx.core.content.FileProvider
 import coil.compose.AsyncImage
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
-import com.alphaomardiallo.handydocs.common.presentation.ad.AdmobGenericBanner
+import com.alphaomardiallo.handydocs.common.presentation.composable.AdmobGenericBanner
 import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerScreen
 import org.koin.androidx.compose.koinViewModel
 import java.io.File
