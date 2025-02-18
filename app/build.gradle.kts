@@ -4,16 +4,17 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.google.firebase.crashlytics)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "com.alphaomardiallo.handydocs"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.alphaomardiallo.handydocs"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 6
         versionName = "1.3.0"
 
