@@ -2,6 +2,8 @@ package com.alphaomardiallo.handydocs.feature.ocr.data
 
 import android.content.Context
 import android.net.Uri
+import androidx.annotation.OptIn
+import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
 import com.alphaomardiallo.handydocs.feature.ocr.domain.OcrRepository
 import com.alphaomardiallo.handydocs.feature.ocr.domain.TextRecognitionType
@@ -22,7 +24,10 @@ class OcrRepositoryImpl : OcrRepository {
 
     override suspend fun getRecognizer(textRecognitionType: TextRecognitionType): TextRecognizer {
         return when (textRecognitionType) {
-            TextRecognitionType.LATIN -> TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+            TextRecognitionType.LATIN -> TextRecognition.getClient(
+                TextRecognizerOptions.DEFAULT_OPTIONS
+            )
+
             TextRecognitionType.CHINESE -> TextRecognition.getClient(
                 ChineseTextRecognizerOptions.Builder().build()
             )
@@ -41,6 +46,7 @@ class OcrRepositoryImpl : OcrRepository {
         }
     }
 
+    @OptIn(androidx.camera.core.ExperimentalGetImage::class)
     override suspend fun analyseImageFromMedia(imageProxy: ImageProxy): String {
         var textAn = ""
         val mediaImage = imageProxy.image
