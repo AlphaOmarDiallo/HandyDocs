@@ -64,7 +64,7 @@ import com.alphaomardiallo.handydocs.common.presentation.model.BottomNav
 import com.alphaomardiallo.handydocs.common.presentation.navigation.NavigationEffects
 import com.alphaomardiallo.handydocs.common.presentation.theme.HandyDocsTheme
 import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerScreen
-import com.alphaomardiallo.handydocs.feature.ocr.OcrScreen
+import com.alphaomardiallo.handydocs.feature.ocr.presentation.OcrScreen
 import com.alphaomardiallo.handydocs.feature.pdfsafe.HomeScreen
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_JPEG
