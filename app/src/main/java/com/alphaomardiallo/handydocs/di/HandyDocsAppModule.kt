@@ -8,6 +8,9 @@ import com.alphaomardiallo.handydocs.common.domain.navigator.AppNavigatorImp
 import com.alphaomardiallo.handydocs.common.domain.repository.ImageDocRepository
 import com.alphaomardiallo.handydocs.common.presentation.main.MainViewModel
 import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerViewModel
+import com.alphaomardiallo.handydocs.feature.ocr.data.OcrRepositoryImpl
+import com.alphaomardiallo.handydocs.feature.ocr.domain.OcrRepository
+import com.alphaomardiallo.handydocs.feature.ocr.presentation.OcrViewModel
 import com.alphaomardiallo.handydocs.feature.pdfsafe.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -24,10 +27,13 @@ val appModule = module {
     // Doc viewer
     viewModelOf(::DocViewerViewModel)
 
+    viewModel{ OcrViewModel(get(), get()) }
+
     // Database
     single { provideDataBase(application = get()) }
     single { provideImageDao(appDataBase = get()) }
 
     // ImageDoc repository
     single<ImageDocRepository> { ImageDocRepositoryImp(appDataBase = get()) }
+    single<OcrRepository> { OcrRepositoryImpl() }
 }
