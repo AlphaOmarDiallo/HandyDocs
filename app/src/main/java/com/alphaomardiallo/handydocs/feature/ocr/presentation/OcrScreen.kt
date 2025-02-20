@@ -3,10 +3,10 @@ package com.alphaomardiallo.handydocs.feature.ocr.presentation
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.RectF
+import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
 import android.net.Uri
 import android.widget.Toast
@@ -263,24 +263,77 @@ private fun OcrScreenContent(
     }
 }
 
-fun saveTextAsPdf(context: Context, activity: Activity?, text: String, saveImage: (ImageDoc) -> Unit = { }) {
+fun saveTextAsPdf(
+    context: Context,
+    activity: Activity?,
+    text: String,
+    saveImage: (ImageDoc) -> Unit = { }
+) {
     val pdfDocument = PdfDocument()
+    val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // A4 size in points
 
-    val bitmap = Bitmap.createBitmap(600, 800, Bitmap.Config.ARGB_8888)
-    val canvas = Canvas(bitmap)
-    val paint = Paint().apply {
+    // Create paint objects for different text styles
+    val textPaint = Paint().apply {
         color = Color.BLACK
-        textSize = 40f
+        textSize = 12f
+        typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+        isAntiAlias = true
     }
-    canvas.drawColor(Color.WHITE)
-    canvas.drawText(text, 50f, 100f, paint)
 
-    val pageInfo = PdfDocument.PageInfo.Builder(bitmap.width, bitmap.height, 1).create()
-    val page = pdfDocument.startPage(pageInfo)
-    val pdfCanvas = page.canvas
+    // Page margins and dimensions
+    val margins = RectF(40f, 40f, pageInfo.pageWidth - 40f, pageInfo.pageHeight - 40f)
+    val lineSpacing = textPaint.fontSpacing * 1.5f
 
-    pdfCanvas.drawBitmap(bitmap, 0f, 0f, null)
-    pdfDocument.finishPage(page)
+    var currentPage = pdfDocument.startPage(pageInfo)
+    var canvas = currentPage.canvas
+    var y = margins.top
+
+    // Split text into paragraphs
+    val paragraphs = text.split("\n")
+
+    for (paragraph in paragraphs) {
+        // Check if we need a new page
+        if (y + lineSpacing > margins.bottom) {
+            pdfDocument.finishPage(currentPage)
+            currentPage = pdfDocument.startPage(pageInfo)
+            canvas = currentPage.canvas
+            y = margins.top
+        }
+
+        val words = paragraph.split(" ")
+        var currentLine = StringBuilder()
+
+        for (word in words) {
+            val testLine = if (currentLine.isEmpty()) word else "${currentLine} $word"
+            val measureWidth = textPaint.measureText(testLine)
+
+            if (measureWidth <= margins.width()) {
+                currentLine.append(if (currentLine.isEmpty()) word else " $word")
+            } else {
+                // Draw current line and start new line with current word
+                canvas.drawText(currentLine.toString(), margins.left, y, textPaint)
+                y += lineSpacing
+
+                // Check if we need a new page
+                if (y + lineSpacing > margins.bottom) {
+                    pdfDocument.finishPage(currentPage)
+                    currentPage = pdfDocument.startPage(pageInfo)
+                    canvas = currentPage.canvas
+                    y = margins.top
+                }
+
+                currentLine = StringBuilder(word)
+            }
+        }
+
+        // Draw remaining text in the current line
+        if (currentLine.isNotEmpty()) {
+            canvas.drawText(currentLine.toString(), margins.left, y, textPaint)
+            y += lineSpacing * 1.5f // Add extra space after paragraph
+        }
+    }
+
+    pdfDocument.finishPage(currentPage)
 
     try {
         activity?.let {
@@ -296,20 +349,13 @@ fun saveTextAsPdf(context: Context, activity: Activity?, text: String, saveImage
                     time = System.currentTimeMillis()
                 )
             )
-            Toast.makeText(
-                context,
-                getString(context, R.string.ocr_toast_success_save),
-                Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(context, "PDF saved successfully!", Toast.LENGTH_LONG).show()
         }
     } catch (e: Exception) {
         e.printStackTrace()
-        Toast.makeText(
-            context,
-            getString(context, R.string.ocr_toast_error_save),
-            Toast.LENGTH_SHORT
-        ).show()
+        Toast.makeText(context, "Error saving PDF", Toast.LENGTH_SHORT).show()
     }
 
     pdfDocument.close()
 }
+

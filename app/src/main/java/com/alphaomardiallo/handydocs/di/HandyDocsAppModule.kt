@@ -12,7 +12,6 @@ import com.alphaomardiallo.handydocs.feature.ocr.data.OcrRepositoryImpl
 import com.alphaomardiallo.handydocs.feature.ocr.domain.OcrRepository
 import com.alphaomardiallo.handydocs.feature.ocr.presentation.OcrViewModel
 import com.alphaomardiallo.handydocs.feature.pdfsafe.HomeViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 

@@ -28,7 +28,7 @@ class OcrViewModel(
         }
     }
 
-    fun saveImageDoc(imageDoc: ImageDoc){
+    fun saveImageDoc(imageDoc: ImageDoc) {
         viewModelScope.launch {
             imageDocRepository.upsertImage(imageDoc)
         }
