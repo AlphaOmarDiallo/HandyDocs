@@ -5,6 +5,7 @@ import com.alphaomardiallo.handydocs.di.appModule
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.MobileAds.setRequestConfiguration
 import com.google.android.gms.ads.RequestConfiguration
+import com.google.mlkit.common.sdkinternal.MlKitContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,5 +40,7 @@ class HandyDocsApp : Application() {
                 )
             }
         }
+
+        MlKitContext.initializeIfNeeded(this)
     }
 }

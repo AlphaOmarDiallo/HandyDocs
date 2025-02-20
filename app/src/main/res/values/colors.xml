@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="md_theme_primary">#B00013</color>
+    <color name="md_theme_primary">#006874</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_primaryContainer">#DC111F</color>
     <color name="md_theme_onPrimaryContainer">#FFEFED</color>

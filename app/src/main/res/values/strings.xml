@@ -5,7 +5,7 @@
     <string name="pdf_safe_label">PDF safe</string>
     <string name="pdf_safe_cd">Icon representing a safe</string>
     <string name="ocr_destination" translatable="false">ocr_destination</string>
-    <string name="ocr_label">OCR</string>
+    <string name="ocr_label">Image to text</string>
     <string name="ocr_cd">Icon representing a scanner</string>
 
     <string name="ad_banner_debug" translatable="false">ca-app-pub-3940256099942544/9214589741</string>
@@ -45,4 +45,8 @@
     <string name="doc_viewer_keep">Keep doc</string>
     <string name="doc_viewer_delete">Delete doc</string>
 
+    <string name="ocr_camera_button_label">From Camera</string>
+    <string name="ocr_camera_button_cd">Camera icon</string>
+    <string name="ocr_folder_button_label">From files</string>
+    <string name="ocr_folder_button_cd">Folder icon</string>
 </resources>
