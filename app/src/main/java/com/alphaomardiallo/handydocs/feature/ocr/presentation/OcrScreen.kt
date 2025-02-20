@@ -50,6 +50,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getString
 import com.alphaomardiallo.handydocs.R
+import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
 import com.alphaomardiallo.handydocs.feature.ocr.presentation.model.OcrAction
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_JPEG
@@ -61,13 +62,14 @@ import java.io.File
 @Composable
 fun OcrScreen(viewModel: OcrViewModel = koinViewModel()) {
     val uiState = viewModel.state
-    val context = LocalContext.current.applicationContext
+    val context = LocalContext.current
     val activity = context as? Activity
     OcrScreenContent(
         context = context,
         activity = activity,
         state = uiState,
-        analyzeImage = viewModel::analyse
+        analyzeImage = viewModel::analyse,
+        saveImage = viewModel::saveImageDoc
     )
 }
 
@@ -77,7 +79,8 @@ private fun OcrScreenContent(
     context: Context? = null,
     activity: Activity? = null,
     state: OcrUiState = OcrUiState(),
-    analyzeImage: (Uri, Context) -> Unit = { _, _ -> }
+    analyzeImage: (Uri, Context) -> Unit = { _, _ -> },
+    saveImage: (ImageDoc) -> Unit = {}
 ) {
     var selectedFileUri by remember { mutableStateOf<Uri?>(null) }
     var textFieldValue by remember(state.text) {
@@ -216,7 +219,7 @@ private fun OcrScreenContent(
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.rounded_content_copy_24),
-                        contentDescription = ""
+                        contentDescription = stringResource(id = R.string.ocr_copy_cd)
                     )
                 }
                 IconButton(
@@ -225,7 +228,8 @@ private fun OcrScreenContent(
                             saveTextAsPdf(
                                 context,
                                 activity,
-                                textFieldValue.text
+                                textFieldValue.text,
+                                saveImage
                             )
                         }
                     },
@@ -237,7 +241,7 @@ private fun OcrScreenContent(
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.rounded_save_24),
-                        contentDescription = ""
+                        contentDescription = stringResource(id = R.string.ocr_copy_cd)
                     )
                     context?.let { nonNullContext ->
                         Toast.makeText(
@@ -259,7 +263,7 @@ private fun OcrScreenContent(
     }
 }
 
-fun saveTextAsPdf(context: Context, activity: Activity?, text: String) {
+fun saveTextAsPdf(context: Context, activity: Activity?, text: String, saveImage: (ImageDoc) -> Unit = { }) {
     val pdfDocument = PdfDocument()
 
     val bitmap = Bitmap.createBitmap(600, 800, Bitmap.Config.ARGB_8888)
@@ -268,8 +272,8 @@ fun saveTextAsPdf(context: Context, activity: Activity?, text: String) {
         color = Color.BLACK
         textSize = 40f
     }
-    canvas.drawColor(Color.WHITE)  // Background color
-    canvas.drawText(text, 50f, 100f, paint)  // Draw text on the image
+    canvas.drawColor(Color.WHITE)
+    canvas.drawText(text, 50f, 100f, paint)
 
     val pageInfo = PdfDocument.PageInfo.Builder(bitmap.width, bitmap.height, 1).create()
     val page = pdfDocument.startPage(pageInfo)
@@ -285,12 +289,26 @@ fun saveTextAsPdf(context: Context, activity: Activity?, text: String) {
             pdfFile.outputStream().use { outputStream ->
                 pdfDocument.writeTo(outputStream)
             }
-            Toast.makeText(context, "PDF saved to ${pdfFile.absolutePath}", Toast.LENGTH_LONG)
-                .show()
+            saveImage.invoke(
+                ImageDoc(
+                    name = fileName,
+                    uriPdf = Uri.fromFile(pdfFile),
+                    time = System.currentTimeMillis()
+                )
+            )
+            Toast.makeText(
+                context,
+                getString(context, R.string.ocr_toast_success_save),
+                Toast.LENGTH_LONG
+            ).show()
         }
     } catch (e: Exception) {
         e.printStackTrace()
-        Toast.makeText(context, "Error saving PDF", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            context,
+            getString(context, R.string.ocr_toast_error_save),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     pdfDocument.close()

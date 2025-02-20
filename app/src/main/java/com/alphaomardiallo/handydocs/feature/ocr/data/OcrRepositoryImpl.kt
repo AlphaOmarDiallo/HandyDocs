@@ -72,7 +72,6 @@ class OcrRepositoryImpl : OcrRepository {
             suspendCoroutine { continuation ->
                 recognizer.process(image)
                     .addOnSuccessListener { text ->
-                        Timber.e("SUCCESS ${text.text}")
                         continuation.resume(text.text)
                     }
                     .addOnFailureListener { e ->
