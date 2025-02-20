@@ -49,6 +49,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
@@ -86,7 +87,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val currentRoute: MutableState<AppDestination> =
-                remember { mutableStateOf(AppDestination.PDFSAFE) }
+                remember { mutableStateOf(AppDestination.OCR) }
             val state = viewModel.state
 
             NavigationEffects(
@@ -109,16 +110,16 @@ class MainActivity : ComponentActivity() {
                         NavigationBar {
                             listOf(
                                 BottomNav(
-                                    route = AppDestination.PDFSAFE.route,
-                                    cd = R.string.pdf_safe_destination,
-                                    label = R.string.pdf_safe_label,
-                                    icon = R.drawable.ic_safe
-                                ),
-                                BottomNav(
                                     route = AppDestination.OCR.route,
                                     cd = R.string.ocr_destination,
                                     label = R.string.ocr_label,
                                     icon = R.drawable.baseline_document_scanner_24
+                                ),
+                                BottomNav(
+                                    route = AppDestination.PDFSAFE.route,
+                                    cd = R.string.pdf_safe_destination,
+                                    label = R.string.pdf_safe_label,
+                                    icon = R.drawable.ic_safe
                                 )
                             ).forEach { navItem ->
                                 NavigationBarItem(
@@ -155,7 +156,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(
                             navController = navController,
-                            startDestination = AppDestination.PDFSAFE.route
+                            startDestination = AppDestination.OCR.route
                         ) {
                             appDestination()
                         }
@@ -243,7 +244,13 @@ class MainActivity : ComponentActivity() {
         var showDialogViewer by remember { mutableStateOf(false) }
 
         TopAppBar(
-            title = { Text(text = stringResource(id = R.string.app_name)) },
+            title = {
+                val title = when (currentRoute.value) {
+                    AppDestination.PDFSAFE -> R.string.pdf_safe_label
+                    AppDestination.OCR -> R.string.ocr_label
+                }
+                Text(text = stringResource(id = title))
+            },
             actions = {
                 if (currentRoute.value == AppDestination.PDFSAFE) {
                     IconButton(onClick = {
