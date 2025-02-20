@@ -27,7 +27,7 @@ val appModule = module {
     // Doc viewer
     viewModelOf(::DocViewerViewModel)
 
-    viewModel{ OcrViewModel(get(), get()) }
+    viewModelOf(::OcrViewModel)
 
     // Database
     single { provideDataBase(application = get()) }
