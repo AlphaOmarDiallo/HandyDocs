@@ -63,12 +63,13 @@ import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
 import com.alphaomardiallo.handydocs.common.presentation.composable.AdmobGenericBanner
 import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerScreen
 import org.koin.androidx.compose.koinViewModel
+import timber.log.Timber
 import java.io.File
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
+fun PdfSafeScreen(viewModel: HomeViewModel = koinViewModel()) {
     val uiState = viewModel.state
-    HomeContent(
+    PdfSafeContent(
         list = uiState.allImageDoc,
         updateDoc = viewModel::updateDocumentName,
         updateSelectedDoc = viewModel::updateDocumentSelected,
@@ -79,7 +80,7 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
 }
 
 @Composable
-private fun HomeContent(
+private fun PdfSafeContent(
     list: List<ImageDoc> = emptyList(),
     updateDoc: (ImageDoc, String) -> Unit,
     updateSelectedDoc: (ImageDoc) -> Unit,
@@ -236,8 +237,8 @@ private fun ListNotEmptyScreen(
                     shape = RectangleShape,
                     colors = CardDefaults.cardColors()
                         .copy(
-                            containerColor = Color.White,
-                            contentColor = MaterialTheme.colorScheme.onBackground
+                            containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                            contentColor = MaterialTheme.colorScheme.onSurface
                         )
                 ) {
                     Column(
@@ -253,8 +254,43 @@ private fun ListNotEmptyScreen(
                                 .wrapContentHeight()
                                 .padding(16.dp)
                                 .clickable {
-                                    updateSelectedDoc.invoke(doc)
-                                    showDialogViewer = true
+                                    if (doc.uriJpeg.isNotEmpty()) {
+                                        updateSelectedDoc.invoke(doc)
+                                        showDialogViewer = true
+                                    } else {
+                                        try {
+                                            // Clean up the file path by removing "file://"
+                                            val filePath = doc.uriPdf
+                                                .toString()
+                                                .replace("file://", "")
+                                            val pdfFile = File(filePath)
+
+                                            val contentUri = FileProvider.getUriForFile(
+                                                context,
+                                                "com.alphaomardiallo.handydocs.fileprovider",
+                                                pdfFile
+                                            )
+
+                                            val intent = Intent(Intent.ACTION_VIEW).apply {
+                                                setDataAndType(contentUri, "application/pdf")
+                                                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                            }
+                                            context.startActivity(
+                                                Intent.createChooser(
+                                                    intent,
+                                                    context.getString(R.string.ocr_open_pdf_with)
+                                                )
+                                            )
+                                        } catch (e: Exception) {
+                                            Timber.e("Error opening PDF: ${e.message}")
+                                            Toast
+                                                .makeText(
+                                                    context,
+                                                    context.getString(R.string.ocr_open_pdf_error),
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                        }
+                                    }
                                 }
                         )
 
@@ -299,6 +335,7 @@ private fun ListNotEmptyScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(4.dp),
+                            color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.bodySmall.copy(textAlign = TextAlign.Center)
                         )
                         Row(
@@ -366,9 +403,11 @@ private fun ListNotEmptyScreen(
             }
         }
 
-        AdmobGenericBanner(modifier = Modifier
-            .fillMaxWidth()
-            .padding(4.dp))
+        AdmobGenericBanner(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(4.dp)
+        )
     }
 
     if (showDialog && selected != null) {

@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -49,7 +50,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
@@ -58,6 +58,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import coil3.compose.AsyncImage
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.common.domain.destination.AppDestination
 import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
@@ -66,7 +67,7 @@ import com.alphaomardiallo.handydocs.common.presentation.navigation.NavigationEf
 import com.alphaomardiallo.handydocs.common.presentation.theme.HandyDocsTheme
 import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerScreen
 import com.alphaomardiallo.handydocs.feature.ocr.presentation.OcrScreen
-import com.alphaomardiallo.handydocs.feature.pdfsafe.HomeScreen
+import com.alphaomardiallo.handydocs.feature.pdfsafe.PdfSafeScreen
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_JPEG
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_PDF
@@ -87,7 +88,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val currentRoute: MutableState<AppDestination> =
-                remember { mutableStateOf(AppDestination.OCR) }
+                remember { mutableStateOf(AppDestination.PDFSAFE) }
             val state = viewModel.state
 
             NavigationEffects(
@@ -110,16 +111,16 @@ class MainActivity : ComponentActivity() {
                         NavigationBar {
                             listOf(
                                 BottomNav(
-                                    route = AppDestination.OCR.route,
-                                    cd = R.string.ocr_destination,
-                                    label = R.string.ocr_label,
-                                    icon = R.drawable.baseline_document_scanner_24
-                                ),
-                                BottomNav(
                                     route = AppDestination.PDFSAFE.route,
                                     cd = R.string.pdf_safe_destination,
                                     label = R.string.pdf_safe_label,
                                     icon = R.drawable.ic_safe
+                                ),
+                                BottomNav(
+                                    route = AppDestination.OCR.route,
+                                    cd = R.string.ocr_destination,
+                                    label = R.string.ocr_label,
+                                    icon = R.drawable.baseline_document_scanner_24
                                 )
                             ).forEach { navItem ->
                                 NavigationBarItem(
@@ -156,7 +157,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(
                             navController = navController,
-                            startDestination = AppDestination.OCR.route
+                            startDestination = AppDestination.PDFSAFE.route
                         ) {
                             appDestination()
                         }
@@ -250,6 +251,13 @@ class MainActivity : ComponentActivity() {
                     AppDestination.OCR -> R.string.ocr_label
                 }
                 Text(text = stringResource(id = title))
+            },
+            navigationIcon = {
+                AsyncImage(
+                    model = R.mipmap.ic_launcher, 
+                    contentDescription = stringResource(id = R.string.app_logo_cd),
+                    modifier = Modifier.size(48.dp)
+                )
             },
             actions = {
                 if (currentRoute.value == AppDestination.PDFSAFE) {
@@ -405,7 +413,7 @@ class MainActivity : ComponentActivity() {
 
 private fun NavGraphBuilder.appDestination(): NavGraphBuilder = this.apply {
     composable(route = AppDestination.PDFSAFE.route) {
-        HomeScreen()
+        PdfSafeScreen()
     }
     composable(route = AppDestination.OCR.route) {
         OcrScreen()
