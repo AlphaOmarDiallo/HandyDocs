@@ -2,10 +2,8 @@ package com.alphaomardiallo.handydocs.feature.ocr.data
 
 import android.content.Context
 import android.net.Uri
-import androidx.annotation.OptIn
-import androidx.camera.core.ExperimentalGetImage
-import androidx.camera.core.ImageProxy
 import com.alphaomardiallo.handydocs.feature.ocr.domain.OcrRepository
+import com.alphaomardiallo.handydocs.feature.ocr.domain.TextAnalysisResult
 import com.alphaomardiallo.handydocs.feature.ocr.domain.TextRecognitionType
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
@@ -22,7 +20,36 @@ import kotlin.coroutines.suspendCoroutine
 
 class OcrRepositoryImpl : OcrRepository {
 
-    override suspend fun getRecognizer(textRecognitionType: TextRecognitionType): TextRecognizer {
+    override suspend fun analyseFileFromUri(
+        uri: Uri,
+        context: Context,
+        recognitionType: TextRecognitionType
+    ): TextAnalysisResult {
+        return try {
+            val image = InputImage.fromFilePath(context, uri)
+            val recognizer = getRecognizer(recognitionType)
+
+            suspendCoroutine { continuation ->
+                recognizer.process(image)
+                    .addOnSuccessListener { text ->
+                        continuation.resume(
+                            if (text.text.isNotBlank()) TextAnalysisResult.Success(
+                                text.text
+                            ) else TextAnalysisResult.Error.InvalidImage
+                        )
+                    }
+                    .addOnFailureListener { e ->
+                        Timber.e("Error: ${e.localizedMessage}")
+                        continuation.resume(TextAnalysisResult.Error.RecognitionError(e))
+                    }
+            }
+        } catch (e: IOException) {
+            Timber.e(e.localizedMessage)
+            TextAnalysisResult.Error.FileError(e)
+        }
+    }
+
+    private fun getRecognizer(textRecognitionType: TextRecognitionType): TextRecognizer {
         return when (textRecognitionType) {
             TextRecognitionType.LATIN -> TextRecognition.getClient(
                 TextRecognizerOptions.DEFAULT_OPTIONS
@@ -43,45 +70,6 @@ class OcrRepositoryImpl : OcrRepository {
             TextRecognitionType.KOREAN -> TextRecognition.getClient(
                 KoreanTextRecognizerOptions.Builder().build()
             )
-        }
-    }
-
-    @OptIn(androidx.camera.core.ExperimentalGetImage::class)
-    override suspend fun analyseImageFromMedia(imageProxy: ImageProxy): String {
-        var textAn = ""
-        val mediaImage = imageProxy.image
-        if (mediaImage != null) {
-            val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
-
-            getRecognizer().process(image)
-                .addOnSuccessListener { text -> textAn = text.text }
-                .addOnFailureListener { e -> Timber.e(e.toString()) }
-                .addOnCompleteListener { imageProxy.close() }
-        } else {
-            imageProxy.close()
-        }
-
-        return textAn
-    }
-
-    override suspend fun analyseFileFromUri(uri: Uri, context: Context): String {
-        return try {
-            val image = InputImage.fromFilePath(context, uri)
-            val recognizer = getRecognizer()
-
-            suspendCoroutine { continuation ->
-                recognizer.process(image)
-                    .addOnSuccessListener { text ->
-                        continuation.resume(text.text)
-                    }
-                    .addOnFailureListener { e ->
-                        Timber.e("Error: ${e.message}")
-                        continuation.resume("")
-                    }
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            ""
         }
     }
 }

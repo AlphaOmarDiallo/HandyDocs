@@ -3,20 +3,19 @@ package com.alphaomardiallo.handydocs.feature.ocr.presentation
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Context
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
-import android.graphics.Typeface
-import android.graphics.pdf.PdfDocument
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,8 +23,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -34,30 +39,34 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getString
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
+import com.alphaomardiallo.handydocs.feature.ocr.domain.TextRecognitionType
 import com.alphaomardiallo.handydocs.feature.ocr.presentation.model.OcrAction
+import com.alphaomardiallo.handydocs.feature.ocr.presentation.util.saveTextAsPdf
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_JPEG
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanning
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanningResult
 import org.koin.androidx.compose.koinViewModel
-import java.io.File
 
 @Composable
 fun OcrScreen(viewModel: OcrViewModel = koinViewModel()) {
@@ -69,7 +78,9 @@ fun OcrScreen(viewModel: OcrViewModel = koinViewModel()) {
         activity = activity,
         state = uiState,
         analyzeImage = viewModel::analyse,
-        saveImage = viewModel::saveImageDoc
+        saveImage = viewModel::saveImageDoc,
+        updateScript = viewModel::updateScript,
+        updateLoading = viewModel::updateLoadingState
     )
 }
 
@@ -80,13 +91,14 @@ private fun OcrScreenContent(
     activity: Activity? = null,
     state: OcrUiState = OcrUiState(),
     analyzeImage: (Uri, Context) -> Unit = { _, _ -> },
-    saveImage: (ImageDoc) -> Unit = {}
+    saveImage: (ImageDoc) -> Unit = {},
+    updateScript: (TextRecognitionType) -> Unit = {},
+    updateLoading: () -> Unit = {}
 ) {
     var selectedFileUri by remember { mutableStateOf<Uri?>(null) }
     var textFieldValue by remember(state.text) {
         mutableStateOf(TextFieldValue(state.text ?: ""))
     }
-    var loaderVisibility by remember { mutableStateOf(false) }
     val filePickerLauncher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.OpenDocument()) { uri: Uri? ->
             selectedFileUri = uri
@@ -108,7 +120,9 @@ private fun OcrScreenContent(
         }
     val clipboardManager = LocalClipboardManager.current
 
-    selectedFileUri?.let { uri -> context?.let { analyzeImage(uri, it) } }
+    selectedFileUri?.let { uri ->
+        context?.let { analyzeImage(uri, it) }
+    }
 
     Column(
         modifier = Modifier
@@ -117,6 +131,72 @@ private fun OcrScreenContent(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = "Choose the script",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            style = MaterialTheme.typography.titleLarge
+        )
+        var expanded by remember { mutableStateOf(false) }
+        var selectedOption by remember { mutableStateOf(TextRecognitionType.LATIN) }
+
+        LaunchedEffect(selectedOption) { updateScript.invoke(selectedOption) }
+
+        val menuOptions = listOf(
+            TextRecognitionType.LATIN,
+            TextRecognitionType.KOREAN,
+            TextRecognitionType.JAPANESE,
+            TextRecognitionType.CHINESE,
+            TextRecognitionType.DEVANAGARI
+        )
+
+        Column {
+            // The box that triggers the dropdown
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
+                    .padding(16.dp)
+                    .clickable { expanded = true }
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = stringResource(id = selectedOption.label))
+                    Icon(
+                        imageVector = if (expanded)
+                            Icons.Default.KeyboardArrowUp
+                        else
+                            Icons.Default.KeyboardArrowDown,
+                        contentDescription = "Dropdown Arrow"
+                    )
+                }
+            }
+
+            // The dropdown menu
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.White)
+                    .padding(vertical = 8.dp)
+            ) {
+                menuOptions.forEach { option ->
+                    DropdownMenuItem(
+                        text = { Text(text = stringResource(id = option.label)) },
+                        onClick = {
+                            selectedOption = option
+                            expanded = false
+                        }
+                    )
+                }
+            }
+        }
+
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             listOf(
                 OcrAction(
@@ -129,6 +209,7 @@ private fun OcrScreenContent(
                                 .addOnSuccessListener {
                                     scannerLauncher.launch(
                                         IntentSenderRequest.Builder(it).build()
+
                                     )
                                 }
                                 .addOnFailureListener {
@@ -150,13 +231,16 @@ private fun OcrScreenContent(
                     name = R.string.ocr_folder_button_label,
                     icon = R.drawable.rounded_folder_open_24,
                     cd = R.string.ocr_folder_button_cd,
-                    onClick = { filePickerLauncher.launch(arrayOf("*/*")) }
+                    onClick = {
+                        filePickerLauncher.launch(arrayOf("*/*"))
+                        updateLoading.invoke()
+                    }
                 )
             ).forEachIndexed { index: Int, ocrAction: OcrAction ->
                 Card(
                     modifier = Modifier
                         .clickable {
-                            loaderVisibility = true
+                            selectedFileUri = null
                             ocrAction.onClick.invoke()
                         }
                         .size(180.dp)
@@ -187,13 +271,33 @@ private fun OcrScreenContent(
             }
         }
 
-        if (loaderVisibility) {
+        if (state.isLoading) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+        } else {
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), progress = { 1f })
+        }
+
+        if (state.fileError || state.recognitionError || state.invalidImage) {
+            Row(
+                modifier = Modifier.padding(vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Warning,
+                    contentDescription = Icons.Default.Warning.name,
+                    modifier = Modifier.size(48.dp),
+                    tint = MaterialTheme.colorScheme.error
+                )
+                Spacer(modifier = Modifier.padding(8.dp))
+                Text(
+                    text = stringResource(id = R.string.ocr_analysis_error),
+                    textAlign = TextAlign.Justify,
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
         }
 
         state.text?.let {
-            loaderVisibility = false
-
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -206,7 +310,7 @@ private fun OcrScreenContent(
                         context?.let { nonNullContext ->
                             Toast.makeText(
                                 nonNullContext,
-                                "Copied to clipboard",
+                                getString(context, R.string.ocr_toast_copied),
                                 Toast.LENGTH_LONG
                             ).show()
                         }
@@ -243,13 +347,6 @@ private fun OcrScreenContent(
                         painter = painterResource(id = R.drawable.rounded_save_24),
                         contentDescription = stringResource(id = R.string.ocr_copy_cd)
                     )
-                    context?.let { nonNullContext ->
-                        Toast.makeText(
-                            nonNullContext,
-                            "Copied to clipboard",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
                 }
             }
             TextField(
@@ -262,100 +359,3 @@ private fun OcrScreenContent(
         }
     }
 }
-
-fun saveTextAsPdf(
-    context: Context,
-    activity: Activity?,
-    text: String,
-    saveImage: (ImageDoc) -> Unit = { }
-) {
-    val pdfDocument = PdfDocument()
-    val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // A4 size in points
-
-    // Create paint objects for different text styles
-    val textPaint = Paint().apply {
-        color = Color.BLACK
-        textSize = 12f
-        typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
-        isAntiAlias = true
-    }
-
-    // Page margins and dimensions
-    val margins = RectF(40f, 40f, pageInfo.pageWidth - 40f, pageInfo.pageHeight - 40f)
-    val lineSpacing = textPaint.fontSpacing * 1.5f
-
-    var currentPage = pdfDocument.startPage(pageInfo)
-    var canvas = currentPage.canvas
-    var y = margins.top
-
-    // Split text into paragraphs
-    val paragraphs = text.split("\n")
-
-    for (paragraph in paragraphs) {
-        // Check if we need a new page
-        if (y + lineSpacing > margins.bottom) {
-            pdfDocument.finishPage(currentPage)
-            currentPage = pdfDocument.startPage(pageInfo)
-            canvas = currentPage.canvas
-            y = margins.top
-        }
-
-        val words = paragraph.split(" ")
-        var currentLine = StringBuilder()
-
-        for (word in words) {
-            val testLine = if (currentLine.isEmpty()) word else "${currentLine} $word"
-            val measureWidth = textPaint.measureText(testLine)
-
-            if (measureWidth <= margins.width()) {
-                currentLine.append(if (currentLine.isEmpty()) word else " $word")
-            } else {
-                // Draw current line and start new line with current word
-                canvas.drawText(currentLine.toString(), margins.left, y, textPaint)
-                y += lineSpacing
-
-                // Check if we need a new page
-                if (y + lineSpacing > margins.bottom) {
-                    pdfDocument.finishPage(currentPage)
-                    currentPage = pdfDocument.startPage(pageInfo)
-                    canvas = currentPage.canvas
-                    y = margins.top
-                }
-
-                currentLine = StringBuilder(word)
-            }
-        }
-
-        // Draw remaining text in the current line
-        if (currentLine.isNotEmpty()) {
-            canvas.drawText(currentLine.toString(), margins.left, y, textPaint)
-            y += lineSpacing * 1.5f // Add extra space after paragraph
-        }
-    }
-
-    pdfDocument.finishPage(currentPage)
-
-    try {
-        activity?.let {
-            val fileName = "HandyDocs${System.currentTimeMillis()}.pdf"
-            val pdfFile = File(it.filesDir, fileName)
-            pdfFile.outputStream().use { outputStream ->
-                pdfDocument.writeTo(outputStream)
-            }
-            saveImage.invoke(
-                ImageDoc(
-                    name = fileName,
-                    uriPdf = Uri.fromFile(pdfFile),
-                    time = System.currentTimeMillis()
-                )
-            )
-            Toast.makeText(context, "PDF saved successfully!", Toast.LENGTH_LONG).show()
-        }
-    } catch (e: Exception) {
-        e.printStackTrace()
-        Toast.makeText(context, "Error saving PDF", Toast.LENGTH_SHORT).show()
-    }
-
-    pdfDocument.close()
-}
-
