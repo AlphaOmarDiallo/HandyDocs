@@ -245,7 +245,7 @@ private fun ListNotEmptyScreen(
                         modifier = Modifier.fillMaxSize()
                     ) {
                         AsyncImage(
-                            model = doc.uriJpeg.first(),
+                            model = if (doc.uriJpeg.isEmpty()) R.drawable.baseline_picture_as_pdf_24 else doc.uriJpeg.first(),
                             contentScale = ContentScale.Crop,
                             contentDescription = null,
                             modifier = Modifier
@@ -366,7 +366,9 @@ private fun ListNotEmptyScreen(
             }
         }
 
-        AdmobGenericBanner(modifier = Modifier.fillMaxWidth().padding(4.dp))
+        AdmobGenericBanner(modifier = Modifier
+            .fillMaxWidth()
+            .padding(4.dp))
     }
 
     if (showDialog && selected != null) {
