@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">#eb1000</item>
+        <item name="windowSplashScreenBackground">#80CBC4</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="postSplashScreenTheme">@style/Theme.HandyDocs</item>
     </style>
