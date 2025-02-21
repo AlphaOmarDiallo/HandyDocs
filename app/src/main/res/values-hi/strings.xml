@@ -1,32 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
+    <string name="app_name" translatable="false">HandyDocs</string>
+    <string name="app_logo_cd">ऐप लोगो जिसमें एक आवर्धक कांच द्वारा स्कैन किए जा रहे दस्तावेज़ को दर्शाया गया है। आवर्धक कांच के केंद्र में एक आंख है।</string>
+
+    <string name="pdf_safe_destination" translatable="false">pdf_safe_destination</string>
+    <string name="pdf_safe_label">PDF सुरक्षित</string>
+    <string name="pdf_safe_cd">तिजोरी को दर्शाने वाला आइकन</string>
+    <string name="ocr_destination" translatable="false">ocr_destination</string>
+    <string name="ocr_label">छवि से पाठ</string>
+    <string name="ocr_cd">स्कैनर को दर्शाने वाला आइकन</string>
+    <string name="ocr_copy_cd">प्रतिलिपि बनाने की संभावना को दर्शाने वाला आइकन</string>
+    <string name="ocr_save_cd">सहेजने की संभावना को दर्शाने वाला आइकन</string>
+
+    <string name="ad_banner_debug" translatable="false">ca-app-pub-3940256099942544/9214589741</string>
+    <string name="ad_banner_release" translatable="false">ca-app-pub-9309432628304004/2451563318</string>
+
     <string name="main_clear">मिटाएं</string>
-    <string name="main_search_hint">दस्तावेज़ का नाम लिखें</string>
-    <string name="main_search_close">बंद करना</string>
-    <string name="icon_content_description">चिह्न %s</string>
-    <string name="toast_error_message">"त्रुटि: %s "</string>
-    <string name="pdf_safe_empty_list">सूची रिक्त है! स्कैनिंग प्रारंभ करें!</string>
+    <string name="main_search_hint">दस्तावेज़ का नाम टाइप करें</string>
+    <string name="main_search_close">बंद करें</string>
+    <string name="main_search_unnamed_warning">बेनाम दस्तावेज़ खोज परिणामों में प्रदर्शित नहीं होते</string>
+
+    <plurals name="pdf_safe_number_items">
+        <item quantity="one">दस्तावेज़ संख्या: 1 आइटम</item>
+        <item quantity="other">दस्तावेज़ संख्या: %d आइटम</item>
+    </plurals>
+
+    <string name="icon_content_description">आइकन %s</string>
+    <string name="toast_error_message">त्रुटि: %s</string>
+
+    <string name="pdf_safe_empty_list">सूची खाली है! स्कैनिंग शुरू करें!</string>
     <string name="pdf_safe_no_name_picture">अभी तक कोई नाम नहीं</string>
-    <string name="pdf_safe_share_pdf">पीडीएफ साझा करें</string>
-    <string name="pdf_safe_pdf_not_found">पीडीएफ फाइल नहीं मिली</string>
+    <string name="pdf_safe_share_pdf">PDF साझा करें</string>
+    <string name="pdf_safe_pdf_not_found">PDF फ़ाइल नहीं मिली</string>
     <string name="pdf_safe_dialog_edit_doc_name">दस्तावेज़ का नाम संपादित करें</string>
-    <string name="pdf_safe_dialog_edit_doc_placeholder">एक नाम चुनो</string>
-    <string name="pdf_safe_filter_title">फिल्टर के द्वारा</string>
+    <string name="pdf_safe_dialog_edit_doc_placeholder">एक नाम चुनें</string>
+    <string name="pdf_safe_filter_title">फ़िल्टर करें</string>
     <string name="pdf_safe_filter_option_name">अभी तक कोई नाम नहीं</string>
     <string name="pdf_safe_filter_option_date">तारीख</string>
-    <string name="pdf_safe_filter_option_name_desc">नाम अवरोही क्रम में</string>
-    <string name="pdf_safe_filter_option_date_desc">तारीख अवरोही क्रम में</string>
+    <string name="pdf_safe_filter_option_name_desc">नाम अवरोही</string>
+    <string name="pdf_safe_filter_option_date_desc">तारीख अवरोही</string>
     <string name="pdf_safe_filter_option_fav">पसंदीदा</string>
     <string name="pdf_safe_filter_option_none">कोई नहीं</string>
+
     <string name="doc_viewer_delete_title">दस्तावेज़ हटाएं</string>
-    <string name="doc_viewer_delete_text">क्या आप वाकई इस दस्तावेज़ को हटाना चाहते हैं? एक बार हटा दिए जाने के बाद, आपके पास उस ऑपरेशन को वापस करने की कोई संभावना नहीं होगी</string>
-    <string name="doc_viewer_error_deleting_file">फ़ाइल हटाते समय त्रुटि</string>
+    <string name="doc_viewer_delete_text">क्या आप वाकई इस दस्तावेज़ को हटाना चाहते हैं? एक बार हटाने के बाद, इस क्रिया को वापस नहीं किया जा सकता।</string>
+    <string name="doc_viewer_error_deleting_file">फ़ाइल हटाने में त्रुटि</string>
     <string name="doc_viewer_no_name">अभी तक कोई नाम नहीं</string>
     <string name="doc_viewer_keep">दस्तावेज़ रखें</string>
     <string name="doc_viewer_delete">दस्तावेज़ हटाएं</string>
-    <string name="main_search_unnamed_warning">खोज परिणामों में अनाम दस्तावेज़ दिखाई नहीं देते</string>
-    <plurals name="pdf_safe_number_items">
-        <item quantity="one" tools:ignore="ImpliedQuantity">दस्तावेज़ संख्या : 1 आइटम</item>
-        <item quantity="other">दस्तावेज़ संख्या : %s आइटम</item>
-    </plurals>
+
+    <string name="ocr_camera_button_label">कैमरे से</string>
+    <string name="ocr_camera_button_cd">कैमरा आइकन</string>
+    <string name="ocr_folder_button_label">फ़ाइलों से</string>
+    <string name="ocr_folder_button_cd">फ़ोल्डर आइकन</string>
+    <string name="ocr_toast_success_save">PDF सहेजा गया</string>
+    <string name="ocr_toast_error_save">PDF सहेजने में त्रुटि</string>
+    <string name="ocr_toast_copied">क्लिपबोर्ड पर कॉपी किया गया</string>
+    <string name="ocr_analysis_error">उस छवि से पाठ लोड करने में त्रुटि। सुनिश्चित करें कि आप सही लिपि का उपयोग कर रहे हैं।</string>
+    <string name="ocr_open_pdf_with">इसके साथ PDF खोलें...</string>
+    <string name="ocr_open_pdf_error">PDF खोल नहीं सकते</string>
+    <string name="ocr_open_script">लिपि चुनें</string>
+
+    <string name="util_saved_pdf">PDF सफलतापूर्वक सहेजा गया!</string>
+    <string name="util_error_saving_pdf">PDF सहेजने में त्रुटि</string>
+
+    <string name="text_recognition_type_latin">लैटिन</string>
+    <string name="text_recognition_type_chinese">चीनी</string>
+    <string name="text_recognition_type_devanagari">देवनागरी</string>
+    <string name="text_recognition_type_japanese">जापानी</string>
+    <string name="text_recognition_type_korean">कोरियाई</string>
 </resources>
+

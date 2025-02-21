@@ -1,32 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
+    <string name="app_name" translatable="false">HandyDocs</string>
+    <string name="app_logo_cd">Logotipo de la aplicación que representa un documento siendo escaneado por una lupa. En el centro de la lupa hay un ojo.</string>
+
+    <string name="pdf_safe_destination" translatable="false">pdf_safe_destination</string>
+    <string name="pdf_safe_label">Caja fuerte PDF</string>
+    <string name="pdf_safe_cd">Ícono que representa una caja fuerte</string>
+    <string name="ocr_destination" translatable="false">ocr_destination</string>
+    <string name="ocr_label">Imagen a texto</string>
+    <string name="ocr_cd">Ícono que representa un escáner</string>
+    <string name="ocr_copy_cd">Ícono que representa la posibilidad de copiar</string>
+    <string name="ocr_save_cd">Ícono que representa la posibilidad de guardar</string>
+
     <string name="main_clear">Borrar</string>
     <string name="main_search_hint">Escriba el nombre del documento</string>
-    <string name="main_search_close">Cerca</string>
-    <string name="icon_content_description">Icono %s</string>
+    <string name="main_search_close">Cerrar</string>
+    <string name="main_search_unnamed_warning">Los documentos sin nombre no aparecen en los resultados de búsqueda</string>
+
+    <plurals name="pdf_safe_number_items">
+        <item quantity="one">Cantidad de documentos: 1 elemento</item>
+        <item quantity="other">Cantidad de documentos: %d elementos</item>
+    </plurals>
+
+    <string name="icon_content_description">Ícono %s</string>
     <string name="toast_error_message">Error: %s</string>
-    <string name="pdf_safe_empty_list">¡La lista está vacía! ¡Empiece a escanear!</string>
-    <string name="pdf_safe_no_name_picture">Sin nombre todavía</string>
-    <string name="pdf_safe_share_pdf">Comparte el PDF</string>
+
+    <string name="pdf_safe_empty_list">¡La lista está vacía! ¡Empieza a escanear!</string>
+    <string name="pdf_safe_no_name_picture">Aún sin nombre</string>
+    <string name="pdf_safe_share_pdf">Compartir el PDF</string>
     <string name="pdf_safe_pdf_not_found">Archivo PDF no encontrado</string>
-    <string name="pdf_safe_dialog_edit_doc_name">Editar el nombre del documento</string>
+    <string name="pdf_safe_dialog_edit_doc_name">Editar nombre del documento</string>
     <string name="pdf_safe_dialog_edit_doc_placeholder">Elige un nombre</string>
     <string name="pdf_safe_filter_title">Filtrar por</string>
-    <string name="pdf_safe_filter_option_name">Nombre</string>
+    <string name="pdf_safe_filter_option_name">Aún sin nombre</string>
     <string name="pdf_safe_filter_option_date">Fecha</string>
-    <string name="pdf_safe_filter_option_name_desc">Nombre desc</string>
-    <string name="pdf_safe_filter_option_date_desc">Fecha desc</string>
+    <string name="pdf_safe_filter_option_name_desc">Nombre descendente</string>
+    <string name="pdf_safe_filter_option_date_desc">Fecha descendente</string>
     <string name="pdf_safe_filter_option_fav">Favorito</string>
     <string name="pdf_safe_filter_option_none">Ninguno</string>
+
     <string name="doc_viewer_delete_title">Eliminar documento</string>
-    <string name="doc_viewer_delete_text">¿Está seguro de que desea eliminar este documento? Una vez eliminado, no tendrá posibilidad de revertir esa operación.</string>
-    <string name="doc_viewer_error_deleting_file">Error al eliminar archivo</string>
-    <string name="doc_viewer_no_name">Sin nombre todavía</string>
-    <string name="doc_viewer_keep">Mantener</string>
-    <string name="doc_viewer_delete">Borrar</string>
-    <string name="main_search_unnamed_warning">Los documentos sin nombre no aparecen en los resultados de la búsqueda</string>
-    <plurals name="pdf_safe_number_items" tools:ignore="MissingQuantity">
-        <item quantity="one">Doc rec : 1 artículo</item>
-        <item quantity="other">Doc rec : %d elementos</item>
-    </plurals>
+    <string name="doc_viewer_delete_text">¿Estás seguro de que quieres eliminar este documento? Una vez eliminado, no podrás revertir esta operación.</string>
+    <string name="doc_viewer_error_deleting_file">Error al eliminar el archivo</string>
+    <string name="doc_viewer_no_name">Aún sin nombre</string>
+    <string name="doc_viewer_keep">Mantener documento</string>
+    <string name="doc_viewer_delete">Eliminar documento</string>
+
+    <string name="ocr_camera_button_label">Desde la cámara</string>
+    <string name="ocr_camera_button_cd">Ícono de cámara</string>
+    <string name="ocr_folder_button_label">Desde archivos</string>
+    <string name="ocr_folder_button_cd">Ícono de carpeta</string>
+    <string name="ocr_toast_success_save">PDF guardado</string>
+    <string name="ocr_toast_error_save">Error al guardar el PDF</string>
+    <string name="ocr_toast_copied">Copiado al portapapeles</string>
+    <string name="ocr_analysis_error">Error al cargar el texto de la imagen. Asegúrate de que estás usando el script correcto</string>
+    <string name="ocr_open_pdf_with">Abrir PDF con...</string>
+    <string name="ocr_open_pdf_error">No se puede abrir el PDF</string>
+    <string name="ocr_open_script">Elige el guion</string>
+
+    <string name="util_saved_pdf">¡PDF guardado con éxito!</string>
+    <string name="util_error_saving_pdf">Error al guardar el PDF</string>
+
+    <string name="text_recognition_type_latin">Latín</string>
+    <string name="text_recognition_type_chinese">Chino</string>
+    <string name="text_recognition_type_devanagari">Devanagari</string>
+    <string name="text_recognition_type_japanese">Japonés</string>
+    <string name="text_recognition_type_korean">Coreano</string>
 </resources>

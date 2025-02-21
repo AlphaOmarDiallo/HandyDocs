@@ -11,7 +11,7 @@ import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerViewModel
 import com.alphaomardiallo.handydocs.feature.ocr.data.OcrRepositoryImpl
 import com.alphaomardiallo.handydocs.feature.ocr.domain.OcrRepository
 import com.alphaomardiallo.handydocs.feature.ocr.presentation.OcrViewModel
-import com.alphaomardiallo.handydocs.feature.pdfsafe.HomeViewModel
+import com.alphaomardiallo.handydocs.feature.pdfsafe.PdfSafeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -21,7 +21,7 @@ val appModule = module {
     viewModelOf(::MainViewModel)
 
     // Home
-    viewModelOf(::HomeViewModel)
+    viewModelOf(::PdfSafeViewModel)
 
     // Doc viewer
     viewModelOf(::DocViewerViewModel)

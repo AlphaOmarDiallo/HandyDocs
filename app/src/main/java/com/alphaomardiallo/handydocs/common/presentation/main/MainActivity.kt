@@ -254,7 +254,7 @@ class MainActivity : ComponentActivity() {
             },
             navigationIcon = {
                 AsyncImage(
-                    model = R.mipmap.ic_launcher, 
+                    model = R.mipmap.ic_launcher,
                     contentDescription = stringResource(id = R.string.app_logo_cd),
                     modifier = Modifier.size(48.dp)
                 )

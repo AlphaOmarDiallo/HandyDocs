@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">HandyDocs</string>
     <string name="app_logo_cd">App logo representing a document being scan by a magnifier. In the center of the magnifier there is and eye.</string>
@@ -58,6 +59,7 @@
     <string name="ocr_analysis_error">Error loading the text from that image. Make sure you are using the correct script</string>
     <string name="ocr_open_pdf_with">Open PDF with...</string>
     <string name="ocr_open_pdf_error">Cannot open Pdf</string>
+    <string name="ocr_open_script">Choose the script</string>
 
     <string name="util_saved_pdf">PDF saved successfully!</string>
     <string name="util_error_saving_pdf">Error saving the PDF</string>

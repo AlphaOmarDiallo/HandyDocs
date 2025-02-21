@@ -2,7 +2,6 @@ package com.alphaomardiallo.handydocs.common.data
 
 import android.app.Application
 import android.net.Uri
-import androidx.annotation.Keep
 import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Delete
@@ -19,7 +18,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Database(entities = [(ImageDoc::class)], version = 1)
 @TypeConverters(UriTypeConverter::class, UriListTypeConverter::class)
-abstract class AppDataBase: RoomDatabase() {
+abstract class AppDataBase : RoomDatabase() {
     abstract fun imageDao(): ImageDao
 }
 
@@ -93,7 +92,8 @@ class UriListTypeConverter {
 
     @TypeConverter
     fun toUriList(data: String): List<Uri> {
-        val uriStrings: List<String> = gson.fromJson(data, object : TypeToken<List<String>>() {}.type)
+        val uriStrings: List<String> =
+            gson.fromJson(data, object : TypeToken<List<String>>() {}.type)
         return uriStrings.map { Uri.parse(it) }
     }
 }

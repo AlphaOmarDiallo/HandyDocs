@@ -8,11 +8,12 @@ import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
 import com.alphaomardiallo.handydocs.common.domain.navigator.AppNavigator
 import com.alphaomardiallo.handydocs.common.domain.repository.ImageDocRepository
 import com.alphaomardiallo.handydocs.common.presentation.base.BaseViewModel
+import com.alphaomardiallo.handydocs.feature.pdfsafe.util.ListFilter
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class HomeViewModel(
+class PdfSafeViewModel(
     appNavigator: AppNavigator,
     private val imageDocRepository: ImageDocRepository
 ) : BaseViewModel(appNavigator) {

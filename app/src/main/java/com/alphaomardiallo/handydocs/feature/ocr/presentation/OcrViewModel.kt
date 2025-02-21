@@ -83,7 +83,7 @@ class OcrViewModel(
         }
     }
 
-    fun updateLoadingState(){
+    fun updateLoadingState() {
         state = state.copy(isLoading = !state.isLoading)
     }
 }

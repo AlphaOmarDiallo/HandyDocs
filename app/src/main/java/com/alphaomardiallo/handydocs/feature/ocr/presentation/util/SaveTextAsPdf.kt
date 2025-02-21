@@ -161,11 +161,16 @@ fun saveTextAsPdf(
             // Save the list of image URIs
             savePageImages(imageUris)
 
-            Toast.makeText(context, getString(context, R.string.util_saved_pdf), Toast.LENGTH_LONG).show()
+            Toast.makeText(context, getString(context, R.string.util_saved_pdf), Toast.LENGTH_LONG)
+                .show()
         }
     } catch (e: Exception) {
         e.printStackTrace()
-        Toast.makeText(context, getString(context, R.string.util_error_saving_pdf), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            context,
+            getString(context, R.string.util_error_saving_pdf),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     pdfDocument.close()

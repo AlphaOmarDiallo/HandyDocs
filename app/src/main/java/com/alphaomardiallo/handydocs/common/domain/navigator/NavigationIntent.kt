@@ -12,5 +12,5 @@ sealed class NavigationIntent {
         val popUpToRoute: String? = null,
         val inclusive: Boolean = false,
         val isSingleTop: Boolean = false
-    ): NavigationIntent()
+    ) : NavigationIntent()
 }
