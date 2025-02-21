@@ -23,6 +23,7 @@ fun saveTextAsPdf(
     context: Context,
     activity: Activity?,
     text: String,
+    docName: String,
     saveImage: (ImageDoc) -> Unit = { },
     savePageImages: (List<Uri>) -> Unit = { }
 ) {
@@ -98,7 +99,7 @@ fun saveTextAsPdf(
 
     try {
         activity?.let {
-            val fileName = "HandyDocs${System.currentTimeMillis()}.pdf"
+            val fileName = "HandyDocs$docName${System.currentTimeMillis()}.pdf"
             val pdfFile = File(it.filesDir, fileName)
 
             // Write PDF to file
@@ -153,6 +154,7 @@ fun saveTextAsPdf(
             saveImage.invoke(
                 ImageDoc(
                     name = fileName,
+                    displayName = docName,
                     uriPdf = Uri.fromFile(pdfFile),
                     time = System.currentTimeMillis()
                 )

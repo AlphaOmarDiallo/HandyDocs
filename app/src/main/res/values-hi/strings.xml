@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">HandyDocs</string>
     <string name="app_logo_cd">ऐप लोगो जिसमें एक आवर्धक कांच द्वारा स्कैन किए जा रहे दस्तावेज़ को दर्शाया गया है। आवर्धक कांच के केंद्र में एक आंख है।</string>
 
@@ -20,7 +20,7 @@
     <string name="main_search_close">बंद करें</string>
     <string name="main_search_unnamed_warning">बेनाम दस्तावेज़ खोज परिणामों में प्रदर्शित नहीं होते</string>
 
-    <plurals name="pdf_safe_number_items">
+    <plurals name="pdf_safe_number_items" tools:ignore="ImpliedQuantity">
         <item quantity="one">दस्तावेज़ संख्या: 1 आइटम</item>
         <item quantity="other">दस्तावेज़ संख्या: %d आइटम</item>
     </plurals>
@@ -60,6 +60,11 @@
     <string name="ocr_open_pdf_with">इसके साथ PDF खोलें...</string>
     <string name="ocr_open_pdf_error">PDF खोल नहीं सकते</string>
     <string name="ocr_open_script">लिपि चुनें</string>
+    <string name="ocr_dialog_doc_name_title">दस्तावेज़ का नाम चुनें</string>
+    <string name="ocr_dialog_doc_name_label">दस्तावेज़ का नाम</string>
+    <string name="ocr_dialog_doc_name_save">सहेजें</string>
+    <string name="ocr_dialog_doc_name_cancel">रद्द करें</string>
+
 
     <string name="util_saved_pdf">PDF सफलतापूर्वक सहेजा गया!</string>
     <string name="util_error_saving_pdf">PDF सहेजने में त्रुटि</string>

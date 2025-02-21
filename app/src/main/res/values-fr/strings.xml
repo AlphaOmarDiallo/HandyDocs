@@ -57,6 +57,10 @@
     <string name="ocr_open_pdf_with">Ouvrir le PDF avec...</string>
     <string name="ocr_open_pdf_error">Impossible d\'ouvrir le PDF</string>
     <string name="ocr_open_script">Choisissez le script</string>
+    <string name="ocr_dialog_doc_name_title">Choisissez un nom de document</string>
+    <string name="ocr_dialog_doc_name_label">Nom du document</string>
+    <string name="ocr_dialog_doc_name_save">Enregistrer</string>
+    <string name="ocr_dialog_doc_name_cancel">Annuler</string>
 
     <string name="util_saved_pdf">PDF enregistré avec succès !</string>
     <string name="util_error_saving_pdf">Erreur lors de l\'enregistrement du PDF</string>
