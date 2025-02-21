@@ -41,6 +41,10 @@
     <string name="pdf_safe_filter_option_date_desc">तारीख अवरोही</string>
     <string name="pdf_safe_filter_option_fav">पसंदीदा</string>
     <string name="pdf_safe_filter_option_none">कोई नहीं</string>
+    <string name="pdf_safe_delete_dialog_title">दस्तावेज़ हटाएं</string>
+    <string name="pdf_safe_delete_dialog_text">क्या आप वाकई इस दस्तावेज़ को हटाना चाहते हैं? यह क्रिया वापस नहीं ली जा सकती।</string>
+    <string name="pdf_safe_delete_dialog_dismiss">रद्द करें</string>
+    <string name="pdf_safe_delete_dialog_confirm">हटाएं</string>
 
     <string name="doc_viewer_delete_title">दस्तावेज़ हटाएं</string>
     <string name="doc_viewer_delete_text">क्या आप वाकई इस दस्तावेज़ को हटाना चाहते हैं? एक बार हटाने के बाद, इस क्रिया को वापस नहीं किया जा सकता।</string>

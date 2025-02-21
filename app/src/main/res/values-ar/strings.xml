@@ -41,6 +41,10 @@
     <string name="pdf_safe_filter_option_date_desc">التاريخ تنازلي</string>
     <string name="pdf_safe_filter_option_fav">المفضل</string>
     <string name="pdf_safe_filter_option_none">بدون</string>
+    <string name="pdf_safe_delete_dialog_title">حذف المستند</string>
+    <string name="pdf_safe_delete_dialog_text">هل أنت متأكد أنك تريد حذف هذا المستند؟ لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="pdf_safe_delete_dialog_dismiss">إلغاء</string>
+    <string name="pdf_safe_delete_dialog_confirm">حذف</string>
 
     <string name="doc_viewer_delete_title">حذف المستند</string>
     <string name="doc_viewer_delete_text">هل أنت متأكد أنك تريد حذف هذا المستند؟ بمجرد الحذف، لن تتمكن من استرجاعه.</string>

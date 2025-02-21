@@ -524,7 +524,7 @@ private fun ListNotEmptyScreen(
             onDismissRequest = { showDeleteDialog = false },
             dismissButton = {
                 Button(onClick = { showDeleteDialog = false }) {
-                    Text(text = "Cancel")
+                    Text(text = stringResource(id = R.string.pdf_safe_delete_dialog_dismiss))
                 }
             },
             confirmButton = {
@@ -537,10 +537,10 @@ private fun ListNotEmptyScreen(
                         containerColor = MaterialTheme.colorScheme.error,
                         contentColor = MaterialTheme.colorScheme.onError
                     )
-                ) { Text(text = "Delete") }
+                ) { Text(text = stringResource(id = R.string.pdf_safe_delete_dialog_confirm)) }
             },
-            title = { Text(text = "Delete Document") },
-            text = { Text(text = "Are you sure you want to delete this document? This action cannot be undone.") }
+            title = { Text(text = stringResource(id = R.string.pdf_safe_delete_dialog_title)) },
+            text = { Text(text = stringResource(id = R.string.pdf_safe_delete_dialog_text)) }
         )
     }
 }

@@ -38,6 +38,10 @@
     <string name="pdf_safe_filter_option_date_desc">Date décroissante</string>
     <string name="pdf_safe_filter_option_fav">Favoris</string>
     <string name="pdf_safe_filter_option_none">Aucun</string>
+    <string name="pdf_safe_delete_dialog_title">Supprimer le document</string>
+    <string name="pdf_safe_delete_dialog_text">Êtes-vous sûr de vouloir supprimer ce document ? Cette action ne peut pas être annulée.</string>
+    <string name="pdf_safe_delete_dialog_dismiss">Annuler</string>
+    <string name="pdf_safe_delete_dialog_confirm">Supprimer</string>
 
     <string name="doc_viewer_delete_title">Supprimer le document</string>
     <string name="doc_viewer_delete_text">Êtes-vous sûr de vouloir supprimer ce document ? Une fois supprimé, cette opération ne pourra pas être annulée.</string>

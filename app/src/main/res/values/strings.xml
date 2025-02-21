@@ -41,6 +41,10 @@
     <string name="pdf_safe_filter_option_date_desc">Date desc</string>
     <string name="pdf_safe_filter_option_fav">Favorite</string>
     <string name="pdf_safe_filter_option_none">None</string>
+    <string name="pdf_safe_delete_dialog_title">Delete document</string>
+    <string name="pdf_safe_delete_dialog_text">Are you sure you want to delete this document? This action cannot be undone.</string>
+    <string name="pdf_safe_delete_dialog_dismiss">Cancel</string>
+    <string name="pdf_safe_delete_dialog_confirm">Delete</string>
 
     <string name="doc_viewer_delete_title">Delete document</string>
     <string name="doc_viewer_delete_text">Are you sure you want to delete this document? Once deleted, you will have no possibilities to revert that operation</string>
