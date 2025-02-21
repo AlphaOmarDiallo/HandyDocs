@@ -532,6 +532,7 @@ private fun ListNotEmptyScreen(
                     onClick = {
                         toDeleteDoc?.let { deleteDocument.invoke(it) }
                         toDeleteDoc = null
+                        showDeleteDialog = false
                     },
                     colors = ButtonDefaults.buttonColors().copy(
                         containerColor = MaterialTheme.colorScheme.error,
