@@ -27,6 +27,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
@@ -36,7 +37,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -119,6 +122,8 @@ private fun OcrScreenContent(
             }
         }
     val clipboardManager = LocalClipboardManager.current
+    var docName by remember { mutableStateOf("") }
+    var showDialogChooseName by remember { mutableStateOf(false) }
 
     selectedFileUri?.let { uri ->
         context?.let { analyzeImage(uri, it) }
@@ -328,14 +333,7 @@ private fun OcrScreenContent(
                 }
                 IconButton(
                     onClick = {
-                        context?.let {
-                            saveTextAsPdf(
-                                context,
-                                activity,
-                                textFieldValue.text,
-                                saveImage
-                            )
-                        }
+                        context?.let { showDialogChooseName = true }
                     },
                     colors = IconButtonDefaults.iconButtonColors()
                         .copy(
@@ -357,5 +355,43 @@ private fun OcrScreenContent(
                 modifier = Modifier.fillMaxWidth()
             )
         }
+    }
+
+    if (showDialogChooseName) {
+        AlertDialog(
+            onDismissRequest = { showDialogChooseName = false },
+            title = { Text(stringResource(id = R.string.ocr_dialog_doc_name_title)) },
+            text = {
+                Column {
+                    OutlinedTextField(
+                        value = docName,
+                        onValueChange = { docName = it },
+                        label = { Text(stringResource(id = R.string.ocr_dialog_doc_name_label)) }
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    if (docName.isNotBlank()) {
+                        context?.let {
+                            saveTextAsPdf(
+                                context,
+                                activity,
+                                docName,
+                                textFieldValue.text,
+                                saveImage
+                            )
+                        }
+                    }
+                }) {
+                    Text("Save")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDialogChooseName = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
     }
 }

@@ -57,6 +57,10 @@
     <string name="ocr_open_pdf_with">用以下方式打开 PDF...</string>
     <string name="ocr_open_pdf_error">无法打开 PDF</string>
     <string name="ocr_open_script">选择脚本</string>
+    <string name="ocr_dialog_doc_name_title">选择文档名称</string>
+    <string name="ocr_dialog_doc_name_label">文档名称</string>
+    <string name="ocr_dialog_doc_name_save">保存</string>
+    <string name="ocr_dialog_doc_name_cancel">取消</string>
 
     <string name="util_saved_pdf">PDF 保存成功！</string>
     <string name="util_error_saving_pdf">保存 PDF 时出错</string>

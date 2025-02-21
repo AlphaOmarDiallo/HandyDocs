@@ -57,6 +57,10 @@
     <string name="ocr_open_pdf_with">Abrir PDF con...</string>
     <string name="ocr_open_pdf_error">No se puede abrir el PDF</string>
     <string name="ocr_open_script">Elige el guion</string>
+    <string name="ocr_dialog_doc_name_title">Elige un nombre para el documento</string>
+    <string name="ocr_dialog_doc_name_label">Nombre del documento</string>
+    <string name="ocr_dialog_doc_name_save">Guardar</string>
+    <string name="ocr_dialog_doc_name_cancel">Cancelar</string>
 
     <string name="util_saved_pdf">¡PDF guardado con éxito!</string>
     <string name="util_error_saving_pdf">Error al guardar el PDF</string>

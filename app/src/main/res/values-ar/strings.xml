@@ -60,6 +60,10 @@
     <string name="ocr_open_pdf_with">فتح PDF بواسطة...</string>
     <string name="ocr_open_pdf_error">تعذر فتح ملف PDF</string>
     <string name="ocr_open_script">اختر النص</string>
+    <string name="ocr_dialog_doc_name_title">اختر اسم المستند</string>
+    <string name="ocr_dialog_doc_name_label">اسم المستند</string>
+    <string name="ocr_dialog_doc_name_save">حفظ</string>
+    <string name="ocr_dialog_doc_name_cancel">إلغاء</string>
 
     <string name="util_saved_pdf">تم حفظ PDF بنجاح!</string>
     <string name="util_error_saving_pdf">خطأ في حفظ PDF</string>
