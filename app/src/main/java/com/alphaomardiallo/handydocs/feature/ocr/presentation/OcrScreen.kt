@@ -375,21 +375,22 @@ private fun OcrScreenContent(
                     if (docName.isNotBlank()) {
                         context?.let {
                             saveTextAsPdf(
-                                context,
-                                activity,
-                                docName,
-                                textFieldValue.text,
-                                saveImage
+                                context = context,
+                                activity = activity,
+                                docName = docName,
+                                text = textFieldValue.text,
+                                saveImage = saveImage
                             )
+                            showDialogChooseName = false
                         }
                     }
                 }) {
-                    Text("Save")
+                    Text(stringResource(id = R.string.ocr_dialog_doc_name_save))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDialogChooseName = false }) {
-                    Text("Cancel")
+                    Text(stringResource(id = R.string.ocr_dialog_doc_name_cancel))
                 }
             }
         )
