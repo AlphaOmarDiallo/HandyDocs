@@ -1,4 +1,4 @@
-package com.alphaomardiallo.handydocs.feature.pdfsafe
+package com.alphaomardiallo.handydocs.feature.pdfsafe.util
 
 import androidx.annotation.StringRes
 import com.alphaomardiallo.handydocs.R

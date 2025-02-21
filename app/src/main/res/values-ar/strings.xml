@@ -1,35 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_clear">ممحاة</string>
+    <string name="app_name" translatable="false">HandyDocs</string>
+    <string name="app_logo_cd">شعار التطبيق يمثل مستند يتم مسحه بعدسة مكبرة. في وسط العدسة يوجد عين.</string>
+
+    <string name="pdf_safe_destination" translatable="false">pdf_safe_destination</string>
+    <string name="pdf_safe_label">خزانة PDF</string>
+    <string name="pdf_safe_cd">أيقونة تمثل خزانة</string>
+    <string name="ocr_destination" translatable="false">ocr_destination</string>
+    <string name="ocr_label">صورة إلى نص</string>
+    <string name="ocr_cd">أيقونة تمثل ماسح ضوئي</string>
+    <string name="ocr_copy_cd">أيقونة تمثل إمكانية النسخ</string>
+    <string name="ocr_save_cd">أيقونة تمثل إمكانية الحفظ</string>
+
+    <string name="ad_banner_debug" translatable="false">ca-app-pub-3940256099942544/9214589741</string>
+    <string name="ad_banner_release" translatable="false">ca-app-pub-9309432628304004/2451563318</string>
+
+    <string name="main_clear">مسح</string>
     <string name="main_search_hint">اكتب اسم المستند</string>
-    <string name="main_search_close">يغلق</string>
-    <string name="icon_content_description">الرمز %s</string>
+    <string name="main_search_close">إغلاق</string>
+    <string name="main_search_unnamed_warning">المستندات غير المسماة لا تظهر في نتائج البحث</string>
+
+    <plurals name="pdf_safe_number_items">
+        <item quantity="one">عدد المستندات: عنصر واحد</item>
+        <item quantity="other">عدد المستندات: %d عناصر</item>
+    </plurals>
+
+    <string name="icon_content_description">أيقونة %s</string>
     <string name="toast_error_message">خطأ: %s</string>
-    <string name="pdf_safe_empty_list">القائمة فارغة! ابدأ المسح!</string>
-    <string name="pdf_safe_no_name_picture">لا يوجد اسم حتى الان</string>
-    <string name="pdf_safe_share_pdf">شارك ملف PDF</string>
-    <string name="pdf_safe_pdf_not_found">لم يتم العثور على ملف PDF</string>
+
+    <string name="pdf_safe_empty_list">القائمة فارغة! ابدأ المسح الآن!</string>
+    <string name="pdf_safe_no_name_picture">لم يتم التسمية بعد</string>
+    <string name="pdf_safe_share_pdf">مشاركة ملف PDF</string>
+    <string name="pdf_safe_pdf_not_found">ملف PDF غير موجود</string>
     <string name="pdf_safe_dialog_edit_doc_name">تعديل اسم المستند</string>
-    <string name="pdf_safe_dialog_edit_doc_placeholder">اختر اسما</string>
-    <string name="pdf_safe_filter_title">تصفية حسب</string>
-    <string name="pdf_safe_filter_option_name">لا يوجد اسم حتى الان</string>
-    <string name="pdf_safe_filter_option_date">تاريخ</string>
+    <string name="pdf_safe_dialog_edit_doc_placeholder">اختر اسماً</string>
+    <string name="pdf_safe_filter_title">فرز حسب</string>
+    <string name="pdf_safe_filter_option_name">لم يتم التسمية بعد</string>
+    <string name="pdf_safe_filter_option_date">التاريخ</string>
     <string name="pdf_safe_filter_option_name_desc">الاسم تنازلي</string>
     <string name="pdf_safe_filter_option_date_desc">التاريخ تنازلي</string>
-    <string name="pdf_safe_filter_option_fav">مفضل</string>
-    <string name="pdf_safe_filter_option_none">لا أحد</string>
+    <string name="pdf_safe_filter_option_fav">المفضل</string>
+    <string name="pdf_safe_filter_option_none">بدون</string>
+
     <string name="doc_viewer_delete_title">حذف المستند</string>
-    <string name="doc_viewer_delete_text">هل أنت متأكد من أنك تريد حذف هذا المستند؟ بمجرد حذفه، لن يكون لديك أي إمكانية لعكس هذه العملية</string>
+    <string name="doc_viewer_delete_text">هل أنت متأكد أنك تريد حذف هذا المستند؟ بمجرد الحذف، لن تتمكن من استرجاعه.</string>
     <string name="doc_viewer_error_deleting_file">خطأ في حذف الملف</string>
-    <string name="doc_viewer_no_name">لا يوجد اسم حتى الان</string>
-    <string name="doc_viewer_keep">حفظ الوثيقة</string>
+    <string name="doc_viewer_no_name">لم يتم التسمية بعد</string>
+    <string name="doc_viewer_keep">الاحتفاظ بالمستند</string>
     <string name="doc_viewer_delete">حذف المستند</string>
-    <string name="main_search_unnamed_warning">لا تظهر المستندات غير المسماة في نتائج البحث</string>
-    <plurals name="pdf_safe_number_items">
-        <item quantity="zero">عدد المستندات : 1 مستند</item>
-        <item quantity="one">عدد المستندات : 1 مستند</item>
-        <item quantity="two">عدد المستندات : d% مستند</item>
-        <item quantity="many">عدد المستندات : d% مستند</item>
-        <item quantity="few">عدد المستندات : d% مستندات</item>
-    </plurals>
+
+    <string name="ocr_camera_button_label">من الكاميرا</string>
+    <string name="ocr_camera_button_cd">أيقونة الكاميرا</string>
+    <string name="ocr_folder_button_label">من الملفات</string>
+    <string name="ocr_folder_button_cd">أيقونة المجلد</string>
+    <string name="ocr_toast_success_save">تم حفظ PDF</string>
+    <string name="ocr_toast_error_save">خطأ في حفظ PDF</string>
+    <string name="ocr_toast_copied">تم النسخ إلى الحافظة</string>
+    <string name="ocr_analysis_error">خطأ في تحميل النص من الصورة. تأكد من استخدام النص الصحيح</string>
+    <string name="ocr_open_pdf_with">فتح PDF بواسطة...</string>
+    <string name="ocr_open_pdf_error">تعذر فتح ملف PDF</string>
+    <string name="ocr_open_script">اختر النص</string>
+
+    <string name="util_saved_pdf">تم حفظ PDF بنجاح!</string>
+    <string name="util_error_saving_pdf">خطأ في حفظ PDF</string>
+
+    <string name="text_recognition_type_latin">لاتيني</string>
+    <string name="text_recognition_type_chinese">صيني</string>
+    <string name="text_recognition_type_devanagari">ديفاناجاري</string>
+    <string name="text_recognition_type_japanese">ياباني</string>
+    <string name="text_recognition_type_korean">كوري</string>
 </resources>

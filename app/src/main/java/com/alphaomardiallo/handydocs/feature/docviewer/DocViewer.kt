@@ -244,7 +244,9 @@ private fun DocViewerScreenContent(
                     CoilZoomAsyncImage(
                         model = doc.uriJpeg[pagerState.currentPage],
                         contentDescription = "nothing",
-                        modifier = Modifier.fillMaxSize().weight(1f)
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .weight(1f)
                     )
                     AdmobGenericBanner(modifier = Modifier.padding(4.dp))
                 }

@@ -60,14 +60,14 @@ import androidx.core.content.FileProvider
 import coil.compose.AsyncImage
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
-import com.alphaomardiallo.handydocs.common.presentation.composable.AdmobGenericBanner
 import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerScreen
+import com.alphaomardiallo.handydocs.feature.pdfsafe.util.ListFilter
 import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
 import java.io.File
 
 @Composable
-fun PdfSafeScreen(viewModel: HomeViewModel = koinViewModel()) {
+fun PdfSafeScreen(viewModel: PdfSafeViewModel = koinViewModel()) {
     val uiState = viewModel.state
     PdfSafeContent(
         list = uiState.allImageDoc,
@@ -288,7 +288,8 @@ private fun ListNotEmptyScreen(
                                                     context,
                                                     context.getString(R.string.ocr_open_pdf_error),
                                                     Toast.LENGTH_SHORT
-                                                ).show()
+                                                )
+                                                .show()
                                         }
                                     }
                                 }
@@ -403,11 +404,11 @@ private fun ListNotEmptyScreen(
             }
         }
 
-        AdmobGenericBanner(
+        /*AdmobGenericBanner(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
-        )
+        )*/
     }
 
     if (showDialog && selected != null) {

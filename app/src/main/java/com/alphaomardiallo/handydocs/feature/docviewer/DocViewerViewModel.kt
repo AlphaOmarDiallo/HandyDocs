@@ -37,7 +37,7 @@ class DocViewerViewModel(
         }
     }
 
-    fun selectedImageToNull(){
+    fun selectedImageToNull() {
         viewModelScope.launch(Dispatchers.IO) {
             imageDocRepository.selectedImageToNull()
         }

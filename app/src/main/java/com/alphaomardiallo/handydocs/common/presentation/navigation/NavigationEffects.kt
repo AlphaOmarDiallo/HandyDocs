@@ -17,10 +17,10 @@ fun NavigationEffects(
 
     val activity = (LocalContext.current as? Activity)
 
-    LaunchedEffect(key1 = activity, key2 = navHostController, key3 = navigationChannel ) {
+    LaunchedEffect(key1 = activity, key2 = navHostController, key3 = navigationChannel) {
         navigationChannel.receiveAsFlow().collect { intent ->
 
-            if (activity?.isFinishing == true){
+            if (activity?.isFinishing == true) {
                 return@collect
             }
 
@@ -37,7 +37,7 @@ fun NavigationEffects(
                 is NavigationIntent.NavigateTo -> {
                     navHostController.navigate(route = intent.route) {
                         intent.popUpToRoute?.let { popUpToRoute ->
-                            popUpTo(popUpToRoute) { inclusive = intent.inclusive}
+                            popUpTo(popUpToRoute) { inclusive = intent.inclusive }
                         }
                     }
                 }

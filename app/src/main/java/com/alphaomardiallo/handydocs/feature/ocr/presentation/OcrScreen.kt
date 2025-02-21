@@ -132,7 +132,7 @@ private fun OcrScreenContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Choose the script",
+            text = stringResource(id = R.string.ocr_open_script),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
