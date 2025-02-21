@@ -60,6 +60,12 @@ class PdfSafeViewModel(
         }
     }
 
+    fun deleteDocument(imageDoc: ImageDoc) {
+        viewModelScope.launch {
+            imageDocRepository.deleteImage(imageDoc)
+        }
+    }
+
     fun getAllImageTest(filterType: ListFilter = ListFilter.None) {
         job?.cancel()
 

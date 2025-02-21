@@ -21,11 +21,15 @@ import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BasicAlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -75,7 +79,8 @@ fun PdfSafeScreen(viewModel: PdfSafeViewModel = koinViewModel()) {
         updateSelectedDoc = viewModel::updateDocumentSelected,
         filterList = viewModel::getAllImageTest,
         updateFavorite = viewModel::updateDocumentFavorite,
-        currentFilterType = viewModel.state.filterType
+        currentFilterType = viewModel.state.filterType,
+        deleteDocument = viewModel::deleteDocument
     )
 }
 
@@ -86,7 +91,8 @@ private fun PdfSafeContent(
     updateSelectedDoc: (ImageDoc) -> Unit,
     filterList: (ListFilter) -> Unit,
     updateFavorite: (ImageDoc) -> Unit,
-    currentFilterType: ListFilter
+    currentFilterType: ListFilter,
+    deleteDocument: (ImageDoc) -> Unit
 ) {
     if (list.isEmpty() && currentFilterType == ListFilter.None) {
         ListEmptyScreen()
@@ -97,7 +103,8 @@ private fun PdfSafeContent(
             updateSelectedDoc,
             filterList,
             updateFavorite,
-            currentFilterType
+            currentFilterType,
+            deleteDocument
         )
     }
 }
@@ -125,13 +132,16 @@ private fun ListNotEmptyScreen(
     updateSelectedDoc: (ImageDoc) -> Unit,
     filterList: (ListFilter) -> Unit,
     updateFavorite: (ImageDoc) -> Unit,
-    currentFilterType: ListFilter
+    currentFilterType: ListFilter,
+    deleteDocument: (ImageDoc) -> Unit
 ) {
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
     var showDialogViewer by remember { mutableStateOf(false) }
     var selected by remember { mutableStateOf<ImageDoc?>(null) }
     var selectedFilters by remember { mutableStateOf<ListFilter>(ListFilter.None) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
+    var toDeleteDoc by remember { mutableStateOf<ImageDoc?>(null) }
 
     LaunchedEffect(selectedFilters) {
         filterList.invoke(selectedFilters)
@@ -344,6 +354,16 @@ private fun ListNotEmptyScreen(
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
                             IconButton(onClick = {
+                                showDeleteDialog = true
+                                toDeleteDoc = doc
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = Icons.Default.Delete.name,
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                            IconButton(onClick = {
                                 // Path to the PDF file in internal storage
                                 val pdfFile = File(doc.uriPdf?.path ?: "")
 
@@ -497,5 +517,30 @@ private fun ListNotEmptyScreen(
                 }
             }
         }
+    }
+
+    if (showDeleteDialog) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            dismissButton = {
+                Button(onClick = { showDeleteDialog = false }) {
+                    Text(text = "Cancel")
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        toDeleteDoc?.let { deleteDocument.invoke(it) }
+                        toDeleteDoc = null
+                    },
+                    colors = ButtonDefaults.buttonColors().copy(
+                        containerColor = MaterialTheme.colorScheme.error,
+                        contentColor = MaterialTheme.colorScheme.onError
+                    )
+                ) { Text(text = "Delete") }
+            },
+            title = { Text(text = "Delete Document") },
+            text = { Text(text = "Are you sure you want to delete this document? This action cannot be undone.") }
+        )
     }
 }
