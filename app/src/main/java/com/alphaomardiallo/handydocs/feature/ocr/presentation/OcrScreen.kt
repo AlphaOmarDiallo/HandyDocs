@@ -96,7 +96,7 @@ private fun OcrScreenContent(
     analyzeImage: (Uri, Context) -> Unit = { _, _ -> },
     saveImage: (ImageDoc) -> Unit = {},
     updateScript: (TextRecognitionType) -> Unit = {},
-    updateLoading: () -> Unit = {}
+    updateLoading: (Boolean) -> Unit = {}
 ) {
     var selectedFileUri by remember { mutableStateOf<Uri?>(null) }
     var textFieldValue by remember(state.text) {
@@ -125,8 +125,10 @@ private fun OcrScreenContent(
     var docName by remember { mutableStateOf("") }
     var showDialogChooseName by remember { mutableStateOf(false) }
 
-    selectedFileUri?.let { uri ->
-        context?.let { analyzeImage(uri, it) }
+    LaunchedEffect(selectedFileUri) {
+        selectedFileUri?.let { uri ->
+            context?.let { analyzeImage(uri, it) }
+        }
     }
 
     Column(
@@ -238,7 +240,7 @@ private fun OcrScreenContent(
                     cd = R.string.ocr_folder_button_cd,
                     onClick = {
                         filePickerLauncher.launch(arrayOf("*/*"))
-                        updateLoading.invoke()
+                        updateLoading.invoke(false)
                     }
                 )
             ).forEachIndexed { index: Int, ocrAction: OcrAction ->
