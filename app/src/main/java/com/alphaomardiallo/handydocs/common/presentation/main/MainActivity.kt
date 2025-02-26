@@ -65,7 +65,7 @@ import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
 import com.alphaomardiallo.handydocs.common.presentation.model.BottomNav
 import com.alphaomardiallo.handydocs.common.presentation.navigation.NavigationEffects
 import com.alphaomardiallo.handydocs.common.presentation.theme.HandyDocsTheme
-import com.alphaomardiallo.handydocs.feature.altgenerator.AltGenerator
+import com.alphaomardiallo.handydocs.feature.altgenerator.presentation.AltGenerator
 import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerScreen
 import com.alphaomardiallo.handydocs.feature.ocr.presentation.OcrScreen
 import com.alphaomardiallo.handydocs.feature.pdfsafe.PdfSafeScreen

@@ -8,6 +8,9 @@ import com.alphaomardiallo.handydocs.common.domain.navigator.AppNavigator
 import com.alphaomardiallo.handydocs.common.domain.navigator.AppNavigatorImp
 import com.alphaomardiallo.handydocs.common.domain.repository.ImageDocRepository
 import com.alphaomardiallo.handydocs.common.presentation.main.MainViewModel
+import com.alphaomardiallo.handydocs.feature.altgenerator.data.AltGeneratorRepositoryImpl
+import com.alphaomardiallo.handydocs.feature.altgenerator.domain.AltGeneratorRepository
+import com.alphaomardiallo.handydocs.feature.altgenerator.presentation.AltGeneratorViewModel
 import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerViewModel
 import com.alphaomardiallo.handydocs.feature.ocr.data.OcrRepositoryImpl
 import com.alphaomardiallo.handydocs.feature.ocr.domain.OcrRepository
@@ -22,6 +25,7 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 import timber.log.Timber
@@ -46,11 +50,15 @@ val appModule = module {
     viewModelOf(::PdfSafeViewModel)
 
     // Doc viewer
-    single<OcrRepository> { OcrRepositoryImpl() }
     viewModelOf(::DocViewerViewModel)
 
-    // Alt generator
+    // Ocr
+    single<OcrRepository> { OcrRepositoryImpl() }
     viewModelOf(::OcrViewModel)
+
+    // Alt generator
+    single<AltGeneratorRepository> { AltGeneratorRepositoryImpl(get()) }
+    viewModelOf(::AltGeneratorViewModel)
 }
 
 fun createHttpClient(enableNetworkLogs: Boolean) =
