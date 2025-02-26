@@ -65,6 +65,7 @@ import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
 import com.alphaomardiallo.handydocs.common.presentation.model.BottomNav
 import com.alphaomardiallo.handydocs.common.presentation.navigation.NavigationEffects
 import com.alphaomardiallo.handydocs.common.presentation.theme.HandyDocsTheme
+import com.alphaomardiallo.handydocs.feature.altgenerator.AltGenerator
 import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerScreen
 import com.alphaomardiallo.handydocs.feature.ocr.presentation.OcrScreen
 import com.alphaomardiallo.handydocs.feature.pdfsafe.PdfSafeScreen
@@ -121,6 +122,12 @@ class MainActivity : ComponentActivity() {
                                     cd = R.string.ocr_destination,
                                     label = R.string.ocr_label,
                                     icon = R.drawable.baseline_document_scanner_24
+                                ),
+                                BottomNav(
+                                    route = AppDestination.ALTGEN.route,
+                                    cd = R.string.alt_gen_destination,
+                                    label = R.string.alt_gen_label,
+                                    icon = R.drawable.rounded_robot_2_24
                                 )
                             ).forEach { navItem ->
                                 NavigationBarItem(
@@ -138,7 +145,8 @@ class MainActivity : ComponentActivity() {
                                             currentRoute.value = when (navItem.route) {
                                                 AppDestination.PDFSAFE.route -> AppDestination.PDFSAFE
                                                 AppDestination.OCR.route -> AppDestination.OCR
-                                                else -> AppDestination.PDFSAFE
+                                                AppDestination.ALTGEN.route -> AppDestination.ALTGEN
+                                                else -> { AppDestination.PDFSAFE }
                                             }
                                             navController.navigate(navItem.route)
                                         }
@@ -249,6 +257,7 @@ class MainActivity : ComponentActivity() {
                 val title = when (currentRoute.value) {
                     AppDestination.PDFSAFE -> R.string.pdf_safe_label
                     AppDestination.OCR -> R.string.ocr_label
+                    AppDestination.ALTGEN -> R.string.alt_gen_label
                 }
                 Text(text = stringResource(id = title))
             },
@@ -417,5 +426,8 @@ private fun NavGraphBuilder.appDestination(): NavGraphBuilder = this.apply {
     }
     composable(route = AppDestination.OCR.route) {
         OcrScreen()
+    }
+    composable(route = AppDestination.ALTGEN.route) {
+        AltGenerator()
     }
 }
