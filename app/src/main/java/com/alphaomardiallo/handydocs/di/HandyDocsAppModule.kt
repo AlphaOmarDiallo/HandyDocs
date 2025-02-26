@@ -1,5 +1,6 @@
 package com.alphaomardiallo.handydocs.di
 
+import com.alphaomardiallo.handydocs.BuildConfig
 import com.alphaomardiallo.handydocs.common.data.ImageDocRepositoryImp
 import com.alphaomardiallo.handydocs.common.data.provideDataBase
 import com.alphaomardiallo.handydocs.common.data.provideImageDao
@@ -12,10 +13,31 @@ import com.alphaomardiallo.handydocs.feature.ocr.data.OcrRepositoryImpl
 import com.alphaomardiallo.handydocs.feature.ocr.domain.OcrRepository
 import com.alphaomardiallo.handydocs.feature.ocr.presentation.OcrViewModel
 import com.alphaomardiallo.handydocs.feature.pdfsafe.PdfSafeViewModel
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.HttpClientEngine
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
+import timber.log.Timber
 
 val appModule = module {
+    // Network
+    single<HttpClientEngine> { CIO.create() }
+    single { createHttpClient(enableNetworkLogs = BuildConfig.DEBUG) }
+
+    // Database
+    single { provideDataBase(application = get()) }
+    single { provideImageDao(appDataBase = get()) }
+
+    // ImageDoc repository
+    single<ImageDocRepository> { ImageDocRepositoryImp(appDataBase = get()) }
+
     // Main
     single<AppNavigator> { AppNavigatorImp() }
     viewModelOf(::MainViewModel)
@@ -24,15 +46,34 @@ val appModule = module {
     viewModelOf(::PdfSafeViewModel)
 
     // Doc viewer
+    single<OcrRepository> { OcrRepositoryImpl() }
     viewModelOf(::DocViewerViewModel)
 
+    // Alt generator
     viewModelOf(::OcrViewModel)
-
-    // Database
-    single { provideDataBase(application = get()) }
-    single { provideImageDao(appDataBase = get()) }
-
-    // ImageDoc repository
-    single<ImageDocRepository> { ImageDocRepositoryImp(appDataBase = get()) }
-    single<OcrRepository> { OcrRepositoryImpl() }
 }
+
+fun createHttpClient(enableNetworkLogs: Boolean) =
+    HttpClient(CIO) {
+        install(ContentNegotiation) {
+            json(
+                Json {
+                    ignoreUnknownKeys = true
+                    encodeDefaults = true
+                    isLenient = true
+                    coerceInputValues = true
+                }
+            )
+        }
+
+        if (enableNetworkLogs) {
+            install(Logging) {
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        Timber.d("[HTTP CALL] $message")
+                    }
+                }
+                level = LogLevel.ALL
+            }
+        }
+    }
