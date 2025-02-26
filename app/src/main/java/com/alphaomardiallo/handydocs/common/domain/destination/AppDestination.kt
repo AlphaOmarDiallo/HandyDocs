@@ -9,4 +9,5 @@ sealed class AppDestination(
 
     data object PDFSAFE : AppDestination(resId = R.string.pdf_safe_destination)
     data object OCR : AppDestination(resId = R.string.ocr_destination)
+    data object ALTGEN : AppDestination(resId = R.string.alt_gen_destination)
 }

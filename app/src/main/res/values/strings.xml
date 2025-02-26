@@ -9,6 +9,10 @@
     <string name="ocr_destination" translatable="false">ocr_destination</string>
     <string name="ocr_label">Image to text</string>
     <string name="ocr_cd">Icon representing a scanner</string>
+    <string name="alt_gen_destination" translatable="false">ocr_destination</string>
+    <string name="alt_gen_label">Alt generator</string>
+    <string name="alt_gen_cd">Icon representing a robot</string>
+    <string name="ocr_copy_rearrange">Icon representing a possibility to rearrange text</string>
     <string name="ocr_copy_cd">Icon representing a possibility to copy</string>
     <string name="ocr_save_cd">Icon representing a possibility to save</string>
 
