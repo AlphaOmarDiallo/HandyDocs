@@ -106,4 +106,6 @@ dependencies {
     implementation(libs.zoomimage)
     implementation(libs.splashscreen)
     implementation(libs.admob.sdk)
+    implementation(libs.bundles.ktor)
+    implementation(libs.kotlinx.serialization.json)
 }

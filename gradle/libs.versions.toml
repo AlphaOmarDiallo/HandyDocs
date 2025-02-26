@@ -27,6 +27,8 @@ googleFirebaseCrashlytics = "3.0.3"
 zoom = "1.1.0-alpha05"
 splashscreen = "1.0.1"
 ad_mob = "24.0.0"
+ktor = "3.1.1"
+serialization = "1.7.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -70,6 +72,14 @@ firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashly
 zoomimage = { module = "io.github.panpf.zoomimage:zoomimage-compose-coil", version.ref = "zoom" }
 splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 admob-sdk = { module = "com.google.android.gms:play-services-ads", version.ref = "ad_mob"}
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
+ktor-client-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+ktor-client-logging-jvm = { module = "io.ktor:ktor-client-logging-jvm", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -81,3 +91,4 @@ google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.
 
 [bundles]
 image-to-text = ["mlkit_text_latin", "mlkit_text_chinese", "mlkit_text_japanese", "mlkit_text_devanagari", "mlkit_text_korean"]
+ktor = ["ktor-client-android", "ktor-client-serialization", "ktor-client-logging-jvm", "ktor-client-core", "ktor-client-cio", "ktor-client-content-negotiation", "ktor-client-serialization-json"]
