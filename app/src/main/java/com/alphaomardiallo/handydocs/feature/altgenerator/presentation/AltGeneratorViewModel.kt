@@ -2,7 +2,7 @@ package com.alphaomardiallo.handydocs.feature.altgenerator.presentation
 
 import com.alphaomardiallo.handydocs.common.domain.navigator.AppNavigator
 import com.alphaomardiallo.handydocs.common.presentation.base.BaseViewModel
-import com.alphaomardiallo.handydocs.feature.altgenerator.domain.AltGeneratorRepository
+import com.alphaomardiallo.handydocs.feature.altgenerator.domain.repository.AltGeneratorRepository
 
 class AltGeneratorViewModel(
     appNavigator: AppNavigator,

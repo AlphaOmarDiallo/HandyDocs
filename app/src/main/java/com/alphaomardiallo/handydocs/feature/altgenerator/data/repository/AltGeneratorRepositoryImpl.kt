@@ -1,6 +1,6 @@
-package com.alphaomardiallo.handydocs.feature.altgenerator.data
+package com.alphaomardiallo.handydocs.feature.altgenerator.data.repository
 
-import com.alphaomardiallo.handydocs.feature.altgenerator.domain.AltGeneratorRepository
+import com.alphaomardiallo.handydocs.feature.altgenerator.domain.repository.AltGeneratorRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
