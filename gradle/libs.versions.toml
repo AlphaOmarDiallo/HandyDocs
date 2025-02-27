@@ -28,11 +28,11 @@ zoom = "1.1.0-alpha05"
 splashscreen = "1.0.1"
 ad_mob = "24.0.0"
 ktor = "3.1.1"
-serialization = "1.7.3"
+serialization = "1.8.0"
 
 [libraries]
+# Android
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
@@ -46,32 +46,30 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
+fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "fonts" }
+# Koin
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-compose = { module = "io.insert-koin:koin-androidx-compose" }
-timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "fonts" }
+# Camera
 camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraX" }
 camera-camera = { module = "androidx.camera:camera-camera2", version.ref = "cameraX" }
 camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraX" }
 camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraX" }
+# Room
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+# ML-Kit
 mlkit_document = { module = "com.google.android.gms:play-services-mlkit-document-scanner", version.ref = "ml-document" }
 mlkit_text_latin = { module = "com.google.android.gms:play-services-mlkit-text-recognition", version.ref = "ml_text_latin" }
 mlkit_text_chinese = { module = "com.google.android.gms:play-services-mlkit-text-recognition-chinese", version.ref = "ml_text_other" }
 mlkit_text_devanagari = { module = "com.google.android.gms:play-services-mlkit-text-recognition-devanagari", version.ref = "ml_text_other" }
 mlkit_text_japanese = { module = "com.google.android.gms:play-services-mlkit-text-recognition-japanese", version.ref = "ml_text_other" }
 mlkit_text_korean = { module = "com.google.android.gms:play-services-mlkit-text-recognition-korean", version.ref = "ml_text_other" }
-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
-zoomimage = { module = "io.github.panpf.zoomimage:zoomimage-compose-coil", version.ref = "zoom" }
-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
-admob-sdk = { module = "com.google.android.gms:play-services-ads", version.ref = "ad_mob"}
+# Ktor
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
 ktor-client-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
@@ -80,6 +78,17 @@ ktor-client-logging-jvm = { module = "io.ktor:ktor-client-logging-jvm", version.
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+# Other
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
+zoomimage = { module = "io.github.panpf.zoomimage:zoomimage-compose-coil", version.ref = "zoom" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+admob-sdk = { module = "com.google.android.gms:play-services-ads", version.ref = "ad_mob"}
+# Test
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -88,7 +97,67 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlytics" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [bundles]
-image-to-text = ["mlkit_text_latin", "mlkit_text_chinese", "mlkit_text_japanese", "mlkit_text_devanagari", "mlkit_text_korean"]
-ktor = ["ktor-client-android", "ktor-client-serialization", "ktor-client-logging-jvm", "ktor-client-core", "ktor-client-cio", "ktor-client-content-negotiation", "ktor-client-serialization-json"]
+androidx = [
+    "androidx-core-ktx",
+    "androidx-junit",
+    "androidx-espresso-core",
+    "androidx-lifecycle-runtime-ktx",
+    "androidx-activity-compose",
+    "compose-lifecycle",
+    "androidx-ui",
+    "androidx-ui-graphics",
+    "androidx-ui-tooling",
+    "androidx-ui-tooling-preview",
+    "androidx-ui-test-manifest",
+    "androidx-ui-test-junit4",
+    "androidx-material3",
+    "splashscreen",
+    "fonts"
+]
+koin = [
+    "koin-core",
+    "koin-android",
+    "koin-compose"
+]
+camera = [
+    "camera-core",
+    "camera-camera",
+    "camera-lifecycle",
+    "camera-view"
+]
+room = [
+    "room-runtime",
+    "room-ktx"
+]
+mlkit = [
+    "mlkit_document",
+    "mlkit_text_latin",
+    "mlkit_text_chinese",
+    "mlkit_text_devanagari",
+    "mlkit_text_japanese",
+    "mlkit_text_korean"
+]
+ktor = [
+    "ktor-client-android",
+    "ktor-client-serialization",
+    "ktor-client-serialization-json",
+    "kotlinx-serialization-json",
+    "ktor-client-logging-jvm",
+    "ktor-client-core",
+    "ktor-client-cio",
+    "ktor-client-content-negotiation"
+]
+other = [
+    "coil-compose",
+    "gson",
+    "firebase-crashlytics",
+    "zoomimage",
+    "timber",
+    "navigation",
+    "admob-sdk"
+]
+
+test = ["junit"]
