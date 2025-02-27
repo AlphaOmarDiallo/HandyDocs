@@ -1,17 +1,23 @@
 package com.alphaomardiallo.handydocs.feature.altgenerator.presentation
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
-import kotlinx.coroutines.launch
+import androidx.compose.ui.Modifier
 import org.koin.androidx.compose.koinViewModel
+import timber.log.Timber
 
 @Composable
 fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
-    var text = ""
-    LaunchedEffect(Unit) {
-        text = viewModel.getString()
+
+    val state = viewModel.state
+
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState())) {
+        state.altText?.let { Timber.e(it) }
     }
-    Text(text = text)
 }
