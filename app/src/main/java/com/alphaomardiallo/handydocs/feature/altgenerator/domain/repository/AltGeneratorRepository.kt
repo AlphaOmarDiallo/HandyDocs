@@ -1,5 +1,5 @@
 package com.alphaomardiallo.handydocs.feature.altgenerator.domain.repository
 
 interface AltGeneratorRepository {
-    suspend fun imageUrlToBase64(url: String): String
+    suspend fun imageToBase64(source: String): String
 }

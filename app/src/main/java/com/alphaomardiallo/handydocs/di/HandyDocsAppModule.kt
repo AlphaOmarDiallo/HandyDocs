@@ -56,7 +56,12 @@ val appModule = module {
     viewModelOf(::OcrViewModel)
 
     // Alt generator
-    single<AltGeneratorRepository> { AltGeneratorRepositoryImpl(get()) }
+    single<AltGeneratorRepository> {
+        AltGeneratorRepositoryImpl(
+            context = get(),
+            httpClient = get()
+        )
+    }
     viewModelOf(::AltGeneratorViewModel)
 }
 
@@ -72,7 +77,7 @@ fun createHttpClient(enableNetworkLogs: Boolean) =
                 }
             )
         }
-
+        expectSuccess = true
         if (enableNetworkLogs) {
             install(Logging) {
                 logger = object : Logger {
