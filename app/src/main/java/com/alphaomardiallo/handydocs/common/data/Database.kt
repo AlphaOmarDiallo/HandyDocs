@@ -16,7 +16,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.Flow
 
-@Database(entities = [(ImageDoc::class)], version = 1)
+@Database(entities = [(ImageDoc::class)], version = 1, exportSchema = true)
 @TypeConverters(UriTypeConverter::class, UriListTypeConverter::class)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun imageDao(): ImageDao
