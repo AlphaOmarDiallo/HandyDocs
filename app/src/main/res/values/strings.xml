@@ -12,6 +12,7 @@
     <string name="alt_gen_destination" translatable="false">ocr_destination</string>
     <string name="alt_gen_label">Alt generator</string>
     <string name="alt_gen_cd">Icon representing a robot</string>
+    <string name="alt_gen_link_cd">Icon representing a link</string>
     <string name="ocr_copy_rearrange">Icon representing a possibility to rearrange text</string>
     <string name="ocr_copy_cd">Icon representing a possibility to copy</string>
     <string name="ocr_save_cd">Icon representing a possibility to save</string>
@@ -72,6 +73,10 @@
     <string name="ocr_dialog_doc_name_label">Document Name</string>
     <string name="ocr_dialog_doc_name_save">Save</string>
     <string name="ocr_dialog_doc_name_cancel">Cancel</string>
+
+    <string name="alt_generator_action_url">From url</string>
+    <string name="alt_generator_dialog_url_title">Paste a link</string>
+    <string name="alt_generator_dialog_url_label">Url</string>
 
     <string name="util_saved_pdf">PDF saved successfully!</string>
     <string name="util_error_saving_pdf">Error saving the PDF</string>
