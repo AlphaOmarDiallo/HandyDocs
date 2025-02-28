@@ -89,7 +89,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val currentRoute: MutableState<AppDestination> =
-                remember { mutableStateOf(AppDestination.PDFSAFE) }
+                remember { mutableStateOf(AppDestination.ALTGEN) }
             val state = viewModel.state
 
             NavigationEffects(
@@ -112,16 +112,16 @@ class MainActivity : ComponentActivity() {
                         NavigationBar {
                             listOf(
                                 BottomNav(
-                                    route = AppDestination.OCR.route,
-                                    cd = R.string.ocr_destination,
-                                    label = R.string.ocr_label,
-                                    icon = R.drawable.baseline_document_scanner_24
-                                ),
-                                BottomNav(
                                     route = AppDestination.ALTGEN.route,
                                     cd = R.string.alt_gen_destination,
                                     label = R.string.alt_gen_label,
                                     icon = R.drawable.rounded_robot_2_24
+                                ),
+                                BottomNav(
+                                    route = AppDestination.OCR.route,
+                                    cd = R.string.ocr_destination,
+                                    label = R.string.ocr_label,
+                                    icon = R.drawable.baseline_document_scanner_24
                                 ),
                                 BottomNav(
                                     route = AppDestination.PDFSAFE.route,

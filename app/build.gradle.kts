@@ -17,8 +17,8 @@ android {
         applicationId = "com.alphaomardiallo.handydocs"
         minSdk = 26
         targetSdk = 35
-        versionCode = 10
-        versionName = "2.1.2"
+        versionCode = 11
+        versionName = "2.1.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
