@@ -178,7 +178,7 @@ private fun OcrScreenContent(
                             Icons.Default.KeyboardArrowUp
                         else
                             Icons.Default.KeyboardArrowDown,
-                        contentDescription = "Dropdown Arrow"
+                        contentDescription = stringResource(id = R.string.dropdown_arrow_cd)
                     )
                 }
             }

@@ -112,12 +112,6 @@ class MainActivity : ComponentActivity() {
                         NavigationBar {
                             listOf(
                                 BottomNav(
-                                    route = AppDestination.PDFSAFE.route,
-                                    cd = R.string.pdf_safe_destination,
-                                    label = R.string.pdf_safe_label,
-                                    icon = R.drawable.ic_safe
-                                ),
-                                BottomNav(
                                     route = AppDestination.OCR.route,
                                     cd = R.string.ocr_destination,
                                     label = R.string.ocr_label,
@@ -128,6 +122,12 @@ class MainActivity : ComponentActivity() {
                                     cd = R.string.alt_gen_destination,
                                     label = R.string.alt_gen_label,
                                     icon = R.drawable.rounded_robot_2_24
+                                ),
+                                BottomNav(
+                                    route = AppDestination.PDFSAFE.route,
+                                    cd = R.string.pdf_safe_destination,
+                                    label = R.string.pdf_safe_label,
+                                    icon = R.drawable.ic_safe
                                 )
                             ).forEach { navItem ->
                                 NavigationBarItem(

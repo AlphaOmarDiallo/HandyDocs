@@ -7,6 +7,11 @@
     <string name="pdf_safe_label">PDF सुरक्षित</string>
     <string name="pdf_safe_cd">तिजोरी को दर्शाने वाला आइकन</string>
     <string name="ocr_destination" translatable="false">ocr_destination</string>
+    <string name="dropdown_arrow_cd">ड्रॉपडाउन तीर</string>
+    <string name="alt_gen_label">वैकल्पिक पाठ जनरेटर</string>
+    <string name="alt_gen_cd">रोबोट को दर्शाने वाला आइकन</string>
+    <string name="alt_gen_link_cd">लिंक को दर्शाने वाला आइकन</string>
+    <string name="ocr_copy_rearrange">पाठ को पुनर्व्यवस्थित करने की संभावना दर्शाने वाला आइकन</string>
     <string name="ocr_label">छवि से पाठ</string>
     <string name="ocr_cd">स्कैनर को दर्शाने वाला आइकन</string>
     <string name="ocr_copy_cd">प्रतिलिपि बनाने की संभावना को दर्शाने वाला आइकन</string>
@@ -69,6 +74,12 @@
     <string name="ocr_dialog_doc_name_save">सहेजें</string>
     <string name="ocr_dialog_doc_name_cancel">रद्द करें</string>
 
+    <string name="alt_generator_action_url">यूआरएल से</string>
+    <string name="alt_generator_dialog_url_title">एक लिंक पेस्ट करें</string>
+    <string name="alt_generator_dialog_url_label">यूआरएल</string>
+    <string name="alt_generator_generate_label">Alt जनरेट करें</string>
+    <string name="alt_generator_generate_button">जाएँ</string>
+    <string name="alt_generator_generate_welcome_text">यह ऐप Gemini 1.5 Flash (मुफ्त संस्करण) का उपयोग करता है, जिसका अर्थ है कि आपकी बातचीत एआई मॉडल में सुधार के लिए उपयोग की जा सकती है। कृपया संवेदनशील या व्यक्तिगत जानकारी साझा करने से बचें।</string>
 
     <string name="util_saved_pdf">PDF सफलतापूर्वक सहेजा गया!</string>
     <string name="util_error_saving_pdf">PDF सहेजने में त्रुटि</string>

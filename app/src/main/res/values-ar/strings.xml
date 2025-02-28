@@ -7,6 +7,11 @@
     <string name="pdf_safe_label">خزانة PDF</string>
     <string name="pdf_safe_cd">أيقونة تمثل خزانة</string>
     <string name="ocr_destination" translatable="false">ocr_destination</string>
+    <string name="dropdown_arrow_cd">سهم القائمة المنسدلة</string>
+    <string name="alt_gen_label">مولد النص البديل</string>
+    <string name="alt_gen_cd">أيقونة تمثل روبوتًا</string>
+    <string name="alt_gen_link_cd">أيقونة تمثل رابطًا</string>
+    <string name="ocr_copy_rearrange">أيقونة تمثل إمكانية إعادة ترتيب النص</string>
     <string name="ocr_label">صورة إلى نص</string>
     <string name="ocr_cd">أيقونة تمثل ماسح ضوئي</string>
     <string name="ocr_copy_cd">أيقونة تمثل إمكانية النسخ</string>
@@ -21,7 +26,11 @@
     <string name="main_search_unnamed_warning">المستندات غير المسماة لا تظهر في نتائج البحث</string>
 
     <plurals name="pdf_safe_number_items">
+        <item quantity="zero">عدد المستندات: لا شيء</item>
         <item quantity="one">عدد المستندات: عنصر واحد</item>
+        <item quantity="two">عدد المستندات: عنصران</item>
+        <item quantity="few">عدد المستندات: %d عناصر</item>
+        <item quantity="many">عدد المستندات: %d عنصرًا</item>
         <item quantity="other">عدد المستندات: %d عناصر</item>
     </plurals>
 
@@ -68,6 +77,13 @@
     <string name="ocr_dialog_doc_name_label">اسم المستند</string>
     <string name="ocr_dialog_doc_name_save">حفظ</string>
     <string name="ocr_dialog_doc_name_cancel">إلغاء</string>
+
+    <string name="alt_generator_action_url">من الرابط</string>
+    <string name="alt_generator_dialog_url_title">الصق رابطًا</string>
+    <string name="alt_generator_dialog_url_label">الرابط</string>
+    <string name="alt_generator_generate_label">توليد النص البديل</string>
+    <string name="alt_generator_generate_button">انطلق</string>
+    <string name="alt_generator_generate_welcome_text">يستخدم هذا التطبيق Gemini 1.5 Flash (المستوى المجاني)، مما يعني أن تفاعلاتك قد تُستخدم لتحسين نموذج الذكاء الاصطناعي. يرجى تجنب مشاركة المعلومات الحساسة أو الشخصية.</string>
 
     <string name="util_saved_pdf">تم حفظ PDF بنجاح!</string>
     <string name="util_error_saving_pdf">خطأ في حفظ PDF</string>

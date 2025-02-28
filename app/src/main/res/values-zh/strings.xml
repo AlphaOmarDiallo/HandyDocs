@@ -7,6 +7,11 @@
     <string name="pdf_safe_label">PDF 保险箱</string>
     <string name="pdf_safe_cd">代表保险箱的图标</string>
     <string name="ocr_destination" translatable="false">ocr_destination</string>
+    <string name="dropdown_arrow_cd">下拉箭头</string>
+    <string name="alt_gen_label">替代文本生成器</string>
+    <string name="alt_gen_cd">代表机器人的图标</string>
+    <string name="alt_gen_link_cd">代表链接的图标</string>
+    <string name="ocr_copy_rearrange">代表重新排列文本可能性的图标</string>
     <string name="ocr_label">图片转文字</string>
     <string name="ocr_cd">代表扫描仪的图标</string>
     <string name="ocr_copy_cd">代表复制功能的图标</string>
@@ -18,7 +23,6 @@
     <string name="main_search_unnamed_warning">未命名的文档不会出现在搜索结果中</string>
 
     <plurals name="pdf_safe_number_items">
-        <item quantity="one">文档数量：1 个</item>
         <item quantity="other">文档数量：%d 个</item>
     </plurals>
 
@@ -65,6 +69,13 @@
     <string name="ocr_dialog_doc_name_label">文档名称</string>
     <string name="ocr_dialog_doc_name_save">保存</string>
     <string name="ocr_dialog_doc_name_cancel">取消</string>
+
+    <string name="alt_generator_action_url">从 URL</string>
+    <string name="alt_generator_dialog_url_title">粘贴链接</string>
+    <string name="alt_generator_dialog_url_label">URL</string>
+    <string name="alt_generator_generate_label">生成 Alt</string>
+    <string name="alt_generator_generate_button">开始</string>
+    <string name="alt_generator_generate_welcome_text">此应用使用 Gemini 1.5 Flash（免费版本），这意味着您的交互可能用于改进 AI 模型。请避免分享敏感或个人信息。</string>
 
     <string name="util_saved_pdf">PDF 保存成功！</string>
     <string name="util_error_saving_pdf">保存 PDF 时出错</string>
