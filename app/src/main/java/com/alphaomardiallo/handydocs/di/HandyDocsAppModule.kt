@@ -63,7 +63,7 @@ val appModule = module {
     single {
         GenerateAltApi(
             httpClient = get(),
-            apiKey = "AIzaSyDTKEMGx3U7kxpVe0FY8M8d112X-SVSghY"
+            apiKey = BuildConfig.GEMINI_API_KEY
         )
     }
     single { AltGeneratorDataSource(api = get()) }

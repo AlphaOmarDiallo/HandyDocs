@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.google.firebase.crashlytics)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.google.maps.secrets)
 }
 
 android {
@@ -30,9 +31,6 @@ android {
                 arguments["room.incremental"] = "true"
             }
         }
-
-        val apiKey = project.findProperty("API_KEY") as? String ?: ""
-        buildConfigField("String", "API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -70,8 +68,6 @@ android {
     }
 }
 
-
-
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.androidx)
@@ -85,4 +81,9 @@ dependencies {
     implementation(libs.bundles.mlkit)
     implementation(libs.bundles.coil)
     debugImplementation(libs.bundles.test)
+}
+
+secrets {
+    propertiesFileName = "secrets.properties"
+    defaultPropertiesFileName = "local.defaults.properties"
 }

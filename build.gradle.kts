@@ -7,4 +7,5 @@ plugins {
     alias(libs.plugins.google.firebase.crashlytics) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.kotlinx.serialization) apply false
+    alias(libs.plugins.google.maps.secrets) apply false
 }
