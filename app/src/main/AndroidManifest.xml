@@ -39,6 +39,9 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-9309432628304004~8997596261" />
+        <meta-data
+            android:name="com.google.gemini"
+            android:value="${GEMINI_API_KEY}" />
     </application>
 
 </manifest>
