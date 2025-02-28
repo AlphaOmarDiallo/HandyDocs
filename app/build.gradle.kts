@@ -30,6 +30,9 @@ android {
                 arguments["room.incremental"] = "true"
             }
         }
+
+        val apiKey = project.findProperty("API_KEY") as? String ?: ""
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -66,6 +69,8 @@ android {
         }
     }
 }
+
+
 
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
