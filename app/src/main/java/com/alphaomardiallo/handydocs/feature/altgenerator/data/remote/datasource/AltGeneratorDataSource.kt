@@ -3,7 +3,6 @@ package com.alphaomardiallo.handydocs.feature.altgenerator.data.remote.datasourc
 import com.alphaomardiallo.handydocs.common.data.DataResponse
 import com.alphaomardiallo.handydocs.feature.altgenerator.data.remote.api.GenerateAltApi
 import com.alphaomardiallo.handydocs.feature.altgenerator.data.remote.model.GeminiPromptDto
-import com.alphaomardiallo.handydocs.feature.altgenerator.data.remote.model.GenerateContentRequest
 import io.ktor.client.call.body
 import io.ktor.http.HttpStatusCode
 

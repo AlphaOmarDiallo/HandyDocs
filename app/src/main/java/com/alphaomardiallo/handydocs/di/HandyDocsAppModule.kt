@@ -60,7 +60,12 @@ val appModule = module {
     viewModelOf(::OcrViewModel)
 
     // Alt generator
-    single { GenerateAltApi(httpClient = get(), apiKey = "AIzaSyDTKEMGx3U7kxpVe0FY8M8d112X-SVSghY") }
+    single {
+        GenerateAltApi(
+            httpClient = get(),
+            apiKey = "AIzaSyDTKEMGx3U7kxpVe0FY8M8d112X-SVSghY"
+        )
+    }
     single { AltGeneratorDataSource(api = get()) }
     single<AltGeneratorRepository> {
         AltGeneratorRepositoryImpl(context = get(), httpClient = get(), generatorDataSource = get())

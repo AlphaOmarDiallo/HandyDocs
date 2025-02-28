@@ -1,6 +1,5 @@
 package com.alphaomardiallo.handydocs.feature.altgenerator.data.remote.api
 
-import com.alphaomardiallo.handydocs.feature.altgenerator.data.remote.model.GenerateContentRequest
 import io.ktor.client.HttpClient
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
@@ -19,7 +18,8 @@ import timber.log.Timber
 class GenerateAltApi(private val httpClient: HttpClient, private val apiKey: String) {
 
     private companion object {
-        const val GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+        const val GEMINI_BASE_URL =
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
     }
 
     suspend fun generateAltText(prompt: String, imageBase64: String): HttpResponse? {

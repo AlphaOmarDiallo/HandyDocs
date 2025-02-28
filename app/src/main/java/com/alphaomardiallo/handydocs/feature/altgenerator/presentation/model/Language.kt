@@ -18,6 +18,7 @@ enum class Language(val displayName: String, val code: String) {
         fun fromCode(code: String): Language? {
             return entries.find { it.code == code }
         }
+
         fun listOfLanguages(): List<Language> {
             return entries.toList()
         }

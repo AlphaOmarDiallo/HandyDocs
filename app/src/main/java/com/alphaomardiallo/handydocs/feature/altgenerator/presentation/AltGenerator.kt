@@ -199,7 +199,12 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Button(
-                            onClick = { viewModel.getAltText(state.base64String!!, selectedOption) },
+                            onClick = {
+                                viewModel.getAltText(
+                                    state.base64String!!,
+                                    selectedOption
+                                )
+                            },
                             enabled = !state.base64String.isNullOrBlank()
                         ) {
                             Text(text = "Generate Alt")

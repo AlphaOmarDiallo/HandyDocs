@@ -5,18 +5,11 @@ import android.net.Uri
 import com.alphaomardiallo.handydocs.common.data.DataResponse
 import com.alphaomardiallo.handydocs.feature.altgenerator.data.remote.datasource.AltGeneratorDataSource
 import com.alphaomardiallo.handydocs.feature.altgenerator.data.remote.model.GeminiPromptDto
-import com.alphaomardiallo.handydocs.feature.altgenerator.data.remote.model.GenerateContentRequest
 import com.alphaomardiallo.handydocs.feature.altgenerator.domain.repository.AltGeneratorRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
-import io.ktor.client.request.parameter
-import io.ktor.client.request.post
-import io.ktor.client.request.setBody
-import io.ktor.client.request.url
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.readBytes
-import io.ktor.http.ContentType
-import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import timber.log.Timber
 import java.io.File
@@ -82,7 +75,10 @@ class AltGeneratorRepositoryImpl(
         }
     }
 
-    override suspend fun generateAltText(prompt: String, imageBase64: String): DataResponse<GeminiPromptDto> {
+    override suspend fun generateAltText(
+        prompt: String,
+        imageBase64: String
+    ): DataResponse<GeminiPromptDto> {
         return generatorDataSource.getAltText(prompt, imageBase64)
     }
 }

@@ -146,7 +146,9 @@ class MainActivity : ComponentActivity() {
                                                 AppDestination.PDFSAFE.route -> AppDestination.PDFSAFE
                                                 AppDestination.OCR.route -> AppDestination.OCR
                                                 AppDestination.ALTGEN.route -> AppDestination.ALTGEN
-                                                else -> { AppDestination.PDFSAFE }
+                                                else -> {
+                                                    AppDestination.PDFSAFE
+                                                }
                                             }
                                             navController.navigate(navItem.route)
                                         }
