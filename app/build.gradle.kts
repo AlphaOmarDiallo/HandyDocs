@@ -78,5 +78,6 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.bundles.other)
     implementation(libs.bundles.mlkit)
+    implementation(libs.bundles.coil)
     debugImplementation(libs.bundles.test)
 }

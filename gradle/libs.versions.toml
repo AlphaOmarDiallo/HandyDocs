@@ -30,6 +30,7 @@ ad_mob = "24.0.0"
 ktor = "3.1.1"
 serialization = "1.8.0"
 
+
 [libraries]
 # Android
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -80,6 +81,7 @@ ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 # Other
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
+coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil-compose" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
 zoomimage = { module = "io.github.panpf.zoomimage:zoomimage-compose-coil", version.ref = "zoom" }
@@ -150,8 +152,11 @@ ktor = [
     "ktor-client-cio",
     "ktor-client-content-negotiation"
 ]
-other = [
+coil = [
     "coil-compose",
+    "coil-svg"
+]
+other = [
     "gson",
     "firebase-crashlytics",
     "zoomimage",
