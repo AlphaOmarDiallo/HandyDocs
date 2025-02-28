@@ -7,6 +7,11 @@
     <string name="pdf_safe_label">Caja fuerte PDF</string>
     <string name="pdf_safe_cd">Ícono que representa una caja fuerte</string>
     <string name="ocr_destination" translatable="false">ocr_destination</string>
+    <string name="dropdown_arrow_cd">Flecha del menú desplegable</string>
+    <string name="alt_gen_label">Generador de texto alternativo</string>
+    <string name="alt_gen_cd">Ícono que representa un robot</string>
+    <string name="alt_gen_link_cd">Ícono que representa un enlace</string>
+    <string name="ocr_copy_rearrange">Ícono que representa la posibilidad de reorganizar el texto</string>
     <string name="ocr_label">Imagen a texto</string>
     <string name="ocr_cd">Ícono que representa un escáner</string>
     <string name="ocr_copy_cd">Ícono que representa la posibilidad de copiar</string>
@@ -19,6 +24,7 @@
 
     <plurals name="pdf_safe_number_items">
         <item quantity="one">Cantidad de documentos: 1 elemento</item>
+        <item quantity="many">Cantidad de documentos: %d elementos</item>
         <item quantity="other">Cantidad de documentos: %d elementos</item>
     </plurals>
 
@@ -65,6 +71,13 @@
     <string name="ocr_dialog_doc_name_label">Nombre del documento</string>
     <string name="ocr_dialog_doc_name_save">Guardar</string>
     <string name="ocr_dialog_doc_name_cancel">Cancelar</string>
+
+    <string name="alt_generator_action_url">Desde URL</string>
+    <string name="alt_generator_dialog_url_title">Pegar un enlace</string>
+    <string name="alt_generator_dialog_url_label">URL</string>
+    <string name="alt_generator_generate_label">Generar Alt</string>
+    <string name="alt_generator_generate_button">Ir</string>
+    <string name="alt_generator_generate_welcome_text">Esta aplicación utiliza Gemini 1.5 Flash (Nivel Gratuito), lo que significa que tus interacciones pueden ser utilizadas para mejorar el modelo de IA. Evita compartir información sensible o personal.</string>
 
     <string name="util_saved_pdf">¡PDF guardado con éxito!</string>
     <string name="util_error_saving_pdf">Error al guardar el PDF</string>

@@ -55,6 +55,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getString
 import com.alphaomardiallo.handydocs.R
@@ -63,7 +64,6 @@ import com.alphaomardiallo.handydocs.feature.altgenerator.presentation.model.Lan
 import com.alphaomardiallo.handydocs.feature.altgenerator.presentation.model.Language.Companion.listOfLanguages
 import com.alphaomardiallo.handydocs.feature.ocr.presentation.model.OcrAction
 import org.koin.androidx.compose.koinViewModel
-import timber.log.Timber
 
 @Composable
 fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
@@ -96,6 +96,13 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
+        Text(
+            text = stringResource(id = R.string.alt_generator_generate_welcome_text),
+            modifier = Modifier.padding(bottom = 8.dp),
+            textAlign = TextAlign.Justify,
+            style = MaterialTheme.typography.bodySmall
+        )
+
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             listOf(
                 /*OcrAction(
@@ -179,7 +186,7 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                                 Icons.Default.KeyboardArrowUp
                             else
                                 Icons.Default.KeyboardArrowDown,
-                            contentDescription = "Dropdown Arrow"
+                            contentDescription = stringResource(id = R.string.dropdown_arrow_cd)
                         )
                     }
                 }
@@ -221,10 +228,9 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "Generate Alt")
+                        Text(text = stringResource(id = R.string.alt_generator_generate_label))
                         Button(
                             onClick = {
-                                Timber.e("CLICK")
                                 viewModel.getAltText(
                                     state.base64String!!,
                                     selectedOption
@@ -232,7 +238,7 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                             },
                             enabled = !state.isLoading
                         ) {
-                            Text(text = "Go")
+                            Text(text = stringResource(id = R.string.alt_generator_generate_button))
                         }
                     }
                 }

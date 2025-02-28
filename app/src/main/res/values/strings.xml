@@ -10,6 +10,7 @@
     <string name="ocr_label">Image to text</string>
     <string name="ocr_cd">Icon representing a scanner</string>
     <string name="alt_gen_destination" translatable="false">ocr_destination</string>
+    <string name="dropdown_arrow_cd">Dropdown arrow</string>
     <string name="alt_gen_label">Alt generator</string>
     <string name="alt_gen_cd">Icon representing a robot</string>
     <string name="alt_gen_link_cd">Icon representing a link</string>
@@ -77,6 +78,9 @@
     <string name="alt_generator_action_url">From url</string>
     <string name="alt_generator_dialog_url_title">Paste a link</string>
     <string name="alt_generator_dialog_url_label">Url</string>
+    <string name="alt_generator_generate_label">Generate Alt</string>
+    <string name="alt_generator_generate_button">Go</string>
+    <string name="alt_generator_generate_welcome_text">This app uses Gemini 1.5 Flash (Free Tier), which means your interactions may be used to improve the AI model. Please avoid sharing sensitive or personal information.</string>
 
     <string name="util_saved_pdf">PDF saved successfully!</string>
     <string name="util_error_saving_pdf">Error saving the PDF</string>
