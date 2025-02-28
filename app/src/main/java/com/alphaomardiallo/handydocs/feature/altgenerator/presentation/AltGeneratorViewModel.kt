@@ -4,16 +4,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
+import com.alphaomardiallo.handydocs.common.domain.model.DomainResponse
 import com.alphaomardiallo.handydocs.common.domain.navigator.AppNavigator
 import com.alphaomardiallo.handydocs.common.presentation.base.BaseViewModel
 import com.alphaomardiallo.handydocs.feature.altgenerator.data.repository.ImageConversionResult
-import com.alphaomardiallo.handydocs.feature.altgenerator.domain.repository.AltGeneratorRepository
+import com.alphaomardiallo.handydocs.feature.altgenerator.domain.usecase.AltTextGeneratorUseCase
+import com.alphaomardiallo.handydocs.feature.altgenerator.domain.usecase.ImageToBase64UseCase
+import com.alphaomardiallo.handydocs.feature.altgenerator.presentation.model.Language
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class AltGeneratorViewModel(
     appNavigator: AppNavigator,
-    private val altGeneratorRepository: AltGeneratorRepository
+    private val imageToBase64UseCase: ImageToBase64UseCase,
+    private val altTextGeneratorUseCase: AltTextGeneratorUseCase
 ) : BaseViewModel(appNavigator) {
 
     var state by mutableStateOf(AltGenUiState())
@@ -22,7 +27,7 @@ class AltGeneratorViewModel(
     fun imageToBase64(source: String) {
         viewModelScope.launch(Dispatchers.IO) {
             state = state.copy(isLoading = false)
-            state = when (val response = altGeneratorRepository.imageToBase64(source)) {
+            state = when (val response = imageToBase64UseCase.invoke(source)) {
                 is ImageConversionResult.Success -> {
                     state.copy(
                         base64String = response.base64,
@@ -49,6 +54,41 @@ class AltGeneratorViewModel(
                         isLoading = false
                     )
                 }
+            }
+        }
+    }
+
+    fun getAltText(source: String, language: Language = Language.ENGLISH, maxChar: Int = 2000) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val prompt =
+                    "Can you write me the most detailed alt text for this image in a maximum of $maxChar char in ${language.code}?"
+
+                altTextGeneratorUseCase.invoke(prompt = prompt, imageBase64 = source)
+                    .collect { response ->
+                        when (response) {
+                            is DomainResponse.Error -> state = state.copy(
+                                altText = null,
+                                error = true,
+                                errorMessage = response.description
+                            )
+
+                            is DomainResponse.Loading -> state = state.copy(
+                                altText = null,
+                                error = false,
+                                errorMessage = null,
+                                isLoading = true
+                            )
+
+                            is DomainResponse.Success -> state = state.copy(
+                                altText = response.response.candidates[0].content.parts[0].text,
+                                error = false,
+                                errorMessage = null
+                            )
+                        }
+                    }
+            } catch (e: Exception) {
+                Timber.e(e.localizedMessage)
             }
         }
     }

@@ -8,8 +8,12 @@ import com.alphaomardiallo.handydocs.common.domain.navigator.AppNavigator
 import com.alphaomardiallo.handydocs.common.domain.navigator.AppNavigatorImp
 import com.alphaomardiallo.handydocs.common.domain.repository.ImageDocRepository
 import com.alphaomardiallo.handydocs.common.presentation.main.MainViewModel
+import com.alphaomardiallo.handydocs.feature.altgenerator.data.remote.api.GenerateAltApi
+import com.alphaomardiallo.handydocs.feature.altgenerator.data.remote.datasource.AltGeneratorDataSource
 import com.alphaomardiallo.handydocs.feature.altgenerator.data.repository.AltGeneratorRepositoryImpl
 import com.alphaomardiallo.handydocs.feature.altgenerator.domain.repository.AltGeneratorRepository
+import com.alphaomardiallo.handydocs.feature.altgenerator.domain.usecase.AltTextGeneratorUseCase
+import com.alphaomardiallo.handydocs.feature.altgenerator.domain.usecase.ImageToBase64UseCase
 import com.alphaomardiallo.handydocs.feature.altgenerator.presentation.AltGeneratorViewModel
 import com.alphaomardiallo.handydocs.feature.docviewer.DocViewerViewModel
 import com.alphaomardiallo.handydocs.feature.ocr.data.OcrRepositoryImpl
@@ -56,12 +60,13 @@ val appModule = module {
     viewModelOf(::OcrViewModel)
 
     // Alt generator
+    single { GenerateAltApi(httpClient = get(), apiKey = "AIzaSyDTKEMGx3U7kxpVe0FY8M8d112X-SVSghY") }
+    single { AltGeneratorDataSource(api = get()) }
     single<AltGeneratorRepository> {
-        AltGeneratorRepositoryImpl(
-            context = get(),
-            httpClient = get()
-        )
+        AltGeneratorRepositoryImpl(context = get(), httpClient = get(), generatorDataSource = get())
     }
+    factory { ImageToBase64UseCase(repository = get()) }
+    factory { AltTextGeneratorUseCase(repository = get()) }
     viewModelOf(::AltGeneratorViewModel)
 }
 
