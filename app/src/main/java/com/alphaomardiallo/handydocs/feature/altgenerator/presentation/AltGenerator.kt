@@ -1,6 +1,7 @@
 package com.alphaomardiallo.handydocs.feature.altgenerator.presentation
 
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
@@ -31,10 +32,14 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -44,20 +49,26 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.getString
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.common.presentation.composable.LoadImage
 import com.alphaomardiallo.handydocs.feature.altgenerator.presentation.model.Language
 import com.alphaomardiallo.handydocs.feature.altgenerator.presentation.model.Language.Companion.listOfLanguages
 import com.alphaomardiallo.handydocs.feature.ocr.presentation.model.OcrAction
 import org.koin.androidx.compose.koinViewModel
+import timber.log.Timber
 
 @Composable
 fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
-
     val state = viewModel.state
+    val context = LocalContext.current
     var selectedFileUri by remember { mutableStateOf<String?>(null) }
     val filePickerLauncher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.OpenDocument()) { uri: Uri? ->
@@ -68,6 +79,10 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
     var expanded by remember { mutableStateOf(false) }
     var selectedOption by remember { mutableStateOf(Language.ENGLISH) }
     val menuOptions = listOfLanguages()
+    var textFieldValue by remember(state.altText) {
+        mutableStateOf(TextFieldValue(state.altText ?: ""))
+    }
+    val clipboardManager = LocalClipboardManager.current
 
     LaunchedEffect(selectedFileUri) {
         selectedFileUri?.let {
@@ -78,16 +93,17 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             listOf(
-                OcrAction(
+                /*OcrAction(
                     name = R.string.alt_generator_action_url,
                     icon = R.drawable.rounded_link_24,
                     cd = R.string.alt_gen_link_cd,
                     onClick = { showDialogPasteLink = true }
-                ),
+                ),*/
                 OcrAction(
                     name = R.string.ocr_folder_button_label,
                     icon = R.drawable.rounded_folder_open_24,
@@ -127,6 +143,12 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                     }
                 }
             }
+        }
+
+        if (state.isLoading) {
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+        } else {
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), progress = { 1f })
         }
 
         selectedFileUri?.let {
@@ -181,6 +203,7 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                         )
                     }
                 }
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -198,54 +221,107 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
+                        Text(text = "Generate Alt")
                         Button(
                             onClick = {
+                                Timber.e("CLICK")
                                 viewModel.getAltText(
                                     state.base64String!!,
                                     selectedOption
                                 )
                             },
-                            enabled = !state.base64String.isNullOrBlank()
+                            enabled = !state.isLoading
                         ) {
-                            Text(text = "Generate Alt")
+                            Text(text = "Go")
                         }
                     }
-
                 }
             }
         }
 
-        state.base64String?.let {}
-
-        if (showDialogPasteLink) {
-            AlertDialog(
-                onDismissRequest = { showDialogPasteLink = false },
-                title = { Text(stringResource(id = R.string.alt_generator_dialog_url_title)) },
-                text = {
-                    Column {
-                        OutlinedTextField(
-                            value = newUrl,
-                            onValueChange = { newUrl = it },
-                            label = { Text(stringResource(id = R.string.ocr_dialog_doc_name_label)) }
-                        )
-                    }
-                },
-                confirmButton = {
-                    TextButton(onClick = {
-                        if (newUrl.isNotBlank()) {
-                            selectedFileUri = newUrl
-                            showDialogPasteLink = false
+        state.altText?.let {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                IconButton(
+                    onClick = {
+                        clipboardManager.setText(AnnotatedString(textFieldValue.text))
+                        context.let { nonNullContext ->
+                            Toast.makeText(
+                                nonNullContext,
+                                getString(context, R.string.ocr_toast_copied),
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
-                    }) {
-                        Text(stringResource(id = R.string.ocr_dialog_doc_name_save))
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = { showDialogPasteLink = false }) {
-                        Text(stringResource(id = R.string.ocr_dialog_doc_name_cancel))
-                    }
+                    },
+                    colors = IconButtonDefaults.iconButtonColors()
+                        .copy(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.rounded_content_copy_24),
+                        contentDescription = stringResource(id = R.string.ocr_copy_cd)
+                    )
                 }
+                /*IconButton(
+                    onClick = {
+                        context?.let { showDialogChooseName = true }
+                    },
+                    colors = IconButtonDefaults.iconButtonColors()
+                        .copy(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.rounded_save_24),
+                        contentDescription = stringResource(id = R.string.ocr_copy_cd)
+                    )
+                }*/
+            }
+            TextField(
+                value = textFieldValue,
+                onValueChange = { newText ->
+                    textFieldValue = newText
+                },
+                modifier = Modifier.fillMaxWidth()
             )
         }
+    }
+
+    if (showDialogPasteLink) {
+        AlertDialog(
+            onDismissRequest = { showDialogPasteLink = false },
+            title = { Text(stringResource(id = R.string.alt_generator_dialog_url_title)) },
+            text = {
+                Column {
+                    OutlinedTextField(
+                        value = newUrl,
+                        onValueChange = { newUrl = it },
+                        label = { Text(stringResource(id = R.string.ocr_dialog_doc_name_label)) }
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    if (newUrl.isNotBlank()) {
+                        selectedFileUri = newUrl
+                        showDialogPasteLink = false
+                    }
+                }) {
+                    Text(stringResource(id = R.string.ocr_dialog_doc_name_save))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDialogPasteLink = false }) {
+                    Text(stringResource(id = R.string.ocr_dialog_doc_name_cancel))
+                }
+            }
+        )
     }
 }

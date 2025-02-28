@@ -87,3 +87,7 @@ secrets {
     propertiesFileName = "secrets.properties"
     defaultPropertiesFileName = "local.defaults.properties"
 }
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}

@@ -70,7 +70,8 @@ class AltGeneratorViewModel(
                             is DomainResponse.Error -> state = state.copy(
                                 altText = null,
                                 error = true,
-                                errorMessage = response.description
+                                errorMessage = response.description,
+                                isLoading = false
                             )
 
                             is DomainResponse.Loading -> state = state.copy(
@@ -83,7 +84,8 @@ class AltGeneratorViewModel(
                             is DomainResponse.Success -> state = state.copy(
                                 altText = response.response.candidates[0].content.parts[0].text,
                                 error = false,
-                                errorMessage = null
+                                errorMessage = null,
+                                isLoading = false
                             )
                         }
                     }
