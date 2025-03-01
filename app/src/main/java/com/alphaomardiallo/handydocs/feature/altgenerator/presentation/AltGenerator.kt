@@ -298,6 +298,16 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                 modifier = Modifier.fillMaxWidth()
             )
         }
+
+        if (state.error) {
+            state.errorMessage?.let {
+                Text(
+                    text = it,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+        }
     }
 
     if (showDialogPasteLink) {
