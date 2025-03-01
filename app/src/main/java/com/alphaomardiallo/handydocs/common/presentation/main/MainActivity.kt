@@ -167,7 +167,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(
                             navController = navController,
-                            startDestination = AppDestination.PDFSAFE.route
+                            startDestination = AppDestination.ALTGEN.route
                         ) {
                             appDestination()
                         }
