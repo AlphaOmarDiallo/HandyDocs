@@ -27,17 +27,19 @@ import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -50,6 +52,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
@@ -109,7 +112,10 @@ class MainActivity : ComponentActivity() {
                         )
                     },
                     bottomBar = {
-                        NavigationBar {
+                        NavigationBar(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        ) {
                             listOf(
                                 BottomNav(
                                     route = AppDestination.ALTGEN.route,
@@ -132,12 +138,13 @@ class MainActivity : ComponentActivity() {
                             ).forEach { navItem ->
                                 NavigationBarItem(
                                     selected = currentRoute.value.route == navItem.route,
-                                    label = { Text(stringResource(id = navItem.label)) },
-                                    alwaysShowLabel = true,
+                                    //label = { Text(stringResource(id = navItem.label)) },
+                                    alwaysShowLabel = false,
                                     icon = {
                                         Icon(
                                             painter = painterResource(id = navItem.icon),
-                                            contentDescription = stringResource(id = navItem.cd)
+                                            contentDescription = stringResource(id = navItem.cd),
+                                            tint = MaterialTheme.colorScheme.onPrimary
                                         )
                                     },
                                     onClick = {
@@ -153,6 +160,11 @@ class MainActivity : ComponentActivity() {
                                             navController.navigate(navItem.route)
                                         }
                                     },
+                                    colors = NavigationBarItemDefaults.colors().copy(
+                                        selectedIconColor = MaterialTheme.colorScheme.onSecondary,
+                                        unselectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                                        selectedIndicatorColor = MaterialTheme.colorScheme.secondary
+                                    )
                                 )
                             }
                         }
@@ -160,7 +172,7 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding ->
 
                     Surface(
-                        color = MaterialTheme.colorScheme.surfaceBright,
+                        color = MaterialTheme.colorScheme.background,
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding)
@@ -254,66 +266,75 @@ class MainActivity : ComponentActivity() {
 
         var showDialogViewer by remember { mutableStateOf(false) }
 
-        TopAppBar(
-            title = {
-                val title = when (currentRoute.value) {
-                    AppDestination.PDFSAFE -> R.string.pdf_safe_label
-                    AppDestination.OCR -> R.string.ocr_label
-                    AppDestination.ALTGEN -> R.string.alt_gen_label
-                }
-                Text(text = stringResource(id = title))
-            },
-            navigationIcon = {
-                AsyncImage(
-                    model = R.mipmap.ic_launcher,
-                    contentDescription = stringResource(id = R.string.app_logo_cd),
-                    modifier = Modifier.size(48.dp)
-                )
-            },
-            actions = {
-                if (currentRoute.value == AppDestination.PDFSAFE) {
-                    IconButton(onClick = {
-                        showSearchDialog = true
-                    }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.rounded_search_24),
-                            contentDescription = Icons.Default.Search.name
-                        )
+        Column(Modifier.fillMaxWidth()) {
+            CenterAlignedTopAppBar(
+                title = {
+                    val title = when (currentRoute.value) {
+                        AppDestination.PDFSAFE -> R.string.pdf_safe_label
+                        AppDestination.OCR -> R.string.ocr_label
+                        AppDestination.ALTGEN -> R.string.alt_gen_label
                     }
-
-                    IconButton(onClick = {
-                        activity?.let { nonNullActivity ->
-                            scanner.getStartScanIntent(nonNullActivity)
-                                .addOnSuccessListener {
-                                    scannerLauncher.launch(
-                                        IntentSenderRequest.Builder(it).build()
-                                    )
-                                }
-                                .addOnFailureListener {
-                                    Toast.makeText(
-                                        context,
-                                        String.format(
-                                            getString(R.string.toast_error_message),
-                                            it.localizedMessage
-                                        ),
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
+                    Text(
+                        text = stringResource(id = title),
+                        fontWeight = FontWeight.Black,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                },
+                navigationIcon = {
+                    AsyncImage(
+                        model = R.mipmap.ic_launcher,
+                        contentDescription = stringResource(id = R.string.app_logo_cd),
+                        modifier = Modifier
+                            .size(48.dp)
+                            .padding(start = 8.dp)
+                    )
+                },
+                actions = {
+                    if (currentRoute.value == AppDestination.PDFSAFE) {
+                        IconButton(onClick = {
+                            showSearchDialog = true
+                        }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.rounded_search_24),
+                                contentDescription = Icons.Default.Search.name
+                            )
                         }
-                    }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.baseline_document_scanner_24),
-                            contentDescription = Icons.Default.Add.name
-                        )
+
+                        IconButton(onClick = {
+                            activity?.let { nonNullActivity ->
+                                scanner.getStartScanIntent(nonNullActivity)
+                                    .addOnSuccessListener {
+                                        scannerLauncher.launch(
+                                            IntentSenderRequest.Builder(it).build()
+                                        )
+                                    }
+                                    .addOnFailureListener {
+                                        Toast.makeText(
+                                            context,
+                                            String.format(
+                                                getString(R.string.toast_error_message),
+                                                it.localizedMessage
+                                            ),
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                            }
+                        }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.baseline_document_scanner_24),
+                                contentDescription = Icons.Default.Add.name
+                            )
+                        }
                     }
-                }
-            },
-            colors = TopAppBarDefaults.topAppBarColors().copy(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                actionIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                },
+                colors = TopAppBarDefaults.topAppBarColors().copy(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    titleContentColor = MaterialTheme.colorScheme.onBackground,
+                    actionIconContentColor = MaterialTheme.colorScheme.onBackground
+                )
             )
-        )
+            HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.primary)
+        }
 
         if (showSearchDialog) {
             BasicAlertDialog(

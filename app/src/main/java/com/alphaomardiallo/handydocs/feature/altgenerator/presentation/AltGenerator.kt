@@ -131,7 +131,8 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                     colors = CardDefaults.cardColors().copy(
                         containerColor = if (index == 0) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary,
                         contentColor = if (index == 0) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onTertiary
-                    )
+                    ),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
                 ) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
