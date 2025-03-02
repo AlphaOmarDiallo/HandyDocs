@@ -3,6 +3,11 @@ package com.alphaomardiallo.handydocs.feature.pdfsafe
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -55,6 +60,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -142,6 +148,7 @@ private fun ListNotEmptyScreen(
     var selectedFilters by remember { mutableStateOf<ListFilter>(ListFilter.None) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var toDeleteDoc by remember { mutableStateOf<ImageDoc?>(null) }
+    var showChips by remember { mutableStateOf(false) }
 
     LaunchedEffect(selectedFilters) {
         filterList.invoke(selectedFilters)
@@ -173,50 +180,63 @@ private fun ListNotEmptyScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(
-                        text = stringResource(id = R.string.pdf_safe_filter_title),
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(top = paddingDefault)
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        IconButton(onClick = { showChips = !showChips }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.rounded_filter_alt_24),
+                                contentDescription = ""
+                            )
+                        }
+                        Text(
+                            text = stringResource(id = R.string.pdf_safe_filter_title),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                    }
+
                     Text(
                         text = numberString,
                         style = MaterialTheme.typography.titleSmall,
-                        modifier = Modifier.padding(top = paddingDefault)
                     )
                 }
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .horizontalScroll(rememberScrollState())
-                        .padding(horizontal = paddingDefault)
-                ) {
-                    filterOptions.forEach { option ->
-                        FilterChip(
-                            selected = selectedFilters == option,
-                            onClick = {
-                                selectedFilters = if (selectedFilters == option) {
-                                    ListFilter.None
-                                } else {
-                                    option
-                                }
-                            },
-                            label = { Text(text = stringResource(id = option.label)) },
-                            leadingIcon = {
-                                if (selectedFilters == option) {
-                                    Icon(
-                                        imageVector = Icons.Default.Done,
-                                        contentDescription = String.format(
-                                            stringResource(id = R.string.icon_content_description),
-                                            Icons.Default.Done.name
-                                        )
-                                    )
-                                }
+
+                    AnimatedVisibility(
+                        visible = showChips,
+                        enter = fadeIn() + expandHorizontally(),
+                        exit = fadeOut() + shrinkHorizontally()
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .horizontalScroll(rememberScrollState())
+                        ) {
+                            filterOptions.forEach { option ->
+                                FilterChip(
+                                    selected = selectedFilters == option,
+                                    onClick = {
+                                        selectedFilters = if (selectedFilters == option) {
+                                            ListFilter.None
+                                        } else {
+                                            option
+                                        }
+                                    },
+                                    label = { Text(text = stringResource(id = option.label)) },
+                                    leadingIcon = {
+                                        if (selectedFilters == option) {
+                                            Icon(
+                                                imageVector = Icons.Default.Done,
+                                                contentDescription = String.format(
+                                                    stringResource(id = R.string.icon_content_description),
+                                                    Icons.Default.Done.name
+                                                )
+                                            )
+                                        }
+                                    }
+                                )
+                                Spacer(modifier = Modifier.padding(4.dp))
                             }
-                        )
-                        Spacer(modifier = Modifier.padding(4.dp))
+                        }
                     }
-                }
 
                 HorizontalDivider(Modifier.fillMaxWidth(), thickness = 2.dp)
             }

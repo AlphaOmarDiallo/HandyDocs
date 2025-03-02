@@ -4,6 +4,11 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -158,6 +163,11 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), progress = { 1f })
         }
 
+        AnimatedVisibility(
+            visible = selectedFileUri != null,
+            enter = fadeIn() + expandHorizontally(),
+            exit = fadeOut() + shrinkHorizontally()
+        ) {
         selectedFileUri?.let {
             Card(
                 modifier = Modifier
@@ -243,7 +253,7 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                     }
                 }
             }
-        }
+        }}
 
         state.altText?.let {
             Row(

@@ -137,12 +137,12 @@ private fun OcrScreenContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(id = R.string.ocr_open_script),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            style = MaterialTheme.typography.titleLarge
+            text = stringResource(id = R.string.ocr_welcome_text),
+            modifier = Modifier.padding(bottom = 8.dp),
+            textAlign = TextAlign.Justify,
+            style = MaterialTheme.typography.bodySmall
         )
+
         var expanded by remember { mutableStateOf(false) }
         var selectedOption by remember { mutableStateOf(TextRecognitionType.LATIN) }
 
@@ -155,57 +155,6 @@ private fun OcrScreenContent(
             TextRecognitionType.CHINESE,
             TextRecognitionType.DEVANAGARI
         )
-
-        Column {
-            // The box that triggers the dropdown
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .border(1.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(4.dp))
-                    .padding(16.dp)
-                    .clickable { expanded = true }
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(text = stringResource(id = selectedOption.label))
-                    Icon(
-                        imageVector = if (expanded)
-                            Icons.Default.KeyboardArrowUp
-                        else
-                            Icons.Default.KeyboardArrowDown,
-                        contentDescription = stringResource(id = R.string.dropdown_arrow_cd)
-                    )
-                }
-            }
-
-            // The dropdown menu
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-                    .padding(vertical = 8.dp)
-            ) {
-                menuOptions.forEach { option ->
-                    DropdownMenuItem(
-                        text = {
-                            Text(
-                                text = stringResource(id = option.label),
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                        },
-                        onClick = {
-                            selectedOption = option
-                            expanded = false
-                        }
-                    )
-                }
-            }
-        }
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             listOf(
@@ -282,10 +231,69 @@ private fun OcrScreenContent(
             }
         }
 
+        Text(
+            text = stringResource(id = R.string.ocr_open_script),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            style = MaterialTheme.typography.titleMedium
+        )
+
+        Column {
+            // The box that triggers the dropdown
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .border(1.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(4.dp))
+                    .padding(8.dp)
+                    .clickable { expanded = true }
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = stringResource(id = selectedOption.label))
+                    Icon(
+                        imageVector = if (expanded)
+                            Icons.Default.KeyboardArrowUp
+                        else
+                            Icons.Default.KeyboardArrowDown,
+                        contentDescription = stringResource(id = R.string.dropdown_arrow_cd)
+                    )
+                }
+            }
+
+            // The dropdown menu
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                    .padding(vertical = 8.dp)
+            ) {
+                menuOptions.forEach { option ->
+                    DropdownMenuItem(
+                        text = {
+                            Text(
+                                text = stringResource(id = option.label),
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        },
+                        onClick = {
+                            selectedOption = option
+                            expanded = false
+                        }
+                    )
+                }
+            }
+        }
+
         if (state.isLoading) {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth().padding(top = 8.dp))
         } else {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), progress = { 1f })
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth().padding(top = 8.dp), progress = { 1f })
         }
 
         if (state.fileError || state.recognitionError || state.invalidImage) {

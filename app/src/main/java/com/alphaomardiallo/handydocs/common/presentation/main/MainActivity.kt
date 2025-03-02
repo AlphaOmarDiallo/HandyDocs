@@ -14,6 +14,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -284,14 +285,16 @@ class MainActivity : ComponentActivity() {
                         AppDestination.OCR -> R.string.ocr_label
                         AppDestination.ALTGEN -> R.string.alt_gen_label
                     }
-                    Text(
-                        text = stringResource(id = title),
-                        style = MaterialTheme.typography.titleLarge.copy(
-                            fontWeight = FontWeight(
-                                1000
+                    Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
+                        Text(
+                            text = stringResource(id = title),
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight(
+                                    1000
+                                )
                             )
                         )
-                    )
+                    }
                 },
                 /*navigationIcon = {
                     AsyncImage(
