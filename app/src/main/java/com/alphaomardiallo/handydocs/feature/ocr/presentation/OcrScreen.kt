@@ -49,7 +49,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -162,7 +161,7 @@ private fun OcrScreenContent(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
+                    .border(1.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(4.dp))
                     .padding(16.dp)
                     .clickable { expanded = true }
             ) {
@@ -188,12 +187,17 @@ private fun OcrScreenContent(
                 onDismissRequest = { expanded = false },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White)
+                    .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                     .padding(vertical = 8.dp)
             ) {
                 menuOptions.forEach { option ->
                     DropdownMenuItem(
-                        text = { Text(text = stringResource(id = option.label)) },
+                        text = {
+                            Text(
+                                text = stringResource(id = option.label),
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        },
                         onClick = {
                             selectedOption = option
                             expanded = false
