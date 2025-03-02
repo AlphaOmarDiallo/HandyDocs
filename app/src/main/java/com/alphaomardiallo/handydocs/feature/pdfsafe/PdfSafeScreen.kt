@@ -176,20 +176,12 @@ private fun ListNotEmptyScreen(
                     Text(
                         text = stringResource(id = R.string.pdf_safe_filter_title),
                         style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(
-                            top = paddingDefault,
-                            start = paddingDefault,
-                            end = paddingDefault
-                        )
+                        modifier = Modifier.padding(top = paddingDefault)
                     )
                     Text(
                         text = numberString,
                         style = MaterialTheme.typography.titleSmall,
-                        modifier = Modifier.padding(
-                            top = paddingDefault,
-                            start = paddingDefault,
-                            end = paddingDefault
-                        )
+                        modifier = Modifier.padding(top = paddingDefault)
                     )
                 }
 
@@ -237,7 +229,7 @@ private fun ListNotEmptyScreen(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxSize()
-                .padding(horizontal = 8.dp, vertical = 16.dp)
+                .padding(vertical = 16.dp)
         ) {
             items(list) { doc ->
                 Card(

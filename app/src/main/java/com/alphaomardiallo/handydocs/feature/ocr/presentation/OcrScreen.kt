@@ -133,7 +133,6 @@ private fun OcrScreenContent(
 
     Column(
         modifier = Modifier
-            .padding(16.dp)
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally

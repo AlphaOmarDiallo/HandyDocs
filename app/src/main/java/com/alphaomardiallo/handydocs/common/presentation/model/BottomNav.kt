@@ -4,5 +4,6 @@ data class BottomNav(
     val route: String,
     val cd: Int,
     val label: Int,
-    val icon: Int
+    val icon: Int,
+    val selectedIcon: Int
 )

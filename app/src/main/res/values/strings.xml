@@ -5,13 +5,16 @@
 
     <string name="pdf_safe_destination" translatable="false">pdf_safe_destination</string>
     <string name="pdf_safe_label">PDF safe</string>
+    <string name="pdf_safe_label_bb">Safe</string>
     <string name="pdf_safe_cd">Icon representing a safe</string>
     <string name="ocr_destination" translatable="false">ocr_destination</string>
-    <string name="ocr_label">Image to text</string>
+    <string name="ocr_label">Image to text scanner</string>
+    <string name="ocr_label_bb">Scanner</string>
     <string name="ocr_cd">Icon representing a scanner</string>
     <string name="alt_gen_destination" translatable="false">ocr_destination</string>
     <string name="dropdown_arrow_cd">Dropdown arrow</string>
-    <string name="alt_gen_label">Alt generator</string>
+    <string name="alt_gen_label">AI alt</string>
+    <string name="alt_gen_label_bb">AI</string>
     <string name="alt_gen_cd">Icon representing a robot</string>
     <string name="alt_gen_link_cd">Icon representing a link</string>
     <string name="ocr_copy_rearrange">Icon representing a possibility to rearrange text</string>

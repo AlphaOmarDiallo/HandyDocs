@@ -16,8 +16,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -27,9 +27,7 @@ import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -40,6 +38,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -49,6 +48,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -61,7 +61,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import coil3.compose.AsyncImage
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.common.domain.destination.AppDestination
 import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
@@ -113,38 +112,48 @@ class MainActivity : ComponentActivity() {
                     },
                     bottomBar = {
                         NavigationBar(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.onPrimary
+                            modifier = Modifier.height(60.dp),
+                            containerColor = MaterialTheme.colorScheme.background,
+                            contentColor = MaterialTheme.colorScheme.onBackground
                         ) {
                             listOf(
                                 BottomNav(
                                     route = AppDestination.ALTGEN.route,
                                     cd = R.string.alt_gen_destination,
-                                    label = R.string.alt_gen_label,
-                                    icon = R.drawable.rounded_robot_2_24
+                                    label = R.string.alt_gen_label_bb,
+                                    icon = R.drawable.ic_robot,
+                                    selectedIcon = R.drawable.ic_robot_fill
                                 ),
                                 BottomNav(
                                     route = AppDestination.OCR.route,
                                     cd = R.string.ocr_destination,
-                                    label = R.string.ocr_label,
-                                    icon = R.drawable.baseline_document_scanner_24
+                                    label = R.string.ocr_label_bb,
+                                    icon = R.drawable.ic_scanner,
+                                    selectedIcon = R.drawable.ic_scanner_fill
                                 ),
                                 BottomNav(
                                     route = AppDestination.PDFSAFE.route,
                                     cd = R.string.pdf_safe_destination,
-                                    label = R.string.pdf_safe_label,
-                                    icon = R.drawable.ic_safe
+                                    label = R.string.pdf_safe_label_bb,
+                                    icon = R.drawable.ic_safe,
+                                    selectedIcon = R.drawable.ic_safe_fill
                                 )
                             ).forEach { navItem ->
+                                val select = currentRoute.value.route == navItem.route
                                 NavigationBarItem(
-                                    selected = currentRoute.value.route == navItem.route,
-                                    //label = { Text(stringResource(id = navItem.label)) },
-                                    alwaysShowLabel = false,
+                                    selected = select,
+                                    label = {
+                                        Text(
+                                            text = stringResource(id = navItem.label),
+                                            fontWeight = if (select) FontWeight.Bold else FontWeight.Normal
+                                        )
+                                            },
+                                    alwaysShowLabel = true,
                                     icon = {
                                         Icon(
-                                            painter = painterResource(id = navItem.icon),
+                                            painter = painterResource(id = if (select) navItem.selectedIcon else navItem.icon),
                                             contentDescription = stringResource(id = navItem.cd),
-                                            tint = MaterialTheme.colorScheme.onPrimary
+                                            tint = MaterialTheme.colorScheme.onBackground
                                         )
                                     },
                                     onClick = {
@@ -160,10 +169,10 @@ class MainActivity : ComponentActivity() {
                                             navController.navigate(navItem.route)
                                         }
                                     },
-                                    colors = NavigationBarItemDefaults.colors().copy(
-                                        selectedIconColor = MaterialTheme.colorScheme.onSecondary,
-                                        unselectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                                        selectedIndicatorColor = MaterialTheme.colorScheme.secondary
+                                    colors = NavigationBarItemDefaults.colors(
+                                        selectedIconColor = Color.Black,
+                                        indicatorColor = Color.Transparent,
+                                        unselectedIconColor = Color.Black
                                     )
                                 )
                             }
@@ -176,6 +185,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding)
+                            .padding(horizontal = 16.dp)
                     ) {
                         NavHost(
                             navController = navController,
@@ -267,7 +277,7 @@ class MainActivity : ComponentActivity() {
         var showDialogViewer by remember { mutableStateOf(false) }
 
         Column(Modifier.fillMaxWidth()) {
-            CenterAlignedTopAppBar(
+            TopAppBar(
                 title = {
                     val title = when (currentRoute.value) {
                         AppDestination.PDFSAFE -> R.string.pdf_safe_label
@@ -276,11 +286,14 @@ class MainActivity : ComponentActivity() {
                     }
                     Text(
                         text = stringResource(id = title),
-                        fontWeight = FontWeight.Black,
-                        style = MaterialTheme.typography.titleLarge
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight(
+                                1000
+                            )
+                        )
                     )
                 },
-                navigationIcon = {
+                /*navigationIcon = {
                     AsyncImage(
                         model = R.mipmap.ic_launcher,
                         contentDescription = stringResource(id = R.string.app_logo_cd),
@@ -288,7 +301,7 @@ class MainActivity : ComponentActivity() {
                             .size(48.dp)
                             .padding(start = 8.dp)
                     )
-                },
+                },*/
                 actions = {
                     if (currentRoute.value == AppDestination.PDFSAFE) {
                         IconButton(onClick = {
@@ -333,14 +346,12 @@ class MainActivity : ComponentActivity() {
                     actionIconContentColor = MaterialTheme.colorScheme.onBackground
                 )
             )
-            HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.primary)
         }
 
         if (showSearchDialog) {
             BasicAlertDialog(
                 onDismissRequest = { showSearchDialog = false },
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             ) {
                 var text by remember { mutableStateOf("") }
 

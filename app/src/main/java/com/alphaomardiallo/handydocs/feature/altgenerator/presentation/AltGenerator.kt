@@ -93,7 +93,6 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
         Text(
