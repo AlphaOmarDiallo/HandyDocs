@@ -275,10 +275,9 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                                     IconButton(onClick = { filePickerLauncher.launch(arrayOf("*/*")) }) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.rounded_folder_open_24),
-                                            contentDescription = "Open Folder"
+                                            contentDescription = stringResource(id = R.string.ocr_folder_button_cd)
                                         )
                                     }
-
                                 }
 
                                 Button(
@@ -309,8 +308,8 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                                     .weight(0.6f)
                                     .padding(8.dp)
                                     .height(90.dp),
-                                placeholder = { Text("Add some context for the AI") },
-                                label = { Text("Context") },
+                                placeholder = { Text(text = stringResource(R.string.alt_generator_context_placeholder)) },
+                                label = { Text(text = stringResource(id = R.string.alt_generator_context_label)) },
                                 minLines = 3,
                                 maxLines = 3
                             )
@@ -326,8 +325,8 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                                     .weight(0.4f)
                                     .padding(horizontal = 8.dp)
                                     .height(90.dp),
-                                label = { Text("Max chars") },
-                                placeholder = { Text("2000") },
+                                label = { Text(text = stringResource(id = R.string.alt_generator_char_label)) },
+                                placeholder = { Text(text = stringResource(R.string.alt_generator_char_placeholder)) },
                                 singleLine = true
                             )
                         }
