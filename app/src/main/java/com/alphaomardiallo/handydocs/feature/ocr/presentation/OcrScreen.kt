@@ -28,8 +28,6 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -61,6 +59,8 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getString
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
+import com.alphaomardiallo.handydocs.common.presentation.composable.LottieWithCoilPlaceholder
+import com.alphaomardiallo.handydocs.common.presentation.composable.SourceCard
 import com.alphaomardiallo.handydocs.feature.ocr.domain.TextRecognitionType
 import com.alphaomardiallo.handydocs.feature.ocr.presentation.model.OcrAction
 import com.alphaomardiallo.handydocs.feature.ocr.presentation.util.saveTextAsPdf
@@ -161,6 +161,7 @@ private fun OcrScreenContent(
                 OcrAction(
                     name = R.string.ocr_camera_button_label,
                     icon = R.drawable.rounded_photo_camera_24,
+                    lottie = R.raw.picture_anim,
                     cd = R.string.ocr_camera_button_cd,
                     onClick = {
                         activity?.let { nonNullActivity ->
@@ -189,6 +190,7 @@ private fun OcrScreenContent(
                 OcrAction(
                     name = R.string.ocr_folder_button_label,
                     icon = R.drawable.rounded_folder_open_24,
+                    lottie = R.raw.file_anim,
                     cd = R.string.ocr_folder_button_cd,
                     onClick = {
                         filePickerLauncher.launch(arrayOf("*/*"))
@@ -196,31 +198,28 @@ private fun OcrScreenContent(
                     }
                 )
             ).forEachIndexed { index: Int, ocrAction: OcrAction ->
-                Card(
+                SourceCard(
                     modifier = Modifier
-                        .clickable {
-                            selectedFileUri = null
-                            ocrAction.onClick.invoke()
-                        }
-                        .size(180.dp)
                         .weight(1f)
+                        .size(180.dp)
                         .padding(8.dp),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = CardDefaults.cardColors().copy(
-                        containerColor = if (index == 0) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary,
-                        contentColor = if (index == 0) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onTertiary
-                    ),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+                    index = index,
+                    containerColor = if (index == 0) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary,
+                    contentColor = if (index == 0) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onTertiary,
+                    onClick = {
+                        selectedFileUri = null
+                        ocrAction.onClick.invoke()
+                    }
                 ) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Icon(
-                            painter = painterResource(id = ocrAction.icon),
-                            contentDescription = stringResource(id = ocrAction.cd),
-                            modifier = Modifier.size(100.dp)
+                        LottieWithCoilPlaceholder(
+                            image = ocrAction.icon,
+                            lottieJson = ocrAction.lottie,
+                            size = 100.dp
                         )
                         Text(
                             text = stringResource(id = ocrAction.name),
@@ -291,9 +290,15 @@ private fun OcrScreenContent(
         }
 
         if (state.isLoading) {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth().padding(top = 8.dp))
+            LinearProgressIndicator(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
+            )
         } else {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth().padding(top = 8.dp), progress = { 1f })
+            LinearProgressIndicator(modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp), progress = { 1f })
         }
 
         if (state.fileError || state.recognitionError || state.invalidImage) {

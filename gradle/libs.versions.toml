@@ -30,6 +30,7 @@ ad_mob = "24.0.0"
 ktor = "3.1.1"
 serialization = "1.8.0"
 maps_secret = "2.0.1"
+lottie = "6.5.2"
 
 
 [libraries]
@@ -89,6 +90,7 @@ zoomimage = { module = "io.github.panpf.zoomimage:zoomimage-compose-coil", versi
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 admob-sdk = { module = "com.google.android.gms:play-services-ads", version.ref = "ad_mob"}
+lottie-animation = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie"}
 # Test
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 
@@ -165,7 +167,8 @@ other = [
     "zoomimage",
     "timber",
     "navigation",
-    "admob-sdk"
+    "admob-sdk",
+    "lottie-animation"
 ]
 
 test = ["junit"]
