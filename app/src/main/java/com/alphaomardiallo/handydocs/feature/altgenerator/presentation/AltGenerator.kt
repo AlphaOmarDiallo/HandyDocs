@@ -97,6 +97,7 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
     var showFileSelectionUI by remember { mutableStateOf(true) }
     var showImageUI by remember { mutableStateOf(false) }
     var contextText by remember { mutableStateOf(TextFieldValue("")) }
+    var maxCharCount by remember { mutableStateOf("2000") }
 
     LaunchedEffect(selectedFileUri) {
         if (selectedFileUri != null) {
@@ -269,18 +270,23 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                                 verticalArrangement = Arrangement.Center,
                                 horizontalAlignment = Alignment.End
                             ) {
-                                IconButton(onClick = { filePickerLauncher.launch(arrayOf("*/*")) }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.rounded_folder_open_24),
-                                        contentDescription = "Open Folder"
-                                    )
+                                Row {
+                                    IconButton(onClick = { filePickerLauncher.launch(arrayOf("*/*")) }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.rounded_folder_open_24),
+                                            contentDescription = "Open Folder"
+                                        )
+                                    }
+
                                 }
+
                                 Button(
                                     onClick = {
                                         viewModel.getAltText(
                                             source = state.base64String!!,
                                             language = selectedOption,
-                                            contextText = contextText.text
+                                            contextText = contextText.text,
+                                            maxChar = maxCharCount.toIntOrNull() ?: 2000
                                         )
                                     },
                                     enabled = !state.isLoading
@@ -290,56 +296,86 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                             }
                         }
 
-                        OutlinedTextField(
-                            value = contextText,
-                            onValueChange = { contextText = it },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 8.dp),
-                            placeholder = { Text("Add some context for the AI") },
-                            minLines = 3,
-                            maxLines = 3
-                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            OutlinedTextField(
+                                value = contextText,
+                                onValueChange = { contextText = it },
+                                modifier = Modifier
+                                    .weight(0.7f)
+                                    .padding(8.dp)
+                                    .height(90.dp),
+                                placeholder = { Text("Add some context for the AI") },
+                                label = { Text("Context") },
+                                minLines = 3,
+                                maxLines = 3
+                            )
+                            OutlinedTextField(
+                                value = maxCharCount,
+                                onValueChange = {
+                                    // Only allow numeric input
+                                    if (it.isEmpty() || it.all { char -> char.isDigit() }) {
+                                        maxCharCount = it
+                                    }
+                                },
+                                modifier = Modifier
+                                    .weight(0.3f)
+                                    .padding(horizontal = 8.dp)
+                                    .height(90.dp),
+                                label = { Text("Max chars") },
+                                placeholder = { Text("2000") },
+                                singleLine = true
+                            )
+                        }
                     }
 
-                    state.altText?.let {
-                        Column(modifier = Modifier.padding(top = 16.dp)) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 8.dp),
-                                horizontalArrangement = Arrangement.Start
-                            ) {
-                                IconButton(
-                                    onClick = {
-                                        clipboardManager.setText(AnnotatedString(textFieldValue.text))
-                                        context.let { nonNullContext ->
-                                            Toast.makeText(
-                                                nonNullContext,
-                                                getString(context, R.string.ocr_toast_copied),
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        }
-                                    },
-                                    colors = IconButtonDefaults.iconButtonColors()
-                                        .copy(
-                                            containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                                        )
+                    AnimatedVisibility(
+                        visible = state.altText != null,
+                        enter = fadeIn() + expandHorizontally(),
+                        exit = fadeOut() + shrinkHorizontally()
+                    ) {
+                        state.altText?.let {
+                            Column {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 8.dp),
+                                    horizontalArrangement = Arrangement.Start
                                 ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.rounded_content_copy_24),
-                                        contentDescription = stringResource(id = R.string.ocr_copy_cd)
-                                    )
+                                    IconButton(
+                                        onClick = {
+                                            clipboardManager.setText(AnnotatedString(textFieldValue.text))
+                                            context.let { nonNullContext ->
+                                                Toast.makeText(
+                                                    nonNullContext,
+                                                    getString(context, R.string.ocr_toast_copied),
+                                                    Toast.LENGTH_LONG
+                                                ).show()
+                                            }
+                                        },
+                                        colors = IconButtonDefaults.iconButtonColors()
+                                            .copy(
+                                                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                                            )
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.rounded_content_copy_24),
+                                            contentDescription = stringResource(id = R.string.ocr_copy_cd)
+                                        )
+                                    }
                                 }
+                                TextField(
+                                    value = textFieldValue,
+                                    onValueChange = { newText ->
+                                        textFieldValue = newText
+                                    },
+                                    modifier = Modifier.fillMaxWidth()
+                                )
                             }
-                            TextField(
-                                value = textFieldValue,
-                                onValueChange = { newText ->
-                                    textFieldValue = newText
-                                },
-                                modifier = Modifier.fillMaxWidth()
-                            )
                         }
                     }
                 }
