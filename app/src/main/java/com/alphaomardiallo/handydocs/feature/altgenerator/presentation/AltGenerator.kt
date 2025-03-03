@@ -105,6 +105,7 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
             delay(500)
             showImageUI = true
             viewModel.imageToBase64(selectedFileUri!!)
+            contextText = TextFieldValue("")
         } else {
             showImageUI = false
             showFileSelectionUI = true
@@ -305,7 +306,7 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                                 value = contextText,
                                 onValueChange = { contextText = it },
                                 modifier = Modifier
-                                    .weight(0.7f)
+                                    .weight(0.6f)
                                     .padding(8.dp)
                                     .height(90.dp),
                                 placeholder = { Text("Add some context for the AI") },
@@ -322,7 +323,7 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                                     }
                                 },
                                 modifier = Modifier
-                                    .weight(0.3f)
+                                    .weight(0.4f)
                                     .padding(horizontal = 8.dp)
                                     .height(90.dp),
                                 label = { Text("Max chars") },
