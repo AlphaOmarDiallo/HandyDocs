@@ -5,6 +5,11 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -18,7 +23,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -39,7 +43,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -70,6 +73,7 @@ import com.alphaomardiallo.handydocs.common.presentation.composable.SourceCard
 import com.alphaomardiallo.handydocs.feature.altgenerator.presentation.model.Language
 import com.alphaomardiallo.handydocs.feature.altgenerator.presentation.model.Language.Companion.listOfLanguages
 import com.alphaomardiallo.handydocs.feature.ocr.presentation.model.OcrAction
+import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -90,10 +94,19 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
         mutableStateOf(TextFieldValue(state.altText ?: ""))
     }
     val clipboardManager = LocalClipboardManager.current
+    var showFileSelectionUI by remember { mutableStateOf(true) }
+    var showImageUI by remember { mutableStateOf(false) }
+    var contextText by remember { mutableStateOf(TextFieldValue("")) }
 
     LaunchedEffect(selectedFileUri) {
-        selectedFileUri?.let {
-            viewModel.imageToBase64(it)
+        if (selectedFileUri != null) {
+            showFileSelectionUI = false
+            delay(500)
+            showImageUI = true
+            viewModel.imageToBase64(selectedFileUri!!)
+        } else {
+            showImageUI = false
+            showFileSelectionUI = true
         }
     }
 
@@ -102,221 +115,245 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        Text(
-            text = stringResource(id = R.string.alt_generator_generate_welcome_text),
-            modifier = Modifier.padding(bottom = 8.dp),
-            textAlign = TextAlign.Justify,
-            style = MaterialTheme.typography.bodySmall
-        )
-
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            listOf(
-                /*OcrAction(
-                    name = R.string.alt_generator_action_url,
-                    icon = R.drawable.rounded_link_24,
-                    cd = R.string.alt_gen_link_cd,
-                    onClick = { showDialogPasteLink = true }
-                ),*/
-                OcrAction(
-                    name = R.string.ocr_folder_button_label,
-                    icon = R.drawable.rounded_folder_open_24,
-                    lottie = R.raw.file_anim,
-                    cd = R.string.ocr_folder_button_cd,
-                    onClick = { filePickerLauncher.launch(arrayOf("*/*")) }
-                )
-            ).forEachIndexed { index: Int, ocrAction: OcrAction ->
-                SourceCard(
-                    modifier = Modifier
-                        .weight(1f)
-                        .size(180.dp)
-                        .padding(8.dp),
-                    index = index,
-                    containerColor = if (index == 0) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary,
-                    contentColor = if (index == 0) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onTertiary,
-                    onClick = {
-                        selectedFileUri = null
-                        ocrAction.onClick.invoke()
-                    }
-                ) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        LottieWithCoilPlaceholder(
-                            image = ocrAction.icon,
-                            lottieJson = ocrAction.lottie,
-                            size = 100.dp
-                        )
-                        Text(
-                            text = stringResource(id = ocrAction.name),
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                    }
-                }
-            }
-        }
-
-        if (state.isLoading) {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-        } else {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), progress = { 1f })
-        }
-
         AnimatedVisibility(
-            visible = selectedFileUri != null,
+            visible = showFileSelectionUI,
             enter = fadeIn() + expandHorizontally(),
             exit = fadeOut() + shrinkHorizontally()
         ) {
-        selectedFileUri?.let {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp)
-                    .padding(8.dp),
-                colors = CardDefaults.cardColors()
-                    .copy(containerColor = MaterialTheme.colorScheme.background),
-                border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.onBackground)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
-                        .padding(16.dp)
-                        .clickable { expanded = true }
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(text = selectedOption.displayName)
-                        Icon(
-                            imageVector = if (expanded)
-                                Icons.Default.KeyboardArrowUp
-                            else
-                                Icons.Default.KeyboardArrowDown,
-                            contentDescription = stringResource(id = R.string.dropdown_arrow_cd)
-                        )
-                    }
-                }
-
-                // The dropdown menu
-                DropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.White)
-                        .padding(vertical = 8.dp)
-                ) {
-                    menuOptions.forEach { option ->
-                        DropdownMenuItem(
-                            text = { Text(text = option.displayName) },
-                            onClick = {
-                                selectedOption = option
-                                expanded = false
-                            }
-                        )
-                    }
-                }
+            Column {
+                Text(
+                    text = stringResource(id = R.string.alt_generator_generate_welcome_text),
+                    modifier = Modifier.padding(bottom = 8.dp),
+                    textAlign = TextAlign.Justify,
+                    style = MaterialTheme.typography.bodySmall
+                )
 
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                        .weight(1f),
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    LoadImage(url = it, modifier = Modifier.size(200.dp))
-                    Spacer(modifier = Modifier.padding(8.dp))
-                    Column(
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxHeight()
-                            .padding(horizontal = 8.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(text = stringResource(id = R.string.alt_generator_generate_label))
-                        Button(
+                    listOf(
+                        OcrAction(
+                            name = R.string.ocr_folder_button_label,
+                            icon = R.drawable.rounded_folder_open_24,
+                            lottie = R.raw.file_anim,
+                            cd = R.string.ocr_folder_button_cd,
+                            onClick = { filePickerLauncher.launch(arrayOf("*/*")) }
+                        )
+                    ).forEachIndexed { index: Int, ocrAction: OcrAction ->
+                        SourceCard(
+                            modifier = Modifier
+                                .weight(1f)
+                                .size(180.dp)
+                                .padding(8.dp),
+                            index = index,
+                            containerColor = if (index == 0) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary,
+                            contentColor = if (index == 0) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onTertiary,
                             onClick = {
-                                viewModel.getAltText(
-                                    state.base64String!!,
-                                    selectedOption
-                                )
-                            },
-                            enabled = !state.isLoading
+                                selectedFileUri = null
+                                ocrAction.onClick.invoke()
+                            }
                         ) {
-                            Text(text = stringResource(id = R.string.alt_generator_generate_button))
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                LottieWithCoilPlaceholder(
+                                    image = ocrAction.icon,
+                                    lottieJson = ocrAction.lottie,
+                                    size = 100.dp
+                                )
+                                Text(
+                                    text = stringResource(id = ocrAction.name),
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                            }
                         }
                     }
                 }
             }
-        }}
-
-        state.altText?.let {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp),
-                horizontalArrangement = Arrangement.Start
-            ) {
-                IconButton(
-                    onClick = {
-                        clipboardManager.setText(AnnotatedString(textFieldValue.text))
-                        context.let { nonNullContext ->
-                            Toast.makeText(
-                                nonNullContext,
-                                getString(context, R.string.ocr_toast_copied),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    },
-                    colors = IconButtonDefaults.iconButtonColors()
-                        .copy(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.rounded_content_copy_24),
-                        contentDescription = stringResource(id = R.string.ocr_copy_cd)
-                    )
-                }
-                /*IconButton(
-                    onClick = {
-                        context?.let { showDialogChooseName = true }
-                    },
-                    colors = IconButtonDefaults.iconButtonColors()
-                        .copy(
-                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                        )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.rounded_save_24),
-                        contentDescription = stringResource(id = R.string.ocr_copy_cd)
-                    )
-                }*/
-            }
-            TextField(
-                value = textFieldValue,
-                onValueChange = { newText ->
-                    textFieldValue = newText
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
         }
 
-        if (state.error) {
-            state.errorMessage?.let {
-                Text(
-                    text = it,
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodyLarge
-                )
+        AnimatedVisibility(
+            visible = showImageUI,
+            enter = fadeIn() + expandHorizontally(),
+            exit = fadeOut() + shrinkHorizontally()
+        ) {
+            selectedFileUri?.let {
+                Column {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(300.dp)
+                            .padding(8.dp),
+                        colors = CardDefaults.cardColors()
+                            .copy(containerColor = MaterialTheme.colorScheme.background),
+                        border = BorderStroke(
+                            width = 4.dp,
+                            color = if (state.isLoading) {
+                                val infiniteTransition =
+                                    rememberInfiniteTransition(label = "borderPulse")
+                                val borderColor by infiniteTransition.animateColor(
+                                    initialValue = MaterialTheme.colorScheme.primary,
+                                    targetValue = MaterialTheme.colorScheme.primaryContainer,
+                                    animationSpec = infiniteRepeatable(
+                                        animation = tween(800),
+                                        repeatMode = RepeatMode.Reverse
+                                    ),
+                                    label = "borderColorAnimation"
+                                )
+                                borderColor
+                            } else {
+                                MaterialTheme.colorScheme.primary
+                            }
+                        )
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
+                                .padding(16.dp)
+                                .clickable { expanded = true }
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(text = selectedOption.displayName)
+                                Icon(
+                                    imageVector = if (expanded)
+                                        Icons.Default.KeyboardArrowUp
+                                    else
+                                        Icons.Default.KeyboardArrowDown,
+                                    contentDescription = stringResource(id = R.string.dropdown_arrow_cd)
+                                )
+                            }
+                        }
+
+                        // The dropdown menu
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(Color.White)
+                                .padding(vertical = 8.dp)
+                        ) {
+                            menuOptions.forEach { option ->
+                                DropdownMenuItem(
+                                    text = { Text(text = option.displayName) },
+                                    onClick = {
+                                        selectedOption = option
+                                        expanded = false
+                                    }
+                                )
+                            }
+                        }
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp)
+                                .weight(1f),
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            LoadImage(url = it, modifier = Modifier.size(130.dp))
+                            Spacer(modifier = Modifier.padding(8.dp))
+                            Column(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(horizontal = 8.dp),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.End
+                            ) {
+                                IconButton(onClick = { filePickerLauncher.launch(arrayOf("*/*")) }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.rounded_folder_open_24),
+                                        contentDescription = "Open Folder"
+                                    )
+                                }
+                                Button(
+                                    onClick = {
+                                        viewModel.getAltText(
+                                            source = state.base64String!!,
+                                            language = selectedOption,
+                                            contextText = contextText.text
+                                        )
+                                    },
+                                    enabled = !state.isLoading
+                                ) {
+                                    Text(text = stringResource(id = R.string.alt_generator_generate_label))
+                                }
+                            }
+                        }
+
+                        OutlinedTextField(
+                            value = contextText,
+                            onValueChange = { contextText = it },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 8.dp),
+                            placeholder = { Text("Add some context for the AI") },
+                            minLines = 3,
+                            maxLines = 3
+                        )
+                    }
+
+                    state.altText?.let {
+                        Column(modifier = Modifier.padding(top = 16.dp)) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 8.dp),
+                                horizontalArrangement = Arrangement.Start
+                            ) {
+                                IconButton(
+                                    onClick = {
+                                        clipboardManager.setText(AnnotatedString(textFieldValue.text))
+                                        context.let { nonNullContext ->
+                                            Toast.makeText(
+                                                nonNullContext,
+                                                getString(context, R.string.ocr_toast_copied),
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                                    },
+                                    colors = IconButtonDefaults.iconButtonColors()
+                                        .copy(
+                                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                                        )
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.rounded_content_copy_24),
+                                        contentDescription = stringResource(id = R.string.ocr_copy_cd)
+                                    )
+                                }
+                            }
+                            TextField(
+                                value = textFieldValue,
+                                onValueChange = { newText ->
+                                    textFieldValue = newText
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                    }
+                }
             }
+        }
+    }
+
+    if (state.error) {
+        state.errorMessage?.let {
+            Text(
+                text = it,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodyLarge
+            )
         }
     }
 

@@ -58,11 +58,19 @@ class AltGeneratorViewModel(
         }
     }
 
-    fun getAltText(source: String, language: Language = Language.ENGLISH, maxChar: Int = 2000) {
+    fun getAltText(source: String, language: Language = Language.ENGLISH, maxChar: Int = 2000, contextText: String?) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val prompt =
-                    "Can you write me the most detailed alt text for this image in a maximum of $maxChar char in ${language.code}?"
+                val prompt = buildString {
+                    append("Generate a detailed, lengthy alt text for this image ")
+                    append("in ${language.code}, maximum $maxChar characters. ")
+                    append("The alt text should be descriptive, include key visual elements, ")
+                    append("and be useful for screen reader users. ")
+                    if (!contextText.isNullOrEmpty()) {
+                        append("Consider this context: $contextText")
+                    }
+                    append(" Respond with only the alt text, no explanations.")
+                }
 
                 altTextGeneratorUseCase.invoke(prompt = prompt, imageBase64 = source)
                     .collect { response ->
