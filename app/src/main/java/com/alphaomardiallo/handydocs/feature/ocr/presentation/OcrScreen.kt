@@ -223,6 +223,8 @@ private fun OcrScreenContent(
                         )
                         Text(
                             text = stringResource(id = ocrAction.name),
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+                            textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.titleMedium
                         )
                     }
