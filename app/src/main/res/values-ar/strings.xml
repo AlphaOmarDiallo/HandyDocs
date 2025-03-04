@@ -1,29 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Non-translatable strings kept as original -->
     <string name="app_name" translatable="false">HandyDocs</string>
-    <string name="app_logo_cd">شعار التطبيق يمثل مستند يتم مسحه بعدسة مكبرة. في وسط العدسة يوجد عين.</string>
-
     <string name="pdf_safe_destination" translatable="false">pdf_safe_destination</string>
-    <string name="pdf_safe_label">خزانة PDF</string>
-    <string name="pdf_safe_cd">أيقونة تمثل خزانة</string>
     <string name="ocr_destination" translatable="false">ocr_destination</string>
-    <string name="dropdown_arrow_cd">سهم القائمة المنسدلة</string>
-    <string name="alt_gen_label">مولد النص البديل</string>
-    <string name="alt_gen_cd">أيقونة تمثل روبوتًا</string>
-    <string name="alt_gen_link_cd">أيقونة تمثل رابطًا</string>
-    <string name="ocr_copy_rearrange">أيقونة تمثل إمكانية إعادة ترتيب النص</string>
-    <string name="ocr_label">صورة إلى نص</string>
-    <string name="ocr_cd">أيقونة تمثل ماسح ضوئي</string>
-    <string name="ocr_copy_cd">أيقونة تمثل إمكانية النسخ</string>
-    <string name="ocr_save_cd">أيقونة تمثل إمكانية الحفظ</string>
-
+    <string name="alt_gen_destination" translatable="false">ocr_destination</string>
     <string name="ad_banner_debug" translatable="false">ca-app-pub-3940256099942544/9214589741</string>
     <string name="ad_banner_release" translatable="false">ca-app-pub-9309432628304004/2451563318</string>
+
+    <!-- Translated strings -->
+    <string name="app_logo_cd">شعار التطبيق يمثل مستندًا يتم فحصه بواسطة مكبرة. في وسط المكبرة توجد عين.</string>
+
+    <string name="pdf_safe_label">خزنة PDF</string>
+    <string name="pdf_safe_label_bb">خزنة</string>
+    <string name="pdf_safe_cd">أيقونة تمثل خزنة</string>
+    <string name="ocr_label">التعرف الضوئي على الحروف</string>
+    <string name="ocr_label_bb">OCR</string>
+    <string name="ocr_cd">أيقونة تمثل الماسح الضوئي</string>
+    <string name="dropdown_arrow_cd">سهم القائمة المنسدلة</string>
+    <string name="alt_gen_label">نص بديل بالذكاء الاصطناعي</string>
+    <string name="alt_gen_label_bb">الذكاء الاصطناعي</string>
+    <string name="alt_gen_cd">أيقونة تمثل روبوت</string>
+    <string name="alt_gen_link_cd">أيقونة تمثل رابط</string>
+    <string name="ocr_copy_rearrange">أيقونة تمثل إمكانية إعادة ترتيب النص</string>
+    <string name="ocr_copy_cd">أيقونة تمثل إمكانية النسخ</string>
+    <string name="ocr_save_cd">أيقونة تمثل إمكانية الحفظ</string>
 
     <string name="main_clear">مسح</string>
     <string name="main_search_hint">اكتب اسم المستند</string>
     <string name="main_search_close">إغلاق</string>
-    <string name="main_search_unnamed_warning">المستندات غير المسماة لا تظهر في نتائج البحث</string>
+    <string name="main_search_unnamed_warning">المستندات بدون أسماء لا تظهر في نتائج البحث</string>
+
+    <string name="icon_content_description">أيقونة %s</string>
+    <string name="toast_error_message">خطأ: %s"</string>
+
+    <string name="pdf_safe_empty_list">القائمة فارغة! ابدأ المسح الضوئي!</string>
+    <string name="pdf_safe_no_name_picture">لا يوجد اسم بعد</string>
+    <string name="pdf_safe_share_pdf">مشاركة ملف PDF</string>
+    <string name="pdf_safe_pdf_not_found">ملف PDF غير موجود</string>
+    <string name="pdf_safe_dialog_edit_doc_name">تعديل اسم المستند</string>
+    <string name="pdf_safe_dialog_edit_doc_placeholder">اختر اسماً</string>
+    <string name="pdf_safe_filter_title">تصفية حسب</string>
+    <string name="pdf_safe_filter_option_name">لا يوجد اسم بعد</string>
+    <string name="pdf_safe_filter_option_date">التاريخ</string>
+    <string name="pdf_safe_filter_option_name_desc">الاسم تنازلياً</string>
+    <string name="pdf_safe_filter_option_date_desc">التاريخ تنازلياً</string>
+    <string name="pdf_safe_filter_option_fav">المفضلة</string>
+    <string name="pdf_safe_filter_option_none">لا شيء</string>
+    <string name="pdf_safe_delete_dialog_title">حذف المستند</string>
+    <string name="pdf_safe_delete_dialog_text">هل أنت متأكد أنك تريد حذف هذا المستند؟ لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="pdf_safe_delete_dialog_dismiss">إلغاء</string>
+    <string name="pdf_safe_delete_dialog_confirm">حذف</string>
+
+    <string name="doc_viewer_delete_title">حذف المستند</string>
+    <string name="doc_viewer_delete_text">هل أنت متأكد أنك تريد حذف هذا المستند؟ بمجرد الحذف، لن تتمكن من التراجع عن هذه العملية</string>
+    <string name="doc_viewer_error_deleting_file">خطأ في حذف الملف</string>
+    <string name="doc_viewer_no_name">لا يوجد اسم بعد</string>
+    <string name="doc_viewer_keep">الاحتفاظ بالمستند</string>
+    <string name="doc_viewer_delete">حذف المستند</string>
+
+    <string name="ocr_camera_button_label">من الكاميرا</string>
+    <string name="ocr_camera_button_cd">أيقونة الكاميرا</string>
+    <string name="ocr_folder_button_label">من الملفات</string>
+    <string name="ocr_folder_button_cd">أيقونة المجلد</string>
+    <string name="ocr_toast_success_save">تم حفظ ملف PDF</string>
+    <string name="ocr_toast_error_save">خطأ في حفظ ملف PDF</string>
+    <string name="ocr_toast_copied">تم النسخ إلى الحافظة</string>
+    <string name="ocr_analysis_error">خطأ في تحميل النص من تلك الصورة. تأكد من استخدام النص الصحيح</string>
+    <string name="ocr_open_pdf_with">فتح ملف PDF باستخدام...</string>
+    <string name="ocr_open_pdf_error">لا يمكن فتح ملف PDF</string>
+    <string name="ocr_open_script">اختر النص</string>
+    <string name="ocr_dialog_doc_name_title">اختر اسم المستند</string>
+    <string name="ocr_dialog_doc_name_label">اسم المستند</string>
+    <string name="ocr_dialog_doc_name_save">حفظ</string>
+    <string name="ocr_dialog_doc_name_cancel">إلغاء</string>
+    <string name="ocr_welcome_text">OCR (التعرف الضوئي على الحروف) يحول صور النص إلى نص قابل للقراءة آلياً باستخدام التعرف على الأنماط والذكاء الاصطناعي. يقوم بتحليل أشكال وهياكل الأحرف لاستخراج البيانات القابلة للقراءة.</string>
+
+    <string name="alt_generator_action_url">من رابط URL</string>
+    <string name="alt_generator_dialog_url_title">الصق رابط</string>
+    <string name="alt_generator_dialog_url_label">رابط URL</string>
+    <string name="alt_generator_generate_label">إنشاء نص بديل</string>
+    <string name="alt_generator_generate_button">ابدأ</string>
+    <string name="alt_generator_generate_welcome_text">قم بإنشاء نص بديل باستخدام الذكاء الاصطناعي. يستخدم هذا التطبيق Gemini 1.5 Flash (الإصدار المجاني)، مما يعني أنه قد يتم استخدام تفاعلاتك لتحسين نموذج الذكاء الاصطناعي. يرجى تجنب مشاركة المعلومات الحساسة أو الشخصية.</string>
+    <string name="alt_generator_context_placeholder">أضف بعض السياق للذكاء الاصطناعي</string>
+    <string name="alt_generator_context_label">السياق</string>
+    <string name="alt_generator_char_label">الحد الأقصى للأحرف</string>
+    <string name="alt_generator_char_placeholder">2000</string>
+
+    <string name="util_saved_pdf">تم حفظ ملف PDF بنجاح!</string>
+    <string name="util_error_saving_pdf">خطأ في حفظ ملف PDF</string>
+
+    <string name="text_recognition_type_latin">لاتيني</string>
+    <string name="text_recognition_type_chinese">صيني</string>
+    <string name="text_recognition_type_devanagari">ديفاناغاري</string>
+    <string name="text_recognition_type_japanese">ياباني</string>
+    <string name="text_recognition_type_korean">كوري</string>
 
     <plurals name="pdf_safe_number_items">
         <item quantity="zero">عدد المستندات: لا شيء</item>
@@ -33,64 +104,4 @@
         <item quantity="many">عدد المستندات: %d عنصرًا</item>
         <item quantity="other">عدد المستندات: %d عناصر</item>
     </plurals>
-
-    <string name="icon_content_description">أيقونة %s</string>
-    <string name="toast_error_message">خطأ: %s</string>
-
-    <string name="pdf_safe_empty_list">القائمة فارغة! ابدأ المسح الآن!</string>
-    <string name="pdf_safe_no_name_picture">لم يتم التسمية بعد</string>
-    <string name="pdf_safe_share_pdf">مشاركة ملف PDF</string>
-    <string name="pdf_safe_pdf_not_found">ملف PDF غير موجود</string>
-    <string name="pdf_safe_dialog_edit_doc_name">تعديل اسم المستند</string>
-    <string name="pdf_safe_dialog_edit_doc_placeholder">اختر اسماً</string>
-    <string name="pdf_safe_filter_title">فرز حسب</string>
-    <string name="pdf_safe_filter_option_name">لم يتم التسمية بعد</string>
-    <string name="pdf_safe_filter_option_date">التاريخ</string>
-    <string name="pdf_safe_filter_option_name_desc">الاسم تنازلي</string>
-    <string name="pdf_safe_filter_option_date_desc">التاريخ تنازلي</string>
-    <string name="pdf_safe_filter_option_fav">المفضل</string>
-    <string name="pdf_safe_filter_option_none">بدون</string>
-    <string name="pdf_safe_delete_dialog_title">حذف المستند</string>
-    <string name="pdf_safe_delete_dialog_text">هل أنت متأكد أنك تريد حذف هذا المستند؟ لا يمكن التراجع عن هذا الإجراء.</string>
-    <string name="pdf_safe_delete_dialog_dismiss">إلغاء</string>
-    <string name="pdf_safe_delete_dialog_confirm">حذف</string>
-
-    <string name="doc_viewer_delete_title">حذف المستند</string>
-    <string name="doc_viewer_delete_text">هل أنت متأكد أنك تريد حذف هذا المستند؟ بمجرد الحذف، لن تتمكن من استرجاعه.</string>
-    <string name="doc_viewer_error_deleting_file">خطأ في حذف الملف</string>
-    <string name="doc_viewer_no_name">لم يتم التسمية بعد</string>
-    <string name="doc_viewer_keep">الاحتفاظ بالمستند</string>
-    <string name="doc_viewer_delete">حذف المستند</string>
-
-    <string name="ocr_camera_button_label">من الكاميرا</string>
-    <string name="ocr_camera_button_cd">أيقونة الكاميرا</string>
-    <string name="ocr_folder_button_label">من الملفات</string>
-    <string name="ocr_folder_button_cd">أيقونة المجلد</string>
-    <string name="ocr_toast_success_save">تم حفظ PDF</string>
-    <string name="ocr_toast_error_save">خطأ في حفظ PDF</string>
-    <string name="ocr_toast_copied">تم النسخ إلى الحافظة</string>
-    <string name="ocr_analysis_error">خطأ في تحميل النص من الصورة. تأكد من استخدام النص الصحيح</string>
-    <string name="ocr_open_pdf_with">فتح PDF بواسطة...</string>
-    <string name="ocr_open_pdf_error">تعذر فتح ملف PDF</string>
-    <string name="ocr_open_script">اختر النص</string>
-    <string name="ocr_dialog_doc_name_title">اختر اسم المستند</string>
-    <string name="ocr_dialog_doc_name_label">اسم المستند</string>
-    <string name="ocr_dialog_doc_name_save">حفظ</string>
-    <string name="ocr_dialog_doc_name_cancel">إلغاء</string>
-
-    <string name="alt_generator_action_url">من الرابط</string>
-    <string name="alt_generator_dialog_url_title">الصق رابطًا</string>
-    <string name="alt_generator_dialog_url_label">الرابط</string>
-    <string name="alt_generator_generate_label">توليد النص البديل</string>
-    <string name="alt_generator_generate_button">انطلق</string>
-    <string name="alt_generator_generate_welcome_text">يستخدم هذا التطبيق Gemini 1.5 Flash (المستوى المجاني)، مما يعني أن تفاعلاتك قد تُستخدم لتحسين نموذج الذكاء الاصطناعي. يرجى تجنب مشاركة المعلومات الحساسة أو الشخصية.</string>
-
-    <string name="util_saved_pdf">تم حفظ PDF بنجاح!</string>
-    <string name="util_error_saving_pdf">خطأ في حفظ PDF</string>
-
-    <string name="text_recognition_type_latin">لاتيني</string>
-    <string name="text_recognition_type_chinese">صيني</string>
-    <string name="text_recognition_type_devanagari">ديفاناجاري</string>
-    <string name="text_recognition_type_japanese">ياباني</string>
-    <string name="text_recognition_type_korean">كوري</string>
 </resources>

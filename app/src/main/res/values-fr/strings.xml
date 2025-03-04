@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Non-translatable strings kept as original -->
     <string name="app_name" translatable="false">HandyDocs</string>
-    <string name="app_logo_cd">Logo de l\'application représentant un document en cours de numérisation par une loupe. Au centre de la loupe, il y a un œil.</string>
-
     <string name="pdf_safe_destination" translatable="false">pdf_safe_destination</string>
-    <string name="pdf_safe_label">Coffre PDF</string>
-    <string name="pdf_safe_cd">Icône représentant un coffre-fort</string>
     <string name="ocr_destination" translatable="false">ocr_destination</string>
-    <string name="dropdown_arrow_cd">Flèche du menu déroulant</string>
-    <string name="alt_gen_label">Générateur Alt</string>
+    <string name="alt_gen_destination" translatable="false">ocr_destination</string>
+    <string name="ad_banner_debug" translatable="false">ca-app-pub-3940256099942544/9214589741</string>
+    <string name="ad_banner_release" translatable="false">ca-app-pub-9309432628304004/2451563318</string>
+
+    <!-- Translated strings -->
+    <string name="app_logo_cd">Logo de l\'application représentant un document examiné par une loupe. Au centre de la loupe se trouve un œil.</string>
+
+    <string name="pdf_safe_label">Coffre-fort PDF</string>
+    <string name="pdf_safe_label_bb">COFFRE</string>
+    <string name="pdf_safe_cd">Icône représentant un coffre-fort</string>
+    <string name="ocr_label">Reconnaissance Optique de Caractères</string>
+    <string name="ocr_label_bb">OCR</string>
+    <string name="ocr_cd">Icône représentant un scanner</string>
+    <string name="dropdown_arrow_cd">Flèche déroulante</string>
+    <string name="alt_gen_label">Alt IA</string>
+    <string name="alt_gen_label_bb">IA</string>
     <string name="alt_gen_cd">Icône représentant un robot</string>
     <string name="alt_gen_link_cd">Icône représentant un lien</string>
     <string name="ocr_copy_rearrange">Icône représentant la possibilité de réorganiser le texte</string>
-    <string name="ocr_label">Image en texte</string>
-    <string name="ocr_cd">Icône représentant un scanner</string>
-    <string name="ocr_copy_cd">Icône représentant une possibilité de copier</string>
-    <string name="ocr_save_cd">Icône représentant une possibilité de sauvegarde</string>
+    <string name="ocr_copy_cd">Icône représentant la possibilité de copier</string>
+    <string name="ocr_save_cd">Icône représentant la possibilité de sauvegarder</string>
 
     <string name="main_clear">Effacer</string>
     <string name="main_search_hint">Tapez le nom du document</string>
     <string name="main_search_close">Fermer</string>
     <string name="main_search_unnamed_warning">Les documents sans nom n\'apparaissent pas dans les résultats de recherche</string>
 
-    <plurals name="pdf_safe_number_items">
-        <item quantity="one" tools:ignore="ImpliedQuantity">Nombre de doc : 1 élément</item>
-        <item quantity="many">Nombre de doc : %d éléments</item>
-        <item quantity="other">Nombre de doc : %d éléments</item>
-    </plurals>
-
     <string name="icon_content_description">Icône %s</string>
-    <string name="toast_error_message">Erreur : %s</string>
+    <string name="toast_error_message">Erreur: %s"</string>
 
-    <string name="pdf_safe_empty_list">Liste vide ! Commencez à scanner !</string>
+    <string name="pdf_safe_empty_list">La liste est vide ! Commencez à scanner !</string>
     <string name="pdf_safe_no_name_picture">Pas encore de nom</string>
     <string name="pdf_safe_share_pdf">Partager le PDF</string>
     <string name="pdf_safe_pdf_not_found">Fichier PDF non trouvé</string>
@@ -40,9 +43,9 @@
     <string name="pdf_safe_filter_title">Filtrer par</string>
     <string name="pdf_safe_filter_option_name">Pas encore de nom</string>
     <string name="pdf_safe_filter_option_date">Date</string>
-    <string name="pdf_safe_filter_option_name_desc">Nom décroissant</string>
-    <string name="pdf_safe_filter_option_date_desc">Date décroissante</string>
-    <string name="pdf_safe_filter_option_fav">Favoris</string>
+    <string name="pdf_safe_filter_option_name_desc">Nom desc</string>
+    <string name="pdf_safe_filter_option_date_desc">Date desc</string>
+    <string name="pdf_safe_filter_option_fav">Favori</string>
     <string name="pdf_safe_filter_option_none">Aucun</string>
     <string name="pdf_safe_delete_dialog_title">Supprimer le document</string>
     <string name="pdf_safe_delete_dialog_text">Êtes-vous sûr de vouloir supprimer ce document ? Cette action ne peut pas être annulée.</string>
@@ -50,41 +53,52 @@
     <string name="pdf_safe_delete_dialog_confirm">Supprimer</string>
 
     <string name="doc_viewer_delete_title">Supprimer le document</string>
-    <string name="doc_viewer_delete_text">Êtes-vous sûr de vouloir supprimer ce document ? Une fois supprimé, cette opération ne pourra pas être annulée.</string>
+    <string name="doc_viewer_delete_text">Êtes-vous sûr de vouloir supprimer ce document ? Une fois supprimé, vous n\'aurez aucune possibilité d\'annuler cette opération</string>
     <string name="doc_viewer_error_deleting_file">Erreur lors de la suppression du fichier</string>
     <string name="doc_viewer_no_name">Pas encore de nom</string>
-    <string name="doc_viewer_keep">Garder le document</string>
-    <string name="doc_viewer_delete">Supprimer le document</string>
+    <string name="doc_viewer_keep">Conserver le doc</string>
+    <string name="doc_viewer_delete">Supprimer le doc</string>
 
-    <string name="ocr_camera_button_label">Depuis la caméra</string>
-    <string name="ocr_camera_button_cd">Icône de caméra</string>
+    <string name="ocr_camera_button_label">Depuis l\'appareil photo</string>
+    <string name="ocr_camera_button_cd">Icône d\'appareil photo</string>
     <string name="ocr_folder_button_label">Depuis les fichiers</string>
     <string name="ocr_folder_button_cd">Icône de dossier</string>
-    <string name="ocr_toast_success_save">PDF enregistré</string>
-    <string name="ocr_toast_error_save">Erreur lors de l\'enregistrement du PDF</string>
+    <string name="ocr_toast_success_save">PDF sauvegardé</string>
+    <string name="ocr_toast_error_save">Erreur lors de la sauvegarde du PDF</string>
     <string name="ocr_toast_copied">Copié dans le presse-papiers</string>
-    <string name="ocr_analysis_error">Erreur lors du chargement du texte de l\'image. Assurez-vous d\'utiliser le script correct</string>
+    <string name="ocr_analysis_error">Erreur lors du chargement du texte à partir de cette image. Assurez-vous d\'utiliser le script correct</string>
     <string name="ocr_open_pdf_with">Ouvrir le PDF avec...</string>
     <string name="ocr_open_pdf_error">Impossible d\'ouvrir le PDF</string>
     <string name="ocr_open_script">Choisissez le script</string>
     <string name="ocr_dialog_doc_name_title">Choisissez un nom de document</string>
     <string name="ocr_dialog_doc_name_label">Nom du document</string>
-    <string name="ocr_dialog_doc_name_save">Enregistrer</string>
+    <string name="ocr_dialog_doc_name_save">Sauvegarder</string>
     <string name="ocr_dialog_doc_name_cancel">Annuler</string>
+    <string name="ocr_welcome_text">L\'OCR (Reconnaissance Optique de Caractères) convertit les images de texte en texte lisible par machine en utilisant la reconnaissance de motifs et l\'IA. Il analyse les formes et structures des caractères pour extraire des données lisibles.</string>
 
-    <string name="alt_generator_action_url">Depuis une URL</string>
-    <string name="alt_generator_dialog_url_title">Coller un lien</string>
-    <string name="alt_generator_dialog_url_label">URL</string>
-    <string name="alt_generator_generate_label">Générer Alt</string>
-    <string name="alt_generator_generate_button">Aller</string>
-    <string name="alt_generator_generate_welcome_text">Cette application utilise Gemini 1.5 Flash (Niveau Gratuit), ce qui signifie que vos interactions peuvent être utilisées pour améliorer le modèle d\'IA. Veuillez éviter de partager des informations sensibles ou personnelles.</string>
+    <string name="alt_generator_action_url">Depuis l\'URL</string>
+    <string name="alt_generator_dialog_url_title">Collez un lien</string>
+    <string name="alt_generator_dialog_url_label">Url</string>
+    <string name="alt_generator_generate_label">Générer un texte alternatif</string>
+    <string name="alt_generator_generate_button">Démarrer</string>
+    <string name="alt_generator_generate_welcome_text">Générez votre texte alternatif avec l\'IA. Cette application utilise Gemini 1.5 Flash (Version gratuite), ce qui signifie que vos interactions peuvent être utilisées pour améliorer le modèle d\'IA. Veuillez éviter de partager des informations sensibles ou personnelles.</string>
+    <string name="alt_generator_context_placeholder">Ajoutez du contexte pour l\'IA</string>
+    <string name="alt_generator_context_label">Contexte</string>
+    <string name="alt_generator_char_label">Caractères max</string>
+    <string name="alt_generator_char_placeholder">2000</string>
 
-    <string name="util_saved_pdf">PDF enregistré avec succès !</string>
-    <string name="util_error_saving_pdf">Erreur lors de l\'enregistrement du PDF</string>
+    <string name="util_saved_pdf">PDF sauvegardé avec succès !</string>
+    <string name="util_error_saving_pdf">Erreur lors de la sauvegarde du PDF</string>
 
     <string name="text_recognition_type_latin">Latin</string>
     <string name="text_recognition_type_chinese">Chinois</string>
     <string name="text_recognition_type_devanagari">Devanagari</string>
     <string name="text_recognition_type_japanese">Japonais</string>
     <string name="text_recognition_type_korean">Coréen</string>
+
+    <plurals name="pdf_safe_number_items">
+        <item quantity="one" tools:ignore="ImpliedQuantity">Nombre de doc : 1 élément</item>
+        <item quantity="many">Nombre de doc : %d éléments</item>
+        <item quantity="other">Nombre de doc : %d éléments</item>
+    </plurals>
 </resources>

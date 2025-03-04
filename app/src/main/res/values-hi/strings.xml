@@ -1,93 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Non-translatable strings kept as original -->
     <string name="app_name" translatable="false">HandyDocs</string>
-    <string name="app_logo_cd">ऐप लोगो जिसमें एक आवर्धक कांच द्वारा स्कैन किए जा रहे दस्तावेज़ को दर्शाया गया है। आवर्धक कांच के केंद्र में एक आंख है।</string>
-
     <string name="pdf_safe_destination" translatable="false">pdf_safe_destination</string>
-    <string name="pdf_safe_label">PDF सुरक्षित</string>
-    <string name="pdf_safe_cd">तिजोरी को दर्शाने वाला आइकन</string>
     <string name="ocr_destination" translatable="false">ocr_destination</string>
-    <string name="dropdown_arrow_cd">ड्रॉपडाउन तीर</string>
-    <string name="alt_gen_label">वैकल्पिक पाठ जनरेटर</string>
-    <string name="alt_gen_cd">रोबोट को दर्शाने वाला आइकन</string>
-    <string name="alt_gen_link_cd">लिंक को दर्शाने वाला आइकन</string>
-    <string name="ocr_copy_rearrange">पाठ को पुनर्व्यवस्थित करने की संभावना दर्शाने वाला आइकन</string>
-    <string name="ocr_label">छवि से पाठ</string>
-    <string name="ocr_cd">स्कैनर को दर्शाने वाला आइकन</string>
-    <string name="ocr_copy_cd">प्रतिलिपि बनाने की संभावना को दर्शाने वाला आइकन</string>
-    <string name="ocr_save_cd">सहेजने की संभावना को दर्शाने वाला आइकन</string>
-
+    <string name="alt_gen_destination" translatable="false">ocr_destination</string>
     <string name="ad_banner_debug" translatable="false">ca-app-pub-3940256099942544/9214589741</string>
     <string name="ad_banner_release" translatable="false">ca-app-pub-9309432628304004/2451563318</string>
+
+    <!-- Translated strings -->
+    <string name="app_logo_cd">ऐप लोगो जो एक दस्तावेज़ को आवर्धक द्वारा स्कैन किए जाने का प्रतिनिधित्व करता है। आवर्धक के केंद्र में एक आंख है।</string>
+
+    <string name="pdf_safe_label">पीडीएफ सेफ</string>
+    <string name="pdf_safe_label_bb">सेफ</string>
+    <string name="pdf_safe_cd">तिजोरी का प्रतिनिधित्व करने वाला आइकन</string>
+    <string name="ocr_label">ऑप्टिकल कैरेक्टर रिकग्निशन</string>
+    <string name="ocr_label_bb">ओसीआर</string>
+    <string name="ocr_cd">स्कैनर का प्रतिनिधित्व करने वाला आइकन</string>
+    <string name="dropdown_arrow_cd">ड्रॉपडाउन तीर</string>
+    <string name="alt_gen_label">एआई ऑल्ट</string>
+    <string name="alt_gen_label_bb">एआई</string>
+    <string name="alt_gen_cd">रोबोट का प्रतिनिधित्व करने वाला आइकन</string>
+    <string name="alt_gen_link_cd">लिंक का प्रतिनिधित्व करने वाला आइकन</string>
+    <string name="ocr_copy_rearrange">टेक्स्ट को पुनर्व्यवस्थित करने की संभावना का प्रतिनिधित्व करने वाला आइकन</string>
+    <string name="ocr_copy_cd">कॉपी करने की संभावना का प्रतिनिधित्व करने वाला आइकन</string>
+    <string name="ocr_save_cd">सहेजने की संभावना का प्रतिनिधित्व करने वाला आइकन</string>
 
     <string name="main_clear">मिटाएं</string>
     <string name="main_search_hint">दस्तावेज़ का नाम टाइप करें</string>
     <string name="main_search_close">बंद करें</string>
-    <string name="main_search_unnamed_warning">बेनाम दस्तावेज़ खोज परिणामों में प्रदर्शित नहीं होते</string>
-
-    <plurals name="pdf_safe_number_items" tools:ignore="ImpliedQuantity">
-        <item quantity="one">दस्तावेज़ संख्या: 1 आइटम</item>
-        <item quantity="other">दस्तावेज़ संख्या: %d आइटम</item>
-    </plurals>
+    <string name="main_search_unnamed_warning">बिना नाम वाले दस्तावेज़ खोज परिणामों में नहीं दिखाई देते हैं</string>
 
     <string name="icon_content_description">आइकन %s</string>
-    <string name="toast_error_message">त्रुटि: %s</string>
+    <string name="toast_error_message">त्रुटि: %s"</string>
 
     <string name="pdf_safe_empty_list">सूची खाली है! स्कैनिंग शुरू करें!</string>
     <string name="pdf_safe_no_name_picture">अभी तक कोई नाम नहीं</string>
-    <string name="pdf_safe_share_pdf">PDF साझा करें</string>
-    <string name="pdf_safe_pdf_not_found">PDF फ़ाइल नहीं मिली</string>
+    <string name="pdf_safe_share_pdf">पीडीएफ साझा करें</string>
+    <string name="pdf_safe_pdf_not_found">पीडीएफ फ़ाइल नहीं मिली</string>
     <string name="pdf_safe_dialog_edit_doc_name">दस्तावेज़ का नाम संपादित करें</string>
     <string name="pdf_safe_dialog_edit_doc_placeholder">एक नाम चुनें</string>
-    <string name="pdf_safe_filter_title">फ़िल्टर करें</string>
+    <string name="pdf_safe_filter_title">फ़िल्टर के आधार पर</string>
     <string name="pdf_safe_filter_option_name">अभी तक कोई नाम नहीं</string>
-    <string name="pdf_safe_filter_option_date">तारीख</string>
+    <string name="pdf_safe_filter_option_date">तिथि</string>
     <string name="pdf_safe_filter_option_name_desc">नाम अवरोही</string>
-    <string name="pdf_safe_filter_option_date_desc">तारीख अवरोही</string>
+    <string name="pdf_safe_filter_option_date_desc">तिथि अवरोही</string>
     <string name="pdf_safe_filter_option_fav">पसंदीदा</string>
     <string name="pdf_safe_filter_option_none">कोई नहीं</string>
     <string name="pdf_safe_delete_dialog_title">दस्तावेज़ हटाएं</string>
-    <string name="pdf_safe_delete_dialog_text">क्या आप वाकई इस दस्तावेज़ को हटाना चाहते हैं? यह क्रिया वापस नहीं ली जा सकती।</string>
+    <string name="pdf_safe_delete_dialog_text">क्या आप वाकई इस दस्तावेज़ को हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।</string>
     <string name="pdf_safe_delete_dialog_dismiss">रद्द करें</string>
     <string name="pdf_safe_delete_dialog_confirm">हटाएं</string>
 
     <string name="doc_viewer_delete_title">दस्तावेज़ हटाएं</string>
-    <string name="doc_viewer_delete_text">क्या आप वाकई इस दस्तावेज़ को हटाना चाहते हैं? एक बार हटाने के बाद, इस क्रिया को वापस नहीं किया जा सकता।</string>
+    <string name="doc_viewer_delete_text">क्या आप वाकई इस दस्तावेज़ को हटाना चाहते हैं? एक बार हटाने के बाद, आपके पास इस ऑपरेशन को वापस करने की कोई संभावना नहीं होगी</string>
     <string name="doc_viewer_error_deleting_file">फ़ाइल हटाने में त्रुटि</string>
     <string name="doc_viewer_no_name">अभी तक कोई नाम नहीं</string>
     <string name="doc_viewer_keep">दस्तावेज़ रखें</string>
     <string name="doc_viewer_delete">दस्तावेज़ हटाएं</string>
 
-    <string name="ocr_camera_button_label">कैमरे से</string>
+    <string name="ocr_camera_button_label">कैमरा से</string>
     <string name="ocr_camera_button_cd">कैमरा आइकन</string>
-    <string name="ocr_folder_button_label">फ़ाइलों से</string>
+    <string name="ocr_folder_button_label">फ़ाइल से</string>
     <string name="ocr_folder_button_cd">फ़ोल्डर आइकन</string>
-    <string name="ocr_toast_success_save">PDF सहेजा गया</string>
-    <string name="ocr_toast_error_save">PDF सहेजने में त्रुटि</string>
+    <string name="ocr_toast_success_save">पीडीएफ सहेजा गया</string>
+    <string name="ocr_toast_error_save">पीडीएफ सहेजने में त्रुटि</string>
     <string name="ocr_toast_copied">क्लिपबोर्ड पर कॉपी किया गया</string>
-    <string name="ocr_analysis_error">उस छवि से पाठ लोड करने में त्रुटि। सुनिश्चित करें कि आप सही लिपि का उपयोग कर रहे हैं।</string>
-    <string name="ocr_open_pdf_with">इसके साथ PDF खोलें...</string>
-    <string name="ocr_open_pdf_error">PDF खोल नहीं सकते</string>
-    <string name="ocr_open_script">लिपि चुनें</string>
+    <string name="ocr_analysis_error">उस छवि से टेक्स्ट लोड करने में त्रुटि। सुनिश्चित करें कि आप सही स्क्रिप्ट का उपयोग कर रहे हैं</string>
+    <string name="ocr_open_pdf_with">पीडीएफ को इससे खोलें...</string>
+    <string name="ocr_open_pdf_error">पीडीएफ नहीं खोल सकते</string>
+    <string name="ocr_open_script">स्क्रिप्ट चुनें</string>
     <string name="ocr_dialog_doc_name_title">दस्तावेज़ का नाम चुनें</string>
     <string name="ocr_dialog_doc_name_label">दस्तावेज़ का नाम</string>
     <string name="ocr_dialog_doc_name_save">सहेजें</string>
     <string name="ocr_dialog_doc_name_cancel">रद्द करें</string>
+    <string name="ocr_welcome_text">ओसीआर (ऑप्टिकल कैरेक्टर रिकग्निशन) पैटर्न रिकग्निशन और एआई का उपयोग करके टेक्स्ट की छवियों को मशीन द्वारा पढ़ने योग्य टेक्स्ट में बदलता है। यह पढ़ने योग्य डेटा निकालने के लिए अक्षरों के आकारों और संरचनाओं का विश्लेषण करता है।</string>
 
     <string name="alt_generator_action_url">यूआरएल से</string>
-    <string name="alt_generator_dialog_url_title">एक लिंक पेस्ट करें</string>
+    <string name="alt_generator_dialog_url_title">लिंक पेस्ट करें</string>
     <string name="alt_generator_dialog_url_label">यूआरएल</string>
-    <string name="alt_generator_generate_label">Alt जनरेट करें</string>
-    <string name="alt_generator_generate_button">जाएँ</string>
-    <string name="alt_generator_generate_welcome_text">यह ऐप Gemini 1.5 Flash (मुफ्त संस्करण) का उपयोग करता है, जिसका अर्थ है कि आपकी बातचीत एआई मॉडल में सुधार के लिए उपयोग की जा सकती है। कृपया संवेदनशील या व्यक्तिगत जानकारी साझा करने से बचें।</string>
+    <string name="alt_generator_generate_label">ऑल्ट जनरेट करें</string>
+    <string name="alt_generator_generate_button">शुरू करें</string>
+    <string name="alt_generator_generate_welcome_text">एआई के साथ अपना वैकल्पिक टेक्स्ट जनरेट करें। यह ऐप Gemini 1.5 Flash (फ्री टियर) का उपयोग करता है, जिसका अर्थ है कि आपकी बातचीत का उपयोग एआई मॉडल को बेहतर बनाने के लिए किया जा सकता है। कृपया संवेदनशील या व्यक्तिगत जानकारी साझा करने से बचें।</string>
+    <string name="alt_generator_context_placeholder">एआई के लिए कुछ संदर्भ जोड़ें</string>
+    <string name="alt_generator_context_label">संदर्भ</string>
+    <string name="alt_generator_char_label">अधिकतम अक्षर</string>
+    <string name="alt_generator_char_placeholder">2000</string>
 
-    <string name="util_saved_pdf">PDF सफलतापूर्वक सहेजा गया!</string>
-    <string name="util_error_saving_pdf">PDF सहेजने में त्रुटि</string>
+    <string name="util_saved_pdf">पीडीएफ सफलतापूर्वक सहेजा गया!</string>
+    <string name="util_error_saving_pdf">पीडीएफ सहेजने में त्रुटि</string>
 
     <string name="text_recognition_type_latin">लैटिन</string>
     <string name="text_recognition_type_chinese">चीनी</string>
     <string name="text_recognition_type_devanagari">देवनागरी</string>
     <string name="text_recognition_type_japanese">जापानी</string>
     <string name="text_recognition_type_korean">कोरियाई</string>
+
+    <plurals name="pdf_safe_number_items" tools:ignore="ImpliedQuantity">
+        <item quantity="one">दस्तावेज़ संख्या: 1 आइटम</item>
+        <item quantity="other">दस्तावेज़ संख्या: %d आइटम</item>
+    </plurals>
 </resources>
 

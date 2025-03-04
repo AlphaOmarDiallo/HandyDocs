@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_logo_cd">App-Logo, das ein Dokument darstellt, das von einer Lupe gescannt wird. In der Mitte der Lupe befindet sich ein Auge.</string>
+
+    <string name="pdf_safe_label">PDF-Tresor</string>
+    <string name="pdf_safe_label_bb">TRESOR</string>
+    <string name="pdf_safe_cd">Symbol für einen Tresor</string>
+    <string name="ocr_label">Optische Zeichenerkennung</string>
+    <string name="ocr_label_bb">OCR</string>
+    <string name="ocr_cd">Symbol für einen Scanner</string>
+    <string name="dropdown_arrow_cd">Dropdown-Pfeil</string>
+    <string name="alt_gen_label">KI-Alt</string>
+    <string name="alt_gen_label_bb">KI</string>
+    <string name="alt_gen_cd">Symbol für einen Roboter</string>
+    <string name="alt_gen_link_cd">Symbol für einen Link</string>
+    <string name="ocr_copy_rearrange">Symbol für die Möglichkeit, Text neu anzuordnen</string>
+    <string name="ocr_copy_cd">Symbol für die Möglichkeit zum Kopieren</string>
+    <string name="ocr_save_cd">Symbol für die Möglichkeit zum Speichern</string>
+
+    <string name="main_clear">Löschen</string>
+    <string name="main_search_hint">Dokumentnamen eingeben</string>
+    <string name="main_search_close">Schließen</string>
+    <string name="main_search_unnamed_warning">Unbenannte Dokumente erscheinen nicht in den Suchergebnissen</string>
+
+    <string name="icon_content_description">Symbol %s</string>
+    <string name="toast_error_message">Fehler: %s"</string>
+
+    <string name="pdf_safe_empty_list">Liste ist leer! Beginnen Sie mit dem Scannen!</string>
+    <string name="pdf_safe_no_name_picture">Noch kein Name</string>
+    <string name="pdf_safe_share_pdf">PDF teilen</string>
+    <string name="pdf_safe_pdf_not_found">PDF-Datei nicht gefunden</string>
+    <string name="pdf_safe_dialog_edit_doc_name">Dokumentnamen bearbeiten</string>
+    <string name="pdf_safe_dialog_edit_doc_placeholder">Wählen Sie einen Namen</string>
+    <string name="pdf_safe_filter_title">Filtern nach</string>
+    <string name="pdf_safe_filter_option_name">Noch kein Name</string>
+    <string name="pdf_safe_filter_option_date">Datum</string>
+    <string name="pdf_safe_filter_option_name_desc">Name absteigend</string>
+    <string name="pdf_safe_filter_option_date_desc">Datum absteigend</string>
+    <string name="pdf_safe_filter_option_fav">Favorit</string>
+    <string name="pdf_safe_filter_option_none">Keine</string>
+    <string name="pdf_safe_delete_dialog_title">Dokument löschen</string>
+    <string name="pdf_safe_delete_dialog_text">Sind Sie sicher, dass Sie dieses Dokument löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="pdf_safe_delete_dialog_dismiss">Abbrechen</string>
+    <string name="pdf_safe_delete_dialog_confirm">Löschen</string>
+
+    <string name="doc_viewer_delete_title">Dokument löschen</string>
+    <string name="doc_viewer_delete_text">Sind Sie sicher, dass Sie dieses Dokument löschen möchten? Sobald gelöscht, haben Sie keine Möglichkeit, diese Aktion rückgängig zu machen</string>
+    <string name="doc_viewer_error_deleting_file">Fehler beim Löschen der Datei</string>
+    <string name="doc_viewer_no_name">Noch kein Name</string>
+    <string name="doc_viewer_keep">Dokument behalten</string>
+    <string name="doc_viewer_delete">Dokument löschen</string>
+
+    <string name="ocr_camera_button_label">Von der Kamera</string>
+    <string name="ocr_camera_button_cd">Kamera-Symbol</string>
+    <string name="ocr_folder_button_label">Aus Dateien</string>
+    <string name="ocr_folder_button_cd">Ordner-Symbol</string>
+    <string name="ocr_toast_success_save">PDF gespeichert</string>
+    <string name="ocr_toast_error_save">Fehler beim Speichern des PDFs</string>
+    <string name="ocr_toast_copied">In die Zwischenablage kopiert</string>
+    <string name="ocr_analysis_error">Fehler beim Laden des Textes aus diesem Bild. Stellen Sie sicher, dass Sie das richtige Skript verwenden</string>
+    <string name="ocr_open_pdf_with">PDF öffnen mit...</string>
+    <string name="ocr_open_pdf_error">PDF kann nicht geöffnet werden</string>
+    <string name="ocr_open_script">Skript auswählen</string>
+    <string name="ocr_dialog_doc_name_title">Wählen Sie einen Dokumentnamen</string>
+    <string name="ocr_dialog_doc_name_label">Dokumentname</string>
+    <string name="ocr_dialog_doc_name_save">Speichern</string>
+    <string name="ocr_dialog_doc_name_cancel">Abbrechen</string>
+    <string name="ocr_welcome_text">OCR (Optische Zeichenerkennung) wandelt Bilder von Text in maschinenlesbaren Text mithilfe von Mustererkennung und KI um. Es analysiert Formen und Strukturen von Zeichen, um lesbare Daten zu extrahieren.</string>
+
+    <string name="alt_generator_action_url">Von URL</string>
+    <string name="alt_generator_dialog_url_title">Link einfügen</string>
+    <string name="alt_generator_dialog_url_label">URL</string>
+    <string name="alt_generator_generate_label">Alt-Text generieren</string>
+    <string name="alt_generator_generate_button">Los</string>
+    <string name="alt_generator_generate_welcome_text">Generieren Sie Ihren alternativen Text mit KI. Diese App verwendet Gemini 1.5 Flash (Free Tier), was bedeutet, dass Ihre Interaktionen zur Verbesserung des KI-Modells verwendet werden können. Bitte teilen Sie keine sensiblen oder persönlichen Informationen mit.</string>
+    <string name="alt_generator_context_placeholder">Fügen Sie Kontext für die KI hinzu</string>
+    <string name="alt_generator_context_label">Kontext</string>
+    <string name="alt_generator_char_label">Max. Zeichen</string>
+    <string name="alt_generator_char_placeholder">2000</string>
+
+    <string name="util_saved_pdf">PDF erfolgreich gespeichert!</string>
+    <string name="util_error_saving_pdf">Fehler beim Speichern des PDFs</string>
+
+    <string name="text_recognition_type_latin">Lateinisch</string>
+    <string name="text_recognition_type_chinese">Chinesisch</string>
+    <string name="text_recognition_type_devanagari">Devanagari</string>
+    <string name="text_recognition_type_japanese">Japanisch</string>
+    <string name="text_recognition_type_korean">Koreanisch</string>
+    <plurals name="pdf_safe_number_items">
+        <item quantity="one">Dokumentenanzahl: ein Element</item>
+        <item quantity="other">Dokumentenanzahl: %d Elemente</item>
+    </plurals>
+</resources>

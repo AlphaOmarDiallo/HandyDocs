@@ -29,11 +29,6 @@
     <string name="main_search_close">Close</string>
     <string name="main_search_unnamed_warning">Unnamed documents do not appear in the search results</string>
 
-    <plurals name="pdf_safe_number_items">
-        <item quantity="one">Doc count : 1 item</item>
-        <item quantity="other">Doc count : %d items</item>
-    </plurals>
-
     <string name="icon_content_description">Icon %s</string>
     <string name="toast_error_message">Error: %s"</string>
 
@@ -98,4 +93,10 @@
     <string name="text_recognition_type_devanagari">Devanagari</string>
     <string name="text_recognition_type_japanese">Japanese</string>
     <string name="text_recognition_type_korean">Korean</string>
+
+    <plurals name="pdf_safe_number_items">
+        <item quantity="zero">Documents count: none</item>
+        <item quantity="one">Documents count: one item</item>
+        <item quantity="other">Documents count: %d items</item>
+    </plurals>
 </resources>

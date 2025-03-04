@@ -1,90 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Non-translatable strings kept as original -->
     <string name="app_name" translatable="false">HandyDocs</string>
-    <string name="app_logo_cd">Logotipo de la aplicación que representa un documento siendo escaneado por una lupa. En el centro de la lupa hay un ojo.</string>
-
     <string name="pdf_safe_destination" translatable="false">pdf_safe_destination</string>
-    <string name="pdf_safe_label">Caja fuerte PDF</string>
-    <string name="pdf_safe_cd">Ícono que representa una caja fuerte</string>
     <string name="ocr_destination" translatable="false">ocr_destination</string>
-    <string name="dropdown_arrow_cd">Flecha del menú desplegable</string>
-    <string name="alt_gen_label">Generador de texto alternativo</string>
-    <string name="alt_gen_cd">Ícono que representa un robot</string>
-    <string name="alt_gen_link_cd">Ícono que representa un enlace</string>
-    <string name="ocr_copy_rearrange">Ícono que representa la posibilidad de reorganizar el texto</string>
-    <string name="ocr_label">Imagen a texto</string>
-    <string name="ocr_cd">Ícono que representa un escáner</string>
-    <string name="ocr_copy_cd">Ícono que representa la posibilidad de copiar</string>
-    <string name="ocr_save_cd">Ícono que representa la posibilidad de guardar</string>
+    <string name="alt_gen_destination" translatable="false">ocr_destination</string>
+    <string name="ad_banner_debug" translatable="false">ca-app-pub-3940256099942544/9214589741</string>
+    <string name="ad_banner_release" translatable="false">ca-app-pub-9309432628304004/2451563318</string>
+
+    <!-- Translated strings -->
+    <string name="app_logo_cd">Logo de la aplicación que representa un documento siendo escaneado por una lupa. En el centro de la lupa hay un ojo.</string>
+
+    <string name="pdf_safe_label">Caja fuerte de PDF</string>
+    <string name="pdf_safe_label_bb">CAJA</string>
+    <string name="pdf_safe_cd">Icono que representa una caja fuerte</string>
+    <string name="ocr_label">Reconocimiento Óptico de Caracteres</string>
+    <string name="ocr_label_bb">OCR</string>
+    <string name="ocr_cd">Icono que representa un escáner</string>
+    <string name="dropdown_arrow_cd">Flecha desplegable</string>
+    <string name="alt_gen_label">Alt IA</string>
+    <string name="alt_gen_label_bb">IA</string>
+    <string name="alt_gen_cd">Icono que representa un robot</string>
+    <string name="alt_gen_link_cd">Icono que representa un enlace</string>
+    <string name="ocr_copy_rearrange">Icono que representa la posibilidad de reorganizar texto</string>
+    <string name="ocr_copy_cd">Icono que representa la posibilidad de copiar</string>
+    <string name="ocr_save_cd">Icono que representa la posibilidad de guardar</string>
 
     <string name="main_clear">Borrar</string>
     <string name="main_search_hint">Escriba el nombre del documento</string>
     <string name="main_search_close">Cerrar</string>
     <string name="main_search_unnamed_warning">Los documentos sin nombre no aparecen en los resultados de búsqueda</string>
 
+    <string name="icon_content_description">Icono %s</string>
+    <string name="toast_error_message">Error: %s"</string>
+
+    <string name="pdf_safe_empty_list">¡La lista está vacía! ¡Comience a escanear!</string>
+    <string name="pdf_safe_no_name_picture">Sin nombre aún</string>
+    <string name="pdf_safe_share_pdf">Compartir el PDF</string>
+    <string name="pdf_safe_pdf_not_found">Archivo PDF no encontrado</string>
+    <string name="pdf_safe_dialog_edit_doc_name">Editar nombre del documento</string>
+    <string name="pdf_safe_dialog_edit_doc_placeholder">Elija un nombre</string>
+    <string name="pdf_safe_filter_title">Filtrar por</string>
+    <string name="pdf_safe_filter_option_name">Sin nombre aún</string>
+    <string name="pdf_safe_filter_option_date">Fecha</string>
+    <string name="pdf_safe_filter_option_name_desc">Nombre desc</string>
+    <string name="pdf_safe_filter_option_date_desc">Fecha desc</string>
+    <string name="pdf_safe_filter_option_fav">Favorito</string>
+    <string name="pdf_safe_filter_option_none">Ninguno</string>
+    <string name="pdf_safe_delete_dialog_title">Eliminar documento</string>
+    <string name="pdf_safe_delete_dialog_text">¿Está seguro de que desea eliminar este documento? Esta acción no se puede deshacer.</string>
+    <string name="pdf_safe_delete_dialog_dismiss">Cancelar</string>
+    <string name="pdf_safe_delete_dialog_confirm">Eliminar</string>
+
+    <string name="doc_viewer_delete_title">Eliminar documento</string>
+    <string name="doc_viewer_delete_text">¿Está seguro de que desea eliminar este documento? Una vez eliminado, no tendrá posibilidades de revertir esa operación</string>
+    <string name="doc_viewer_error_deleting_file">Error al eliminar el archivo</string>
+    <string name="doc_viewer_no_name">Sin nombre aún</string>
+    <string name="doc_viewer_keep">Mantener doc</string>
+    <string name="doc_viewer_delete">Eliminar doc</string>
+
+    <string name="ocr_camera_button_label">Desde la cámara</string>
+    <string name="ocr_camera_button_cd">Icono de cámara</string>
+    <string name="ocr_folder_button_label">Desde archivos</string>
+    <string name="ocr_folder_button_cd">Icono de carpeta</string>
+    <string name="ocr_toast_success_save">PDF guardado</string>
+    <string name="ocr_toast_error_save">Error al guardar el PDF</string>
+    <string name="ocr_toast_copied">Copiado al portapapeles</string>
+    <string name="ocr_analysis_error">Error al cargar el texto de esa imagen. Asegúrese de estar utilizando el script correcto</string>
+    <string name="ocr_open_pdf_with">Abrir PDF con...</string>
+    <string name="ocr_open_pdf_error">No se puede abrir el PDF</string>
+    <string name="ocr_open_script">Elija el script</string>
+    <string name="ocr_dialog_doc_name_title">Elija un nombre para el documento</string>
+    <string name="ocr_dialog_doc_name_label">Nombre del documento</string>
+    <string name="ocr_dialog_doc_name_save">Guardar</string>
+    <string name="ocr_dialog_doc_name_cancel">Cancelar</string>
+    <string name="ocr_welcome_text">OCR (Reconocimiento Óptico de Caracteres) convierte imágenes de texto en texto legible por máquina utilizando reconocimiento de patrones e IA. Analiza formas y estructuras de caracteres para extraer datos legibles.</string>
+
+    <string name="alt_generator_action_url">Desde url</string>
+    <string name="alt_generator_dialog_url_title">Pegue un enlace</string>
+    <string name="alt_generator_dialog_url_label">Url</string>
+    <string name="alt_generator_generate_label">Generar texto Alt</string>
+    <string name="alt_generator_generate_button">Iniciar</string>
+    <string name="alt_generator_generate_welcome_text">Genere su texto alternativo con IA. Esta aplicación utiliza Gemini 1.5 Flash (Versión gratuita), lo que significa que sus interacciones pueden usarse para mejorar el modelo de IA. Evite compartir información sensible o personal.</string>
+    <string name="alt_generator_context_placeholder">Añada algo de contexto para la IA</string>
+    <string name="alt_generator_context_label">Contexto</string>
+    <string name="alt_generator_char_label">Máx. caracteres</string>
+    <string name="alt_generator_char_placeholder">2000</string>
+
+    <string name="util_saved_pdf">¡PDF guardado exitosamente!</string>
+    <string name="util_error_saving_pdf">Error al guardar el PDF</string>
+
+    <string name="text_recognition_type_latin">Latino</string>
+    <string name="text_recognition_type_chinese">Chino</string>
+    <string name="text_recognition_type_devanagari">Devanagari</string>
+    <string name="text_recognition_type_japanese">Japonés</string>
+    <string name="text_recognition_type_korean">Coreano</string>
+
     <plurals name="pdf_safe_number_items">
         <item quantity="one">Cantidad de documentos: 1 elemento</item>
         <item quantity="many">Cantidad de documentos: %d elementos</item>
         <item quantity="other">Cantidad de documentos: %d elementos</item>
     </plurals>
-
-    <string name="icon_content_description">Ícono %s</string>
-    <string name="toast_error_message">Error: %s</string>
-
-    <string name="pdf_safe_empty_list">¡La lista está vacía! ¡Empieza a escanear!</string>
-    <string name="pdf_safe_no_name_picture">Aún sin nombre</string>
-    <string name="pdf_safe_share_pdf">Compartir el PDF</string>
-    <string name="pdf_safe_pdf_not_found">Archivo PDF no encontrado</string>
-    <string name="pdf_safe_dialog_edit_doc_name">Editar nombre del documento</string>
-    <string name="pdf_safe_dialog_edit_doc_placeholder">Elige un nombre</string>
-    <string name="pdf_safe_filter_title">Filtrar por</string>
-    <string name="pdf_safe_filter_option_name">Aún sin nombre</string>
-    <string name="pdf_safe_filter_option_date">Fecha</string>
-    <string name="pdf_safe_filter_option_name_desc">Nombre descendente</string>
-    <string name="pdf_safe_filter_option_date_desc">Fecha descendente</string>
-    <string name="pdf_safe_filter_option_fav">Favorito</string>
-    <string name="pdf_safe_filter_option_none">Ninguno</string>
-    <string name="pdf_safe_delete_dialog_title">Eliminar documento</string>
-    <string name="pdf_safe_delete_dialog_text">¿Estás seguro de que quieres eliminar este documento? Esta acción no se puede deshacer.</string>
-    <string name="pdf_safe_delete_dialog_dismiss">Cancelar</string>
-    <string name="pdf_safe_delete_dialog_confirm">Eliminar</string>
-
-    <string name="doc_viewer_delete_title">Eliminar documento</string>
-    <string name="doc_viewer_delete_text">¿Estás seguro de que quieres eliminar este documento? Una vez eliminado, no podrás revertir esta operación.</string>
-    <string name="doc_viewer_error_deleting_file">Error al eliminar el archivo</string>
-    <string name="doc_viewer_no_name">Aún sin nombre</string>
-    <string name="doc_viewer_keep">Mantener documento</string>
-    <string name="doc_viewer_delete">Eliminar documento</string>
-
-    <string name="ocr_camera_button_label">Desde la cámara</string>
-    <string name="ocr_camera_button_cd">Ícono de cámara</string>
-    <string name="ocr_folder_button_label">Desde archivos</string>
-    <string name="ocr_folder_button_cd">Ícono de carpeta</string>
-    <string name="ocr_toast_success_save">PDF guardado</string>
-    <string name="ocr_toast_error_save">Error al guardar el PDF</string>
-    <string name="ocr_toast_copied">Copiado al portapapeles</string>
-    <string name="ocr_analysis_error">Error al cargar el texto de la imagen. Asegúrate de que estás usando el script correcto</string>
-    <string name="ocr_open_pdf_with">Abrir PDF con...</string>
-    <string name="ocr_open_pdf_error">No se puede abrir el PDF</string>
-    <string name="ocr_open_script">Elige el guion</string>
-    <string name="ocr_dialog_doc_name_title">Elige un nombre para el documento</string>
-    <string name="ocr_dialog_doc_name_label">Nombre del documento</string>
-    <string name="ocr_dialog_doc_name_save">Guardar</string>
-    <string name="ocr_dialog_doc_name_cancel">Cancelar</string>
-
-    <string name="alt_generator_action_url">Desde URL</string>
-    <string name="alt_generator_dialog_url_title">Pegar un enlace</string>
-    <string name="alt_generator_dialog_url_label">URL</string>
-    <string name="alt_generator_generate_label">Generar Alt</string>
-    <string name="alt_generator_generate_button">Ir</string>
-    <string name="alt_generator_generate_welcome_text">Esta aplicación utiliza Gemini 1.5 Flash (Nivel Gratuito), lo que significa que tus interacciones pueden ser utilizadas para mejorar el modelo de IA. Evita compartir información sensible o personal.</string>
-
-    <string name="util_saved_pdf">¡PDF guardado con éxito!</string>
-    <string name="util_error_saving_pdf">Error al guardar el PDF</string>
-
-    <string name="text_recognition_type_latin">Latín</string>
-    <string name="text_recognition_type_chinese">Chino</string>
-    <string name="text_recognition_type_devanagari">Devanagari</string>
-    <string name="text_recognition_type_japanese">Japonés</string>
-    <string name="text_recognition_type_korean">Coreano</string>
 </resources>
