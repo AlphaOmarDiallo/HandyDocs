@@ -264,12 +264,12 @@ class MainActivity : ComponentActivity() {
                                 )
                             )
 
-                            viewModel.navigateBack()
+                            viewModel.navigateTo(AppDestination.PDFSAFE.route, isSingleTop = true)
                         }
                     }
                 } else {
                     Timber.e(rawResult.resultCode.toString())
-                    viewModel.navigateBack()
+                    viewModel.navigateTo(AppDestination.PDFSAFE.route, isSingleTop = true)
                 }
             }
 
@@ -296,15 +296,6 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 },
-                /*navigationIcon = {
-                    AsyncImage(
-                        model = R.mipmap.ic_launcher,
-                        contentDescription = stringResource(id = R.string.app_logo_cd),
-                        modifier = Modifier
-                            .size(48.dp)
-                            .padding(start = 8.dp)
-                    )
-                },*/
                 actions = {
                     if (currentRoute.value == AppDestination.PDFSAFE) {
                         IconButton(onClick = {
