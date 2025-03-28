@@ -14,6 +14,8 @@ import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonArray
 import kotlinx.serialization.json.putJsonObject
 import timber.log.Timber
+import java.net.UnknownHostException
+import java.nio.channels.UnresolvedAddressException
 
 class GenerateAltApi(private val httpClient: HttpClient, private val apiKey: String) {
 
@@ -50,8 +52,15 @@ class GenerateAltApi(private val httpClient: HttpClient, private val apiKey: Str
                 contentType(ContentType.Application.Json)
                 setBody(requestBody)
             }
-        }.onFailure {
-            Timber.e(it, "Error in generateAltText")
+        }.onFailure { exception ->
+            when (exception) {
+                is UnresolvedAddressException, is UnknownHostException -> {
+                    Timber.e(exception, "Network connectivity issue: Unable to resolve host address")
+                }
+                else -> {
+                    Timber.e(exception, "Error in generateAltText: ${exception.message}")
+                }
+            }
         }.getOrNull()
 
         return response

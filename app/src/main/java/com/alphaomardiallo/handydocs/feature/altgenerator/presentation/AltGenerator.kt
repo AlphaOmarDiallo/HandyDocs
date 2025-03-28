@@ -67,6 +67,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getString
 import com.alphaomardiallo.handydocs.R
+import com.alphaomardiallo.handydocs.common.presentation.composable.AdmobGenericBanner
 import com.alphaomardiallo.handydocs.common.presentation.composable.LoadImage
 import com.alphaomardiallo.handydocs.common.presentation.composable.LottieWithCoilPlaceholder
 import com.alphaomardiallo.handydocs.common.presentation.composable.SourceCard
@@ -380,6 +381,15 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                     }
                 }
             }
+        }
+
+        AnimatedVisibility(
+            visible = state.altText == null,
+            enter = fadeIn() + expandHorizontally(),
+            exit = fadeOut() + shrinkHorizontally()
+        ) {
+            Spacer(modifier = Modifier.height(8.dp))
+            AdmobGenericBanner()
         }
     }
 

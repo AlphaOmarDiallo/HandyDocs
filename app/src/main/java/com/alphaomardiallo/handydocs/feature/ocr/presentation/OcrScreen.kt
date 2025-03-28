@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -59,6 +60,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getString
 import com.alphaomardiallo.handydocs.R
 import com.alphaomardiallo.handydocs.common.domain.model.ImageDoc
+import com.alphaomardiallo.handydocs.common.presentation.composable.AdmobGenericBanner
 import com.alphaomardiallo.handydocs.common.presentation.composable.LottieWithCoilPlaceholder
 import com.alphaomardiallo.handydocs.common.presentation.composable.SourceCard
 import com.alphaomardiallo.handydocs.feature.ocr.domain.TextRecognitionType
@@ -376,6 +378,9 @@ private fun OcrScreenContent(
                 modifier = Modifier.fillMaxWidth()
             )
         }
+
+        Spacer(modifier = Modifier.height(8.dp))
+        AdmobGenericBanner()
     }
 
     if (showDialogChooseName) {
