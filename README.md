@@ -8,8 +8,11 @@ Turn your phone into a powerful document scanner with HandyDocs! Scan, extract t
 
 ## Key Features
 ✅ AI Alt Text Generator – Automatically generate alt text for images using AI.
+
 ✅ OCR Scanner – Extract text from images, files, or your camera.
+
 ✅ PDF Creator – Scan documents and save them as high-quality PDFs.
+
 ✅ Offline Document Safe – Store and access scanned PDFs anytime, even without internet.
 
 ## How to install
