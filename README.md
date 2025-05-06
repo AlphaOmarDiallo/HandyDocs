@@ -1,5 +1,6 @@
 # HandyDocs : Scan, OCR, and PDFs safe offline with AI-powered tools!
 Turn your phone into a powerful document scanner with HandyDocs! Scan, extract text with AI-powered OCR, and save your documents as PDFs—all offline for secure access anytime.
+
 <img src="https://play-lh.googleusercontent.com/PpzJcqKzuktemtwHwes5PDyN8a5pfT32o8N8_2Bqr40FqfBAtQ2n6F9uYBSDPoOeJg=w5120-h2880" width="200" /> <img src="https://play-lh.googleusercontent.com/m84-_s0SOrbSB_cA-BnCSWFuh3oJSiFszfSq8rxq6WjuMBJLWAjPBGexY99EQuIQiYc=w5120-h2880" width="200" /> <img src="https://play-lh.googleusercontent.com/oVjcdnebO5cA3hN_GBAhfmlMqdXeFRJRr-J-fB84dy4mFvIpw1xEbvxtbSkWQyPczgNc=w5120-h2880" width="200" /> <img src="https://play-lh.googleusercontent.com/9iDnuvo1AIu3TcFw3Q-IQWgrQ0--PojnVt-jffeGr6iTycCtaqRRoyBrqLftcbla3HE=w5120-h2880" width="200" />
 <a href="https://play.google.com/store/apps/details?id=com.alphaomardiallo.handydocs" target="_blank">
 <img src="https://raw.githubusercontent.com/pioug/google-play-badges/06ccd9252af1501613da2ca28eaffe31307a4e6d/svg/English.svg" alt="Get it on Google Play" width="200"/>
