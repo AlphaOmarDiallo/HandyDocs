@@ -11,14 +11,14 @@ plugins {
 
 android {
     namespace = "com.alphaomardiallo.handydocs"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.alphaomardiallo.handydocs"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 16
-        versionName = "2.1.8"
+        targetSdk = 36
+        versionCode = 17
+        versionName = "2.1.9"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
