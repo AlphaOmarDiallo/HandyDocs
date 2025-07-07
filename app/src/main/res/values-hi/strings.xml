@@ -81,7 +81,7 @@
     <string name="alt_generator_dialog_url_label">यूआरएल</string>
     <string name="alt_generator_generate_label">ऑल्ट जनरेट करें</string>
     <string name="alt_generator_generate_button">शुरू करें</string>
-    <string name="alt_generator_generate_welcome_text">एआई के साथ अपना वैकल्पिक टेक्स्ट जनरेट करें। यह ऐप Gemini 1.5 Flash (फ्री टियर) का उपयोग करता है, जिसका अर्थ है कि आपकी बातचीत का उपयोग एआई मॉडल को बेहतर बनाने के लिए किया जा सकता है। कृपया संवेदनशील या व्यक्तिगत जानकारी साझा करने से बचें।</string>
+    <string name="alt_generator_generate_welcome_text">एआई के साथ अपना वैकल्पिक टेक्स्ट जनरेट करें। यह ऐप Gemini 2.5 Flash (फ्री टियर) का उपयोग करता है, जिसका अर्थ है कि आपकी बातचीत का उपयोग एआई मॉडल को बेहतर बनाने के लिए किया जा सकता है। कृपया संवेदनशील या व्यक्तिगत जानकारी साझा करने से बचें।</string>
     <string name="alt_generator_context_placeholder">एआई के लिए कुछ संदर्भ जोड़ें</string>
     <string name="alt_generator_context_label">संदर्भ</string>
     <string name="alt_generator_char_label">अधिकतम अक्षर</string>

@@ -79,7 +79,7 @@
     <string name="alt_generator_dialog_url_label">Url</string>
     <string name="alt_generator_generate_label">Generate Alt</string>
     <string name="alt_generator_generate_button">Go</string>
-    <string name="alt_generator_generate_welcome_text">Generate your alternative text with AI. This app uses Gemini 1.5 Flash (Free Tier), which means your interactions may be used to improve the AI model. Please avoid sharing sensitive or personal information.</string>
+    <string name="alt_generator_generate_welcome_text">Generate your alternative text with AI. This app uses Gemini 2.5 Flash (Free Tier), which means your interactions may be used to improve the AI model. Please avoid sharing sensitive or personal information.</string>
     <string name="alt_generator_context_placeholder">Add some context for the AI</string>
     <string name="alt_generator_context_label">Context</string>
     <string name="alt_generator_char_label">Max chars</string>

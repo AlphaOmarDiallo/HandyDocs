@@ -81,7 +81,7 @@
     <string name="alt_generator_dialog_url_label">Url</string>
     <string name="alt_generator_generate_label">Générer un texte alternatif</string>
     <string name="alt_generator_generate_button">Démarrer</string>
-    <string name="alt_generator_generate_welcome_text">Générez votre texte alternatif avec l\'IA. Cette application utilise Gemini 1.5 Flash (Version gratuite), ce qui signifie que vos interactions peuvent être utilisées pour améliorer le modèle d\'IA. Veuillez éviter de partager des informations sensibles ou personnelles.</string>
+    <string name="alt_generator_generate_welcome_text">Générez votre texte alternatif avec l\'IA. Cette application utilise Gemini 2.5 Flash (Version gratuite), ce qui signifie que vos interactions peuvent être utilisées pour améliorer le modèle d\'IA. Veuillez éviter de partager des informations sensibles ou personnelles.</string>
     <string name="alt_generator_context_placeholder">Ajoutez du contexte pour l\'IA</string>
     <string name="alt_generator_context_label">Contexte</string>
     <string name="alt_generator_char_label">Caractères max</string>
