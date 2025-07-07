@@ -21,7 +21,7 @@ class GenerateAltApi(private val httpClient: HttpClient, private val apiKey: Str
 
     private companion object {
         const val GEMINI_BASE_URL =
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
     }
 
     suspend fun generateAltText(prompt: String, imageBase64: String): HttpResponse? {

@@ -7,7 +7,7 @@ data class GeminiPrompt(
 )
 
 data class Candidate(
-    val avgLogprobs: Double,
+    val avgLogprobs: Double? = null,
     val content: Content,
     val finishReason: String
 )
@@ -23,7 +23,7 @@ data class Part(
 
 data class UsageMetadata(
     val candidatesTokenCount: Int,
-    val candidatesTokensDetails: List<CandidatesTokensDetail>,
+    val candidatesTokensDetails: List<CandidatesTokensDetail> = emptyList(),
     val promptTokenCount: Int,
     val promptTokensDetails: List<PromptTokensDetail>,
     val totalTokenCount: Int

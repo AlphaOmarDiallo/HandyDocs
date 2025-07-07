@@ -25,7 +25,7 @@ data class GeminiPromptDto(
 
 @Serializable
 data class CandidateDto(
-    val avgLogprobs: Double,
+    val avgLogprobs: Double? = null,
     val content: ContentDto,
     val finishReason: String
 ) {
@@ -59,7 +59,7 @@ data class PartDto(
 @Serializable
 data class UsageMetadataDto(
     val candidatesTokenCount: Int,
-    val candidatesTokensDetails: List<CandidatesTokensDetailDto>,
+    val candidatesTokensDetails: List<CandidatesTokensDetailDto> = emptyList(),
     val promptTokenCount: Int,
     val promptTokensDetails: List<PromptTokensDetailDto>,
     val totalTokenCount: Int
