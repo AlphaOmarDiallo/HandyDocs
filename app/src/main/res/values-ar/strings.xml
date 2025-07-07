@@ -81,7 +81,7 @@
     <string name="alt_generator_dialog_url_label">رابط URL</string>
     <string name="alt_generator_generate_label">إنشاء نص بديل</string>
     <string name="alt_generator_generate_button">ابدأ</string>
-    <string name="alt_generator_generate_welcome_text">قم بإنشاء نص بديل باستخدام الذكاء الاصطناعي. يستخدم هذا التطبيق Gemini 1.5 Flash (الإصدار المجاني)، مما يعني أنه قد يتم استخدام تفاعلاتك لتحسين نموذج الذكاء الاصطناعي. يرجى تجنب مشاركة المعلومات الحساسة أو الشخصية.</string>
+    <string name="alt_generator_generate_welcome_text">قم بإنشاء نص بديل باستخدام الذكاء الاصطناعي. يستخدم هذا التطبيق Gemini 2.5 Flash (الإصدار المجاني)، مما يعني أنه قد يتم استخدام تفاعلاتك لتحسين نموذج الذكاء الاصطناعي. يرجى تجنب مشاركة المعلومات الحساسة أو الشخصية.</string>
     <string name="alt_generator_context_placeholder">أضف بعض السياق للذكاء الاصطناعي</string>
     <string name="alt_generator_context_label">السياق</string>
     <string name="alt_generator_char_label">الحد الأقصى للأحرف</string>
