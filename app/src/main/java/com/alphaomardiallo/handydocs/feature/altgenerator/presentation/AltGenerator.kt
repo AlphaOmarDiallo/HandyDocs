@@ -241,7 +241,7 @@ fun AltGenerator(viewModel: AltGeneratorViewModel = koinViewModel()) {
                             onDismissRequest = { expanded = false },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .background(Color.White)
+                                .background(MaterialTheme.colorScheme.background)
                                 .padding(vertical = 8.dp)
                         ) {
                             menuOptions.forEach { option ->
